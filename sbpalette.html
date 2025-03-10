@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyBlock HEX Checker</title>
+    <link rel="stylesheet" href="style.css">
+	<link rel="icon" href="logo.png">
+</head>
+<body>
+    <div class="header">
+        <h1 id="title">Armor Color Analyzer Hypixel</h1>
+	    <h3>If you find bugs/shortcomings or have ideas, write to dm Discord @voksaieres</h3>
+        <div class="header-buttons">
+            <select id="languageSelect" onchange="toggleLanguage()">
+                <option value="ru">Русский</option>
+                <option value="en" selected>English</option>
+            </select>
+            <select id="themeSelect" onchange="toggleTheme()">
+                <option value="light" selected>Светлая</option>
+                <option value="dark">Темная</option>
+                <option value="cosmic">Космическая</option>
+                <option value="drinwater">Вода</option>
+                <option value="colors">Цвета</option>
+            </select>
+            <button onclick="clearHistory()">Clear History</button>
+            <button onclick="openChangelog()" class="changelog-button">Changelog</button>
+        </div>
+    </div>
+    <input type="text" id="hexInput" placeholder="Enter HEX code" onkeypress="handleKeyPress(event)">
+    <!--<div class="color-preview" id="colorPreview"></div> -->
+    <button onclick="checkColor()">Find</button>
+    <button onclick="shareUrl()">Share</button>
+    <div class="result" id="result"></div>
+    <h2 id="historyTitle">History of Requests:</h2>
+    <div class="history-container" id="historyContainer">
+        <!-- Заполнится при сохранении запросов -->
+    </div>
+    <h2 id="tableTitle">Table of Closest Colors:</h2>
+    <table id="colorTable" border="1">
+        <thead>
+            <tr>
+                <th id="armorHeader">Armor</th>
+                <th id="hexHeader">HEX</th>
+                <th id="colorHeader">Color</th>
+                <th id="differenceHeader">Difference</th>
+                <th id="tierHeader">Rank</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Заполнится при поиске ближайших цветов -->
+        </tbody>
+    </table>
+
+    <script src="app.js"></script>
+</body>
+</html>
