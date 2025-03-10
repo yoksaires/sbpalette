@@ -592,7 +592,7 @@ function openChangelog() {
 
 function shareUrl() {
     const hex = document.getElementById('hexInput').value.trim();
-    const baseUrl = 'https://yoksaires.github.io/sbhexchecker/sbpalette.html';
+    const baseUrl = 'https://yoksaires.github.io/sbpalette/main.html';
     const urlWithParam = `${baseUrl}?color=${encodeURIComponent(hex)}`;
     navigator.clipboard.writeText(urlWithParam).then(() => {
         alert('Ссылка скопирована в буфер обмена!');
