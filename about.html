@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - SBPalette</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .about-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .contact-info img {
+            width: 24px;
+            height: 24px;
+        }
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .feature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #007BFF;
+        }
+        .tutorial-step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 3px solid #007BFF;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .github-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 123, 255, 0.1);
+            border-radius: 4px;
+            border-left: 3px solid #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <a href="main.html" class="back-button">← Back</a>
+        
+        <div class="about-section">
+            <h1>About SBPalette</h1>
+            <p>SBPalette is a tool for finding the closest armor colors in Hypixel SkyBlock. The application uses an advanced color comparison algorithm (delta E CIE76) to find the most similar armor colors to your target color.</p>
+            <div class="github-info">
+                <h3>🌟 Open Source Project</h3>
+                <p>SBPalette is an open-source project! You can contribute, report issues, or suggest improvements on our GitHub repository. We welcome all contributions from the community.</p>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Key Features</h2>
+            <ul class="feature-list">
+                <li>Search by HEX color code</li>
+                <li>Display of 5 closest matches</li>
+                <li>Search history</li>
+                <li>5 beautiful themes</li>
+                <li>Ability to share colors via link</li>
+                <li>XML query support for Google Sheets integration</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>How to Use</h2>
+            <div class="tutorial-step">
+                <h3>1. Color Input</h3>
+                <p>Enter the HEX color code in the input field (example: FF0000 or #FF0000)</p>
+            </div>
+            <div class="tutorial-step">
+                <h3>2. Search</h3>
+                <p>Click the "Find" button or press Enter to search</p>
+            </div>
+            <div class="tutorial-step">
+                <h3>3. Results</h3>
+                <p>View the table with 5 closest matches. Each match contains:</p>
+                <ul>
+                    <li>Armor name</li>
+                    <li>HEX color code</li>
+                    <li>Visual color display</li>
+                    <li>Color difference</li>
+                    <li>Match rank (T0-T4)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Bug Reports & Contact</h2>
+            <div class="contact-info">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
+                <span>Discord: voksaieres</span>
+            </div>
+            <div class="contact-info">
+                <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+                <a href="https://github.com/yoksaires/sbpalette" target="_blank">GitHub: yoksaires/sbpalette</a>
+            </div>
+            <div class="contact-info">
+                <span>Minecraft IGN: yoksaires</span>
+            </div>
+            <p style="margin-top: 15px;">Feel free to report bugs, suggest features, or contribute to the project through our GitHub repository!</p>
+        </div>
+    </div>
+</body>
+</html> 

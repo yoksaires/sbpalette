@@ -467,3 +467,14 @@ td.color-cell {
     border: 1px solid #000;
     vertical-align: middle;
 }
+
+.about-button {
+    height: 42px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
