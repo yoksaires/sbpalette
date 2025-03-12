@@ -292,48 +292,54 @@ let currentLanguage = 'en';
 
 const translations = {
     ru: {
-        title: 'Анализатор цветов брони Hypixel',
+        title: 'SBPalette for Hypixel',
         findButton: 'Найти',
         clearHistoryButton: 'Сбросить историю',
         hexPlaceholder: 'Введите HEX код',
         historyTitle: 'История запросов:',
         tableTitle: 'Таблица ближайших цветов:',
-        armorHeader: 'Броня',
+        armorHeader: 'Ближайщая броня',
         hexHeader: 'HEX',
-        colorHeader: 'Цвет',
-        differenceHeader: 'Разница',
+        colorHeader: 'Цвет ближайшей брони',
+        differenceHeader: 'Дельта (Разница)',
         tierHeader: 'Ранг',
         invalidHex: 'Неверный формат HEX кода',
         enteredColor: 'Введённый цвет:',
+        copySettingsTitle: 'Настройки копирования',
+        saveButton: 'Сохранить',
         themes: {
             light: 'Светлая',
             dark: 'Темная',
             cosmic: 'Космическая',
             drinwater: 'Вода',
             colors: 'Цвета'
-        }
+        },
+        armorTypeHeader: 'Тип брони'
     },
     en: {
-        title: 'Armor Color Analyzer Hypixel',
+        title: 'SBPalette for Hypixel',
         findButton: 'Find',
         clearHistoryButton: 'Clear History',
         hexPlaceholder: 'Enter HEX code',
         historyTitle: 'History of Requests:',
         tableTitle: 'Table of Closest Colors:',
-        armorHeader: 'Armor',
+        armorHeader: 'Closest armor',
         hexHeader: 'HEX',
-        colorHeader: 'Color',
-        differenceHeader: 'Difference',
+        colorHeader: 'Color of the closest armor',
+        differenceHeader: 'Delta (Difference)',
         tierHeader: 'Rank',
         invalidHex: 'Invalid HEX code format',
         enteredColor: 'Entered color:',
+        copySettingsTitle: 'Copy Settings',
+        saveButton: 'Save',
         themes: {
             light: 'Light',
             dark: 'Dark',
             cosmic: 'Cosmic',
             drinwater: 'Drinwater',
             colors: 'Colors'
-        }
+        },
+        armorTypeHeader: 'Armor Type'
     }
 };
 
@@ -428,7 +434,11 @@ function getRank(distance) {
 
 function fillTable(colors) {
     const tableBody = document.getElementById('colorTable').getElementsByTagName('tbody')[0];
+    const copyTableBody = document.getElementById('copyTable').getElementsByTagName('tbody')[0];
     tableBody.innerHTML = ''; // Очистить таблицу
+    copyTableBody.innerHTML = ''; // Очистить таблицу с кнопками
+
+    const hexInputValue = document.getElementById('hexInput').value.trim().toUpperCase();
 
     colors.forEach((item, index) => {
         const row = tableBody.insertRow();
@@ -451,6 +461,200 @@ function fillTable(colors) {
         cellColor.className = `cell-color-${index}`;
         cellDistance.className = `cell-distance-${index}`;
         cellRank.className = `cell-rank-${index}`;
+
+        // Добавляем кнопку копирования и выпадающий список в отдельную таблицу
+        const copyRow = copyTableBody.insertRow();
+        const cellCopy = copyRow.insertCell(0);
+
+        const armorTypeSelect = document.createElement('select');
+        armorTypeSelect.innerHTML = `
+            <option value="🎩">🎩</option>
+            <option value="👔">👔</option>
+            <option value="👖">👖</option>
+            <option value="👞">👞</option>
+        `;
+        armorTypeSelect.className = 'armor-type-select';
+
+        const copyButton = document.createElement('button');
+        copyButton.innerHTML = '📋'; // Используем эмодзи буфера обмена
+        copyButton.className = 'copy-button';
+        copyButton.onclick = () => copyRowToClipboard(hexInputValue, item, armorTypeSelect.value);
+
+        cellCopy.appendChild(armorTypeSelect);
+        cellCopy.appendChild(copyButton);
+    });
+
+    // Убедимся, что заголовок таблицы копирования всегда создается
+    const copyTable = document.getElementById('copyTable');
+    if (!copyTable.tHead) {
+        const copyTableHeader = copyTable.createTHead();
+        const copyTableHeaderRow = copyTableHeader.insertRow(0);
+        const copyTableHeaderCell = copyTableHeaderRow.insertCell(0);
+        copyTableHeaderCell.innerHTML = '<span>Copy ⚙️</span>';
+        copyTableHeaderCell.style.cursor = 'pointer';
+        copyTableHeaderCell.onclick = () => openSettingsModal();
+    }
+}
+
+// Функция для открытия модального окна настроек
+function openSettingsModal() {
+    const modal = document.createElement('div');
+    modal.className = 'settings-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-button" onclick="closeSettingsModal()">🔴</span>
+            <h2>${translations[currentLanguage].copySettingsTitle}</h2>
+            <form id="copySettingsForm">
+
+                <!-- Всегда есть строка с введённым HEX -->
+                <label><input type="checkbox" name="armorType"> ${translations[currentLanguage].armorTypeHeader}</label><br>
+                <!-- Всегда есть строка с введённым типом брони -->
+                <label><input type="checkbox" name="hexWithX"> Hex with Xs (Xx Xx Xx)</label><br>
+
+                <!-- Строка с введённым HEX и RGB -->
+                <label><input type="checkbox" name="enteredRedHex"> Entered Red HEX</label><br>
+                <label><input type="checkbox" name="enteredGreenHex"> Entered Green HEX</label><br>
+                <label><input type="checkbox" name="enteredBlueHex"> Entered Blue HEX</label><br>
+                <label><input type="checkbox" name="enteredRedRgb"> Entered Red RGB</label><br>
+                <label><input type="checkbox" name="enteredGreenRgb"> Entered Green RGB</label><br>
+                <label><input type="checkbox" name="enteredBlueRgb"> Entered Blue RGB</label><br>
+
+                <label><input type="checkbox" name="name"> ${translations[currentLanguage].armorHeader}</label><br>
+                <label><input type="checkbox" name="color"> ${translations[currentLanguage].colorHeader}</label><br>
+
+                <!-- Строка с ближайшим HEX и RGB -->
+                <label><input type="checkbox" name="closestRedHex"> Closest Red HEX</label><br>
+                <label><input type="checkbox" name="closestGreenHex"> Closest Green HEX</label><br>
+                <label><input type="checkbox" name="closestBlueHex"> Closest Blue HEX</label><br>
+                <label><input type="checkbox" name="closestRedRgb"> Closest Red RGB</label><br>
+                <label><input type="checkbox" name="closestGreenRgb"> Closest Green RGB</label><br>
+                <label><input type="checkbox" name="closestBlueRgb"> Closest Blue RGB</label><br>
+
+                <label><input type="checkbox" name="distance"> ${translations[currentLanguage].differenceHeader}</label><br>
+                <label><input type="checkbox" name="rank"> ${translations[currentLanguage].tierHeader}</label><br>
+                <button type="button" onclick="saveCopySettings()">${translations[currentLanguage].saveButton}</button>
+            </form>
+            <i>
+                I know, I know, there's a lot of unnecessary stuff here. The next thing I'll do is fine-tune this menu. Any ideas? - Dm on Discord voksaieres
+            </i>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Установить состояние чекбоксов в соответствии с сохранёнными настройками
+    const settings = JSON.parse(localStorage.getItem('copySettings')) || {
+        name: true,
+        color: true,
+        enteredRedHex: true,
+        enteredGreenHex: true,
+        enteredBlueHex: true,
+        enteredRedRgb: true,
+        enteredGreenRgb: true,
+        enteredBlueRgb: true,
+        hexWithX: true,
+        distance: true,
+        rank: true
+    };
+
+    const form = document.getElementById('copySettingsForm');
+    Object.keys(settings).forEach(key => {
+        const checkbox = form.querySelector(`input[name="${key}"]`);
+        if (checkbox) {
+            checkbox.checked = settings[key];
+        }
+    });
+}
+
+// Функция для закрытия модального окна
+function closeSettingsModal() {
+    const modal = document.querySelector('.settings-modal');
+    if (modal) {
+        document.body.removeChild(modal);
+    }
+}
+
+// Функция для сохранения настроек копирования
+function saveCopySettings() {
+    const form = document.getElementById('copySettingsForm');
+    const formData = new FormData(form);
+    const settings = {};
+    formData.forEach((value, key) => {
+        settings[key] = true;
+    });
+    localStorage.setItem('copySettings', JSON.stringify(settings));
+    closeSettingsModal();
+}
+
+// Обновление функции копирования с учётом типа брони
+function copyRowToClipboard(inputValue, item, armorType) {
+    const settings = JSON.parse(localStorage.getItem('copySettings')) || {
+        name: true,
+        color: true,
+        enteredRedHex: true,
+        enteredGreenHex: true,
+        enteredBlueHex: true,
+        enteredRedRgb: true,
+        enteredGreenRgb: true,
+        enteredBlueRgb: true,
+        closestRedHex: true,
+        closestGreenHex: true,
+        closestBlueHex: true,
+        closestRedRgb: true,
+        closestGreenRgb: true,
+        closestBlueRgb: true,
+        hexWithX: true,
+        distance: true,
+        rank: true,
+        armorType: true
+    };
+
+    const rgb = hexToRgb(item.color);
+    const enteredRedHex = inputValue.slice(inputValue.startsWith('#') ? 1 : 0, 3);
+    const enteredGreenHex = inputValue.slice(inputValue.startsWith('#') ? 3 : 2, 5);
+    const enteredBlueHex = inputValue.slice(inputValue.startsWith('#') ? 5 : 4, 7);
+    const enteredRedRgb = parseInt(enteredRedHex, 16);
+    const enteredGreenRgb = parseInt(enteredGreenHex, 16);
+    const enteredBlueRgb = parseInt(enteredBlueHex, 16);
+    const closestRedHex = item.color.slice(1, 3);
+    const closestGreenHex = item.color.slice(3, 5);
+    const closestBlueHex = item.color.slice(5, 7);
+    const closestRedRgb = rgb.r;
+    const closestGreenRgb = rgb.g;
+    const closestBlueRgb = rgb.b;
+    const hexWithX = `${enteredRedHex[0]}x ${enteredGreenHex[0]}x ${enteredBlueHex[0]}x`;
+
+    // Добавление типа брони в строку копирования
+    const armorTypeMap = {
+        '🎩': 'Velvet Top Hat',
+        '👔': 'Cashmere Jacket',
+        '👖': 'Satin Trousers',
+        '👞': 'Oxford Shoes'
+    };
+
+    let rowText = `${inputValue.startsWith('#') ? inputValue.slice(1) : inputValue}`;
+    if (settings.hexWithX) rowText += `\t${hexWithX}`;
+    if (settings.armorType) rowText += `\t${armorTypeMap[armorType]}`;
+    if (settings.enteredRedHex) rowText += `\t${enteredRedHex}`;
+    if (settings.enteredGreenHex) rowText += `\t${enteredGreenHex}`;
+    if (settings.enteredBlueHex) rowText += `\t${enteredBlueHex}`;
+    if (settings.enteredRedRgb) rowText += `\t${enteredRedRgb}`;
+    if (settings.enteredGreenRgb) rowText += `\t${enteredGreenRgb}`;
+    if (settings.enteredBlueRgb) rowText += `\t${enteredBlueRgb}`;
+    if (settings.name) rowText += `\t${item.name}`;
+    if (settings.color) rowText += `\t${item.color}`;
+    if (settings.closestRedHex) rowText += `\t${closestRedHex}`;
+    if (settings.closestGreenHex) rowText += `\t${closestGreenHex}`;
+    if (settings.closestBlueHex) rowText += `\t${closestBlueHex}`;
+    if (settings.closestRedRgb) rowText += `\t${closestRedRgb}`;
+    if (settings.closestGreenRgb) rowText += `\t${closestGreenRgb}`;
+    if (settings.closestBlueRgb) rowText += `\t${closestBlueRgb}`;
+    if (settings.distance) rowText += `\t${item.distance.toFixed(3)}`;
+    if (settings.rank) rowText += `\t${getRank(item.distance)}`;
+
+    navigator.clipboard.writeText(rowText).then(() => {
+        alert('Row copied to clipboard!');
+    }, (err) => {
+        console.error('Error copying row: ', err);
     });
 }
 
@@ -500,6 +704,7 @@ function toggleLanguage() {
     colorHeader.textContent = translations[currentLanguage].colorHeader;
     differenceHeader.textContent = translations[currentLanguage].differenceHeader;
     tierHeader.textContent = translations[currentLanguage].tierHeader;
+    armorTypeHeader.textContent = translations[currentLanguage].armorTypeHeader;
 
     checkColor(); // Перезапустить проверку цвета для обновления текста результата
     updateThemeSelectOptions();
@@ -600,3 +805,16 @@ function shareUrl() {
         console.error('Ошибка при копировании: ', err);
     });
 }
+
+// Добавление события для сохранения настроек копирования при закрытии страницы
+window.addEventListener('beforeunload', () => {
+    const form = document.getElementById('copySettingsForm');
+    if (form) {
+        const formData = new FormData(form);
+        const settings = {};
+        formData.forEach((value, key) => {
+            settings[key] = true;
+        });
+        localStorage.setItem('copySettings', JSON.stringify(settings));
+    }
+});

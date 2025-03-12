@@ -37,20 +37,32 @@
         <!-- Заполнится при сохранении запросов -->
     </div>
     <h2 id="tableTitle">Table of Closest Colors:</h2>
-    <table id="colorTable" border="1">
-        <thead>
-            <tr>
-                <th id="armorHeader">Armor</th>
-                <th id="hexHeader">HEX</th>
-                <th id="colorHeader">Color</th>
-                <th id="differenceHeader">Difference</th>
-                <th id="tierHeader">Rank</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Заполнится при поиске ближайших цветов -->
-        </tbody>
-    </table>
+    <div style="display: flex;">
+        <table id="colorTable" border="1">
+            <thead>
+                <tr>
+                    <th id="armorHeader">Armor</th>
+                    <th id="hexHeader">HEX</th>
+                    <th id="colorHeader">Color</th>
+                    <th id="differenceHeader">Difference</th>
+                    <th id="tierHeader">Rank</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Заполнится при поиске ближайших цветов -->
+            </tbody>
+        </table>
+        <table id="copyTable">
+            <thead>
+                <tr>
+                    <th style="cursor: pointer;" onclick="openSettingsModal()">Copy ⚙️</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Заполнится кнопками Copy -->
+            </tbody>
+        </table>
+    </div>
 
     <script src="app.js"></script>
 </body>

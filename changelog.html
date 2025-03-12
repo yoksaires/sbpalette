@@ -5,36 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changelog - SkyBlock HEX Checker</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .changelog-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .changelog-entry {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .changelog-date {
-            font-weight: bold;
-            color: #007BFF;
-            margin-bottom: 10px;
-        }
-        .changelog-content {
-            margin-left: 20px;
-        }
-        .commit-info {
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-    </style>
 </head>
 <body>
     <div class="changelog-container">
         <h1>Changelog</h1>
+
+        <div class="changelog-entry">
+            <div class="changelog-date">March 12, 2025</div>
+            <div class="changelog-content">
+                <ul>
+                    <li>Added a system for copying table rows for further insertion into Excel or Google Sheets.</li>
+                </ul>
+                <div class="commit-info">Author: yoksaires</div>
+            </div>
+        </div>
+
         <div class="changelog-entry">
             <div class="changelog-date">March 10, 2025</div>
             <div class="changelog-content">
@@ -42,6 +27,7 @@
                     <li>Application officially renamed to SBPalette</li>
                     <li>Added conditional classes to table cells for creating XML queries.</li>
                     <li>Added ability to reference colors directly from Google Sheets or Excel using XML queries and cell classes.</li>
+                    <li><i> As it turned out, it is not so easy to make XML requests. On the site, the table is generated using JavaScript, and XML only accepts HTML. But still, if you want to make a dynamic table, then use any site that will parse the page with JS and give out the full modified HTML, for example, ScraperAPI or ZenRows or other sites. ........ I am writing and asking myself - Who would want to do this?</i></li>
                 </ul>
                 <div class="commit-info">Author: yoksaires</div>
             </div>
@@ -156,8 +142,6 @@
                 <div class="commit-info">Author: yoksaires</div>
             </div>
         </div>
-
-        
     </div>
 </body>
 </html> 
