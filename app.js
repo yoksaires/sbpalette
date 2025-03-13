@@ -560,8 +560,15 @@ function populateFieldOrderList(orderArray) {
         }
     }
     
+    // Получаем текущие настройки
+    const settings = JSON.parse(localStorage.getItem('copySettings')) || getDefaultSettings();
+    
     // Используем сохранённый порядок или создаём стандартный
-    const fieldOrder = orderArray && orderArray.length > 0 ? orderArray : getDefaultFieldOrder();
+    let fieldOrder = orderArray && orderArray.length > 0 ? orderArray : getDefaultFieldOrder();
+    
+    // Фильтруем список порядка полей, чтобы показывать только выбранные поля
+    // Поле hexInput всегда включено
+    fieldOrder = fieldOrder.filter(field => field === 'hexInput' || settings.fields[field]);
     
     // Добавляем элементы в список
     fieldOrder.forEach(field => {
@@ -580,15 +587,17 @@ function populateFieldOrderList(orderArray) {
     if (orderList.children.length === 0) {
         // Если почему-то список всё ещё пуст, явно заполним его стандартными значениями
         getDefaultFieldOrder().forEach(field => {
-            const fieldName = getFieldDisplayName(field);
-            const li = document.createElement('li');
-            li.className = 'sortable-item';
-            li.setAttribute('data-field', field);
-            li.innerHTML = `
-                <div class="drag-handle" title="${translations[currentLanguage].dragHandleTitle || 'Перетащите для изменения позиции'}">≡</div>
-                <div class="field-name">${fieldName}</div>
-            `;
-            orderList.appendChild(li);
+            if (field === 'hexInput' || settings.fields[field]) {
+                const fieldName = getFieldDisplayName(field);
+                const li = document.createElement('li');
+                li.className = 'sortable-item';
+                li.setAttribute('data-field', field);
+                li.innerHTML = `
+                    <div class="drag-handle" title="${translations[currentLanguage].dragHandleTitle || 'Перетащите для изменения позиции'}">≡</div>
+                    <div class="field-name">${fieldName}</div>
+                `;
+                orderList.appendChild(li);
+            }
         });
     }
     
@@ -598,28 +607,51 @@ function populateFieldOrderList(orderArray) {
 // Получаем понятное имя поля для отображения
 function getFieldDisplayName(fieldKey) {
     const displayNames = {
-        'hexInput': 'HEX код',
-        'hexWithX': 'HEX с X (Xx Xx Xx)',
-        'armorType': translations[currentLanguage].armorTypeHeader || 'Тип брони',
-        'enteredRedHex': 'Красный HEX (ввод)',
-        'enteredGreenHex': 'Зелёный HEX (ввод)',
-        'enteredBlueHex': 'Синий HEX (ввод)',
-        'enteredRedRgb': 'Красный RGB (ввод)',
-        'enteredGreenRgb': 'Зелёный RGB (ввод)',
-        'enteredBlueRgb': 'Синий RGB (ввод)',
-        'name': translations[currentLanguage].armorHeader || 'Броня',
-        'color': translations[currentLanguage].colorHeader || 'Цвет',
-        'closestRedHex': 'Красный HEX (ближ.)',
-        'closestGreenHex': 'Зелёный HEX (ближ.)',
-        'closestBlueHex': 'Синий HEX (ближ.)',
-        'closestRedRgb': 'Красный RGB (ближ.)',
-        'closestGreenRgb': 'Зелёный RGB (ближ.)',
-        'closestBlueRgb': 'Синий RGB (ближ.)',
-        'distance': translations[currentLanguage].differenceHeader || 'Разница',
-        'rank': translations[currentLanguage].tierHeader || 'Ранг'
+        'ru': {
+            'hexInput': 'HEX код',
+            'hexWithX': 'HEX с X (Xx Xx Xx)',
+            'armorType': translations[currentLanguage].armorTypeHeader || 'Тип брони',
+            'enteredRedHex': 'Красный HEX (ввод)',
+            'enteredGreenHex': 'Зелёный HEX (ввод)',
+            'enteredBlueHex': 'Синий HEX (ввод)',
+            'enteredRedRgb': 'Красный RGB (ввод)',
+            'enteredGreenRgb': 'Зелёный RGB (ввод)',
+            'enteredBlueRgb': 'Синий RGB (ввод)',
+            'name': translations[currentLanguage].armorHeader || 'Броня',
+            'color': translations[currentLanguage].colorHeader || 'Цвет',
+            'closestRedHex': 'Красный HEX (ближ.)',
+            'closestGreenHex': 'Зелёный HEX (ближ.)',
+            'closestBlueHex': 'Синий HEX (ближ.)',
+            'closestRedRgb': 'Красный RGB (ближ.)',
+            'closestGreenRgb': 'Зелёный RGB (ближ.)',
+            'closestBlueRgb': 'Синий RGB (ближ.)',
+            'distance': translations[currentLanguage].differenceHeader || 'Разница',
+            'rank': translations[currentLanguage].tierHeader || 'Ранг'
+        },
+        'en': {
+            'hexInput': 'HEX code',
+            'hexWithX': 'HEX with X (Xx Xx Xx)',
+            'armorType': translations[currentLanguage].armorTypeHeader || 'Armor Type',
+            'enteredRedHex': 'Red HEX (input)',
+            'enteredGreenHex': 'Green HEX (input)',
+            'enteredBlueHex': 'Blue HEX (input)',
+            'enteredRedRgb': 'Red RGB (input)',
+            'enteredGreenRgb': 'Green RGB (input)',
+            'enteredBlueRgb': 'Blue RGB (input)',
+            'name': translations[currentLanguage].armorHeader || 'Armor',
+            'color': translations[currentLanguage].colorHeader || 'Color',
+            'closestRedHex': 'Red HEX (closest)',
+            'closestGreenHex': 'Green HEX (closest)',
+            'closestBlueHex': 'Blue HEX (closest)',
+            'closestRedRgb': 'Red RGB (closest)',
+            'closestGreenRgb': 'Green RGB (closest)',
+            'closestBlueRgb': 'Blue RGB (closest)',
+            'distance': translations[currentLanguage].differenceHeader || 'Difference',
+            'rank': translations[currentLanguage].tierHeader || 'Rank'
+        }
     };
     
-    return displayNames[fieldKey] || fieldKey;
+    return displayNames[currentLanguage][fieldKey] || fieldKey;
 }
 
 // Инициализация сортировки
@@ -631,6 +663,20 @@ function initSortable() {
     // но для простого примера используем собственную реализацию
     
     let dragItem = null;
+    let placeholder = null;
+    
+    // Создаем плейсхолдер для отображения места вставки
+    function createPlaceholder() {
+        const ph = document.createElement('div');
+        ph.className = 'sortable-placeholder';
+        ph.style.height = '2px';
+        ph.style.background = '#3498db';
+        ph.style.margin = '5px 0';
+        ph.style.transition = 'all 0.2s ease';
+        ph.style.borderRadius = '2px';
+        ph.style.position = 'relative';
+        return ph;
+    }
     
     // Обработчики для перетаскивания
     orderList.querySelectorAll('.sortable-item').forEach(item => {
@@ -638,37 +684,94 @@ function initSortable() {
             dragItem = item;
             dragItem.classList.add('dragging');
             
-            // Координаты начального положения курсора
+            // Создаем индикатор позиции
+            if (!placeholder) {
+                placeholder = createPlaceholder();
+            }
+            
+            // Позиция начального нажатия для расчета смещения
             const initialY = e.clientY;
-            const initialItemTop = item.offsetTop;
+            const initialRect = item.getBoundingClientRect();
+            const listRect = orderList.getBoundingClientRect();
+            
+            // Сохраняем начальную позицию для анимации
+            const initialTop = item.offsetTop;
+            const initialLeft = item.offsetLeft;
+            
+            // Визуальный стиль для перетаскиваемого элемента
+            dragItem.style.position = 'absolute';
+            dragItem.style.zIndex = '1000';
+            dragItem.style.width = initialRect.width + 'px';
+            dragItem.style.left = initialLeft + 'px';
+            dragItem.style.top = initialTop + 'px';
+            dragItem.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            dragItem.style.opacity = '0.8';
+            dragItem.style.pointerEvents = 'none'; // Чтобы избежать мерцания
+            
+            // Вставляем плейсхолдер сразу после перетаскиваемого элемента
+            orderList.insertBefore(placeholder, dragItem.nextSibling);
             
             // Обработчик движения мыши
             function mouseMoveHandler(e) {
                 const newY = e.clientY;
+                
+                // Перемещаем элемент вслед за курсором
                 const deltaY = newY - initialY;
+                dragItem.style.top = `${initialTop + deltaY}px`;
                 
-                // Перемещаем элемент
-                dragItem.style.top = `${initialItemTop + deltaY}px`;
-                
-                // Определяем новую позицию
+                // Находим элемент под курсором
                 const items = Array.from(orderList.querySelectorAll('.sortable-item:not(.dragging)'));
-                const itemBelow = items.find(item => {
-                    return e.clientY < item.offsetTop + item.offsetHeight / 2;
+                let targetItem = null;
+                
+                // Определяем ближайший элемент для вставки
+                for (let i = 0; i < items.length; i++) {
+                    const box = items[i].getBoundingClientRect();
+                    const boxCenter = box.top + box.height / 2;
+                    
+                    if (newY < boxCenter) {
+                        targetItem = items[i];
+                        break;
+                    }
+                }
+                
+                // Подсвечиваем границу элемента, перед которым будем вставлять
+                items.forEach(el => {
+                    el.style.borderTop = '';
+                    el.style.marginTop = '';
                 });
                 
-                if (itemBelow) {
-                    orderList.insertBefore(dragItem, itemBelow);
-                } else {
-                    // Если элемент внизу списка
-                    orderList.appendChild(dragItem);
+                // Перемещаем плейсхолдер
+                if (targetItem) {
+                    // Вставляем плейсхолдер перед целевым элементом
+                    orderList.insertBefore(placeholder, targetItem);
+                } else if (items.length > 0) {
+                    // Если курсор внизу списка, вставляем после последнего элемента
+                    orderList.insertBefore(placeholder, null);
                 }
             }
             
             // Обработчик отпускания мыши
             function mouseUpHandler() {
+                // Убираем стили перетаскивания
                 dragItem.classList.remove('dragging');
+                dragItem.style.position = '';
+                dragItem.style.zIndex = '';
+                dragItem.style.width = '';
+                dragItem.style.left = '';
                 dragItem.style.top = '';
+                dragItem.style.boxShadow = '';
+                dragItem.style.opacity = '';
+                dragItem.style.pointerEvents = '';
+                
+                // Вставляем элемент на место плейсхолдера
+                if (placeholder && placeholder.parentNode) {
+                    orderList.insertBefore(dragItem, placeholder);
+                    placeholder.parentNode.removeChild(placeholder);
+                }
+                
+                // Сбрасываем переменные и убираем обработчики
                 dragItem = null;
+                placeholder = null;
                 
                 document.removeEventListener('mousemove', mouseMoveHandler);
                 document.removeEventListener('mouseup', mouseUpHandler);
@@ -1018,30 +1121,30 @@ function openSettingsModal() {
             </div>
             
             <div id="fieldsTab" class="settings-tab-content">
-                <form id="copySettingsForm">
+                <form id="copySettingsForm" onchange="updateFieldOrderBasedOnSelection()">
                     <!-- Всегда есть строка с введённым HEX -->
                     <label><input type="checkbox" name="armorType"> ${translations[currentLanguage].armorTypeHeader}</label><br>
                     <!-- Всегда есть строка с введённым типом брони -->
                     <label><input type="checkbox" name="hexWithX"> Hex with Xs (Xx Xx Xx)</label><br>
 
                     <!-- Строка с введённым HEX и RGB -->
-                    <label><input type="checkbox" name="enteredRedHex"> Entered Red HEX</label><br>
-                    <label><input type="checkbox" name="enteredGreenHex"> Entered Green HEX</label><br>
-                    <label><input type="checkbox" name="enteredBlueHex"> Entered Blue HEX</label><br>
-                    <label><input type="checkbox" name="enteredRedRgb"> Entered Red RGB</label><br>
-                    <label><input type="checkbox" name="enteredGreenRgb"> Entered Green RGB</label><br>
-                    <label><input type="checkbox" name="enteredBlueRgb"> Entered Blue RGB</label><br>
+                    <label><input type="checkbox" name="enteredRedHex"> ${getFieldDisplayName('enteredRedHex')}</label><br>
+                    <label><input type="checkbox" name="enteredGreenHex"> ${getFieldDisplayName('enteredGreenHex')}</label><br>
+                    <label><input type="checkbox" name="enteredBlueHex"> ${getFieldDisplayName('enteredBlueHex')}</label><br>
+                    <label><input type="checkbox" name="enteredRedRgb"> ${getFieldDisplayName('enteredRedRgb')}</label><br>
+                    <label><input type="checkbox" name="enteredGreenRgb"> ${getFieldDisplayName('enteredGreenRgb')}</label><br>
+                    <label><input type="checkbox" name="enteredBlueRgb"> ${getFieldDisplayName('enteredBlueRgb')}</label><br>
 
                     <label><input type="checkbox" name="name"> ${translations[currentLanguage].armorHeader}</label><br>
                     <label><input type="checkbox" name="color"> ${translations[currentLanguage].colorHeader}</label><br>
 
                     <!-- Строка с ближайшим HEX и RGB -->
-                    <label><input type="checkbox" name="closestRedHex"> Closest Red HEX</label><br>
-                    <label><input type="checkbox" name="closestGreenHex"> Closest Green HEX</label><br>
-                    <label><input type="checkbox" name="closestBlueHex"> Closest Blue HEX</label><br>
-                    <label><input type="checkbox" name="closestRedRgb"> Closest Red RGB</label><br>
-                    <label><input type="checkbox" name="closestGreenRgb"> Closest Green RGB</label><br>
-                    <label><input type="checkbox" name="closestBlueRgb"> Closest Blue RGB</label><br>
+                    <label><input type="checkbox" name="closestRedHex"> ${getFieldDisplayName('closestRedHex')}</label><br>
+                    <label><input type="checkbox" name="closestGreenHex"> ${getFieldDisplayName('closestGreenHex')}</label><br>
+                    <label><input type="checkbox" name="closestBlueHex"> ${getFieldDisplayName('closestBlueHex')}</label><br>
+                    <label><input type="checkbox" name="closestRedRgb"> ${getFieldDisplayName('closestRedRgb')}</label><br>
+                    <label><input type="checkbox" name="closestGreenRgb"> ${getFieldDisplayName('closestGreenRgb')}</label><br>
+                    <label><input type="checkbox" name="closestBlueRgb"> ${getFieldDisplayName('closestBlueRgb')}</label><br>
 
                     <label><input type="checkbox" name="distance"> ${translations[currentLanguage].differenceHeader}</label><br>
                     <label><input type="checkbox" name="rank"> ${translations[currentLanguage].tierHeader}</label><br>
@@ -1083,4 +1186,30 @@ function openSettingsModal() {
         initSortable();
         console.log('Sortable инициализирован');
     }, 100);
+}
+
+// Обновление списка полей при изменении выбора
+function updateFieldOrderBasedOnSelection() {
+    const form = document.getElementById('copySettingsForm');
+    if (!form) return;
+    
+    const settings = getDefaultSettings();
+    const formData = new FormData(form);
+    
+    // Сбрасываем все поля
+    Object.keys(settings.fields).forEach(key => {
+        settings.fields[key] = false;
+    });
+    
+    // Устанавливаем выбранные поля
+    formData.forEach((value, key) => {
+        settings.fields[key] = true;
+    });
+    
+    // Обновляем список порядка полей
+    const savedSettings = JSON.parse(localStorage.getItem('copySettings')) || getDefaultSettings();
+    populateFieldOrderList(savedSettings.order);
+    
+    // Реинициализируем сортировку
+    initSortable();
 }

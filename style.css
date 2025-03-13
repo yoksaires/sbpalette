@@ -549,17 +549,28 @@ td.color-cell {
 }
 
 .tab-button {
-    background: none;
-    border: none;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-bottom: none;
     padding: 10px 15px;
     cursor: pointer;
     position: relative;
-    opacity: 0.7;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.2s ease;
+    box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
 }
 
 .tab-button.active {
+    background: #fff;
     opacity: 1;
     font-weight: bold;
+    padding-bottom: 11px;
+    margin-bottom: -1px;
+    z-index: 1;
+    color: #007BFF;
 }
 
 .tab-button.active:after {
@@ -570,6 +581,62 @@ td.color-cell {
     right: 0;
     height: 2px;
     background-color: #007BFF;
+}
+
+.tab-button:hover:not(.active) {
+    background: #e9e9e9;
+}
+
+/* Стили для вкладок в темной теме */
+body.dark-theme .tab-button {
+    background: #2d2d2d;
+    border-color: #444;
+    color: #ccc;
+}
+
+body.dark-theme .tab-button.active {
+    background: #333;
+    color: #38a0ff;
+}
+
+body.dark-theme .tab-button.active:after {
+    background-color: #38a0ff;
+}
+
+body.dark-theme .tab-button:hover:not(.active) {
+    background: #3d3d3d;
+}
+
+/* Стили для вкладок в космической теме */
+body.cosmic-theme .tab-button,
+body.drinwater-theme .tab-button,
+body.colors-theme .tab-button {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.2);
+}
+
+body.cosmic-theme .tab-button.active,
+body.drinwater-theme .tab-button.active,
+body.colors-theme .tab-button.active {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.cosmic-theme .tab-button.active:after,
+body.drinwater-theme .tab-button.active:after,
+body.colors-theme .tab-button.active:after {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+body.cosmic-theme .tab-button:hover:not(.active),
+body.drinwater-theme .tab-button:hover:not(.active),
+body.colors-theme .tab-button:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .settings-tab-content {
@@ -586,48 +653,101 @@ td.color-cell {
 }
 
 .sortable-item {
-    padding: 12px;
-    margin: 8px 0;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
+    position: relative;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     display: flex;
     align-items: center;
-    position: relative;
-    cursor: grab;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 .sortable-item:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    cursor: pointer;
 }
 
 .sortable-item.dragging {
-    opacity: 0.8;
-    position: absolute;
-    width: calc(100% - 20px);
-    z-index: 100;
+    background-color: #e8f4fd;
+    border-color: #3498db;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     cursor: grabbing;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+    z-index: 10;
 }
 
+/* Стили для плейсхолдера сортировки */
+.sortable-placeholder {
+    height: 2px;
+    background: #3498db;
+    margin: 5px 0;
+    transition: all 0.2s ease;
+    border-radius: 2px;
+    position: relative;
+    animation: pulse 1.5s infinite;
+}
+
+.sortable-placeholder:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -4px;
+    height: 10px;
+    width: 100%;
+    background: transparent;
+}
+
+/* Дополнительные стили для наглядности */
+body.dark-theme .sortable-placeholder {
+    background: #38a0ff;
+    box-shadow: 0 0 5px rgba(56, 160, 255, 0.5);
+}
+
+body.cosmic-theme .sortable-placeholder,
+body.drinwater-theme .sortable-placeholder,
+body.colors-theme .sortable-placeholder {
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Улучшим стили для захвата элемента */
 .drag-handle {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #999;
     cursor: grab;
-    margin-right: 15px;
-    color: #666;
-    font-size: 22px;
-    background-color: rgba(0, 0, 0, 0.05);
-    padding: 5px 10px;
+    padding: 0 10px;
     border-radius: 4px;
-    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 
 .drag-handle:hover {
-    background-color: rgba(0, 123, 255, 0.2);
+    background: #eaeaea;
     color: #333;
-    transform: scale(1.1);
+}
+
+.dragging .drag-handle {
+    cursor: grabbing;
+}
+
+/* Пульсация для плейсхолдера */
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+        height: 2px;
+    }
+    50% {
+        opacity: 1;
+        height: 4px;
+    }
+    100% {
+        opacity: 0.6;
+        height: 2px;
+    }
 }
 
 .field-name {
@@ -741,28 +861,121 @@ body.colors-theme .order-instructions {
 
 /* Адаптация стилей модального окна в зависимости от темы */
 body.light-theme .settings-modal {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #000;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 body.dark-theme .settings-modal {
-    background-color: rgba(50, 50, 50, 0.9);
-    color: #fff;
+    background-color: #222;
+    color: #eee;
+    border: 1px solid #444;
 }
 
 body.cosmic-theme .settings-modal {
-    background-color: rgba(30, 30, 60, 0.9);
+    background-color: rgba(13, 12, 34, 0.85);
     color: #fff;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(128, 93, 248, 0.3);
+    box-shadow: 0 0 25px rgba(128, 93, 248, 0.5);
 }
 
 body.drinwater-theme .settings-modal {
-    background-color: rgba(0, 100, 200, 0.9);
+    background-color: rgba(0, 37, 61, 0.85);
     color: #fff;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 162, 255, 0.3);
+    box-shadow: 0 0 25px rgba(0, 162, 255, 0.4);
 }
 
 body.colors-theme .settings-modal {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #000;
+    background-color: rgba(22, 22, 22, 0.85);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 128, 128, 0.3);
+    box-shadow: 0 0 25px rgba(255, 128, 128, 0.4);
+}
+
+/* Улучшенные стили для чекбоксов */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: 500;
+}
+
+label:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Стили для чекбоксов в разных темах */
+body.dark-theme label:hover {
+    background-color: rgba(56, 160, 255, 0.15);
+}
+
+body.cosmic-theme label,
+body.drinwater-theme label,
+body.colors-theme label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+body.cosmic-theme label:hover,
+body.drinwater-theme label:hover,
+body.colors-theme label:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Иконка закрытия в разных темах */
+.settings-modal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-modal .close-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Заголовок модального окна */
+.settings-modal h2 {
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+body.dark-theme .settings-modal h2 {
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.cosmic-theme .settings-modal h2,
+body.drinwater-theme .settings-modal h2,
+body.colors-theme .settings-modal h2 {
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Стили для about.html и changelog.html */
@@ -1195,7 +1408,9 @@ body.colors-theme:before {
     position: relative;
 }
 
-#languageSelect {
+/* Стили для селекторов языка и темы */
+#languageSelect,
+#themeSelect {
     padding: 8px 12px;
     border-radius: 20px;
     border: 1px solid #ccc;
@@ -1204,41 +1419,133 @@ body.colors-theme:before {
     background-color: white;
     cursor: pointer;
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
 }
 
-#languageSelect:hover {
+#languageSelect:hover,
+#themeSelect:hover {
     border-color: #007BFF;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 
-#languageSelect:focus {
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+#languageSelect:focus,
+#themeSelect:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
-/* Адаптации селектора языка для тем */
-body.dark-theme #languageSelect {
+#languageSelect option,
+#themeSelect option {
+    padding: 8px;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Адаптации для темной темы */
+body.dark-theme #languageSelect,
+body.dark-theme #themeSelect {
     background-color: #333;
     color: white;
     border-color: #555;
 }
 
-body.dark-theme #languageSelect:hover {
+body.dark-theme #languageSelect option,
+body.dark-theme #themeSelect option {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-theme #languageSelect:hover,
+body.dark-theme #themeSelect:hover {
     border-color: #1c90ff;
 }
 
+body.dark-theme #languageSelect:focus,
+body.dark-theme #themeSelect:focus {
+    border-color: #1c90ff;
+    box-shadow: 0 0 0 3px rgba(28, 144, 255, 0.2);
+}
+
+/* Адаптации для космической, водной и цветной тем */
 body.cosmic-theme #languageSelect,
+body.cosmic-theme #themeSelect,
 body.drinwater-theme #languageSelect,
-body.colors-theme #languageSelect {
+body.drinwater-theme #themeSelect,
+body.colors-theme #languageSelect,
+body.colors-theme #themeSelect {
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
     color: white;
     border-color: rgba(255, 255, 255, 0.3);
 }
 
+body.cosmic-theme #languageSelect option,
+body.cosmic-theme #themeSelect option,
+body.drinwater-theme #languageSelect option,
+body.drinwater-theme #themeSelect option,
+body.colors-theme #languageSelect option,
+body.colors-theme #themeSelect option {
+    background-color: rgba(15, 15, 25, 0.95);
+    color: white;
+    backdrop-filter: blur(5px);
+}
+
 body.cosmic-theme #languageSelect:hover,
+body.cosmic-theme #themeSelect:hover,
 body.drinwater-theme #languageSelect:hover,
-body.colors-theme #languageSelect:hover {
+body.drinwater-theme #themeSelect:hover,
+body.colors-theme #languageSelect:hover,
+body.colors-theme #themeSelect:hover {
     border-color: #38a0ff;
+}
+
+body.cosmic-theme #languageSelect:focus,
+body.cosmic-theme #themeSelect:focus,
+body.drinwater-theme #languageSelect:focus,
+body.drinwater-theme #themeSelect:focus,
+body.colors-theme #languageSelect:focus,
+body.colors-theme #themeSelect:focus {
+    border-color: #38a0ff;
+    box-shadow: 0 0 0 3px rgba(56, 160, 255, 0.2);
+}
+
+/* Стили для выпадающего списка */
+select option {
+    padding: 8px 12px;
+    margin: 2px 0;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+select option:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+select option:checked {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Адаптация для темной темы */
+body.dark-theme select option:checked {
+    background-color: #1c90ff;
+}
+
+/* Адаптация для космической, водной и цветной тем */
+body.cosmic-theme select option:checked,
+body.drinwater-theme select option:checked,
+body.colors-theme select option:checked {
+    background-color: #38a0ff;
 }
 
 /* Дополнительные стили для страницы changelog */
@@ -1294,3 +1601,4 @@ body.colors-theme .changelog-intro {
     background-color: rgba(56, 160, 255, 0.15);
     backdrop-filter: blur(5px);
 }
+
