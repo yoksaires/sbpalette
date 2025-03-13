@@ -586,7 +586,7 @@ function saveCopySettings() {
 }
 
 // Обновление функции копирования с учётом типа брони
-function copyRowToClipboard(inputValue, item, armorType) {
+function copyRowToClipboard(hex, item, armorType) {
     const settings = JSON.parse(localStorage.getItem('copySettings')) || {
         name: true,
         color: true,
@@ -608,10 +608,12 @@ function copyRowToClipboard(inputValue, item, armorType) {
         armorType: true
     };
 
+    const input = hex.startsWith('#') ? hex.slice(1) : hex;
+
     const rgb = hexToRgb(item.color);
-    const enteredRedHex = inputValue.slice(inputValue.startsWith('#') ? 1 : 0, 3);
-    const enteredGreenHex = inputValue.slice(inputValue.startsWith('#') ? 3 : 2, 5);
-    const enteredBlueHex = inputValue.slice(inputValue.startsWith('#') ? 5 : 4, 7);
+    const enteredRedHex = input.slice(0, 2);
+    const enteredGreenHex = input.slice(2, 4);
+    const enteredBlueHex = input.slice(4, 6);
     const enteredRedRgb = parseInt(enteredRedHex, 16);
     const enteredGreenRgb = parseInt(enteredGreenHex, 16);
     const enteredBlueRgb = parseInt(enteredBlueHex, 16);
@@ -631,7 +633,7 @@ function copyRowToClipboard(inputValue, item, armorType) {
         '👞': 'Oxford Shoes'
     };
 
-    let rowText = `${inputValue.startsWith('#') ? inputValue.slice(1) : inputValue}`;
+    let rowText = `${hex.startsWith('#') ? hex.slice(1) : hex}`;
     if (settings.hexWithX) rowText += `\t${hexWithX}`;
     if (settings.armorType) rowText += `\t${armorTypeMap[armorType]}`;
     if (settings.enteredRedHex) rowText += `\t${enteredRedHex}`;
