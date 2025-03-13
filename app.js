@@ -608,7 +608,7 @@ function populateFieldOrderList(orderArray) {
 function getFieldDisplayName(fieldKey) {
     const displayNames = {
         'ru': {
-            'hexInput': 'HEX код',
+            'hexInput': 'Введенный HEX код',
             'hexWithX': 'HEX с X (Xx Xx Xx)',
             'armorType': translations[currentLanguage].armorTypeHeader || 'Тип брони',
             'enteredRedHex': 'Красный HEX (ввод)',
@@ -617,19 +617,19 @@ function getFieldDisplayName(fieldKey) {
             'enteredRedRgb': 'Красный RGB (ввод)',
             'enteredGreenRgb': 'Зелёный RGB (ввод)',
             'enteredBlueRgb': 'Синий RGB (ввод)',
-            'name': translations[currentLanguage].armorHeader || 'Броня',
-            'color': translations[currentLanguage].colorHeader || 'Цвет',
+            'name': translations[currentLanguage].armorHeader || 'Ближайшая броня',
+            'color': translations[currentLanguage].colorHeader || 'Цвет ближайшей брони',
             'closestRedHex': 'Красный HEX (ближ.)',
             'closestGreenHex': 'Зелёный HEX (ближ.)',
             'closestBlueHex': 'Синий HEX (ближ.)',
             'closestRedRgb': 'Красный RGB (ближ.)',
             'closestGreenRgb': 'Зелёный RGB (ближ.)',
             'closestBlueRgb': 'Синий RGB (ближ.)',
-            'distance': translations[currentLanguage].differenceHeader || 'Разница',
-            'rank': translations[currentLanguage].tierHeader || 'Ранг'
+            'distance': translations[currentLanguage].differenceHeader || 'Дельта (Разница)',
+            'rank': translations[currentLanguage].tierHeader || 'Ранг (Тир)'
         },
         'en': {
-            'hexInput': 'HEX code',
+            'hexInput': 'HEX code (input)',
             'hexWithX': 'HEX with X (Xx Xx Xx)',
             'armorType': translations[currentLanguage].armorTypeHeader || 'Armor Type',
             'enteredRedHex': 'Red HEX (input)',
@@ -638,16 +638,16 @@ function getFieldDisplayName(fieldKey) {
             'enteredRedRgb': 'Red RGB (input)',
             'enteredGreenRgb': 'Green RGB (input)',
             'enteredBlueRgb': 'Blue RGB (input)',
-            'name': translations[currentLanguage].armorHeader || 'Armor',
-            'color': translations[currentLanguage].colorHeader || 'Color',
+            'name': translations[currentLanguage].armorHeader || 'Closest armor',
+            'color': translations[currentLanguage].colorHeader || 'Color of closest armor',
             'closestRedHex': 'Red HEX (closest)',
             'closestGreenHex': 'Green HEX (closest)',
             'closestBlueHex': 'Blue HEX (closest)',
             'closestRedRgb': 'Red RGB (closest)',
             'closestGreenRgb': 'Green RGB (closest)',
             'closestBlueRgb': 'Blue RGB (closest)',
-            'distance': translations[currentLanguage].differenceHeader || 'Difference',
-            'rank': translations[currentLanguage].tierHeader || 'Rank'
+            'distance': translations[currentLanguage].differenceHeader || 'Delta (Difference)',
+            'rank': translations[currentLanguage].tierHeader || 'Rank (Tier)'
         }
     };
     
