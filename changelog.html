@@ -3,145 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Changelog - SkyBlock HEX Checker</title>
+    <title>Changelog - SBPalette</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="changelog-container">
-        <h1>Changelog</h1>
+        <div class="changelog-header">
+            <a href="main.html" class="back-button" data-lang-ru="Вернуться на главную" data-lang-en="Back to Main"></a>
+            <div class="language-select-container">
+                <select id="languageSelect" onchange="toggleLanguage()">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+        
+        <h1><i class="fas fa-history"></i> <span data-lang-ru="История изменений" data-lang-en="Changelog"></span></h1>
+        <p class="changelog-intro" data-lang-ru="Здесь вы можете отслеживать все обновления и улучшения SBPalette. Последние изменения отображаются в начале списка." 
+           data-lang-en="Here you can track all the updates and improvements to SBPalette. The latest changes are displayed at the beginning of the list."></p>
 
         <div class="changelog-entry">
-            <div class="changelog-date">March 12, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 12 марта 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Added a system for copying table rows for further insertion into Excel or Google Sheets.</li>
+                    <li data-lang-ru="Добавлена возможность настройки порядка полей при копировании результатов" 
+                        data-lang-en="Added ability to configure field order when copying results"></li>
+                    <li data-lang-ru="Добавлен интерактивный интерфейс drag-and-drop для изменения порядка полей" 
+                        data-lang-en="Added interactive drag-and-drop interface for changing field order"></li>
+                    <li data-lang-ru="Улучшен дизайн модального окна настроек копирования" 
+                        data-lang-en="Improved design of the copy settings modal window"></li>
+                    <li data-lang-ru="Добавлены новые визуальные подсказки для упрощения использования" 
+                        data-lang-en="Added new visual hints to simplify usage"></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">March 10, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 10 марта 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Application officially renamed to SBPalette</li>
-                    <li>Added conditional classes to table cells for creating XML queries.</li>
-                    <li>Added ability to reference colors directly from Google Sheets or Excel using XML queries and cell classes.</li>
-                    <li><i> As it turned out, it is not so easy to make XML requests. On the site, the table is generated using JavaScript, and XML only accepts HTML. But still, if you want to make a dynamic table, then use any site that will parse the page with JS and give out the full modified HTML, for example, ScraperAPI or ZenRows or other sites. ........ I am writing and asking myself - Who would want to do this?</i></li>
+                    <li data-lang-ru="Добавлена система для копирования строк таблицы для дальнейшей вставки в Excel или Google Sheets" 
+                        data-lang-en="Added a system for copying table rows for further insertion into Excel or Google Sheets"></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
             </div>
         </div>
+
         <div class="changelog-entry">
-            <div class="changelog-date">March 5, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 10 марта 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Added URL parameter support:</li>
+                    <li><span class="feature-badge" data-lang-ru="Официально" data-lang-en="Official"></span> 
+                        <span data-lang-ru="Приложение переименовано в SBPalette" data-lang-en="Application renamed to SBPalette"></span></li>
+                    <li data-lang-ru="Добавлены условные классы к ячейкам таблицы для создания XML-запросов" 
+                        data-lang-en="Added conditional classes to table cells for creating XML queries"></li>
+                    <li data-lang-ru="Добавлена возможность ссылаться на цвета напрямую из Google Sheets или Excel, используя XML-запросы и классы ячеек" 
+                        data-lang-en="Added ability to reference colors directly from Google Sheets or Excel using XML queries and cell classes"></li>
+                    <li><i data-lang-ru="Как оказалось, создавать XML-запросы не так просто. На сайте таблица генерируется с использованием JavaScript, а XML принимает только HTML. Но всё же, если вы хотите создать динамическую таблицу, используйте любой сайт, который парсит страницу с JS и выдаёт полный модифицированный HTML, например, ScraperAPI, ZenRows или другие подобные сервисы. ....... Я пишу и спрашиваю себя - Кому это может понадобиться?" 
+                        data-lang-en="As it turned out, it is not so easy to make XML requests. On the site, the table is generated using JavaScript, and XML only accepts HTML. But still, if you want to make a dynamic table, then use any site that will parse the page with JS and give out the full modified HTML, for example, ScraperAPI or ZenRows or other sites. ........ I am writing and asking myself - Who would want to do this?"></i></li>
+                </ul>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 5 марта 2025</div>
+            <div class="changelog-content">
+                <ul>
+                    <li><span class="feature-badge" data-lang-ru="Новое" data-lang-en="New"></span> 
+                        <span data-lang-ru="Добавлена поддержка параметров URL:" data-lang-en="Added URL parameter support:"></span></li>
                     <ul>
-                        <li>Now you can share direct links to colors using URL parameter</li>
-                        <li>Example: yoksaires.github.io/sbpalette/main.html?color=FF0000</li>
-                        <li>The color will be automatically loaded when opening the link</li>
+                        <li data-lang-ru="Теперь вы можете делиться прямыми ссылками на цвета, используя параметр URL" 
+                            data-lang-en="Now you can share direct links to colors using URL parameter"></li>
+                        <li data-lang-ru="Пример: yoksaires.github.io/sbpalette/main.html?color=FF0000" 
+                            data-lang-en="Example: yoksaires.github.io/sbpalette/main.html?color=FF0000"></li>
+                        <li data-lang-ru="Цвет будет автоматически загружен при открытии ссылки" 
+                            data-lang-en="The color will be automatically loaded when opening the link"></li>
                     </ul>
                 </ul>
-                <div class="commit-info">Author: yoksaires</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">March 3, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 3 марта 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Themes update:</li>
+                    <li><span class="feature-badge" data-lang-ru="Дизайн" data-lang-en="Design"></span> 
+                        <span data-lang-ru="Обновление тем:" data-lang-en="Themes update:"></span></li>
                     <ul>
-                        <li>"Dark"</li>
-                        <li>"Light"</li>
-                        <li>"Cosmic"</li>
-                        <li>"Drinwater"</li>
-                        <li>"Colors"</li>
+                        <li data-lang-ru="&quot;Темная&quot;" data-lang-en="&quot;Dark&quot;"></li>
+                        <li data-lang-ru="&quot;Светлая&quot;" data-lang-en="&quot;Light&quot;"></li>
+                        <li data-lang-ru="&quot;Космическая&quot;" data-lang-en="&quot;Cosmic&quot;"></li>
+                        <li data-lang-ru="&quot;Вода&quot;" data-lang-en="&quot;Drinwater&quot;"></li>
+                        <li data-lang-ru="&quot;Цвета&quot;" data-lang-en="&quot;Colors&quot;"></li>
                     </ul>
-                    <li>Now you can use Enter to find the color</li>
-                    <li>Added a changelog button to the main page</li>
+                    <li data-lang-ru="Теперь вы можете использовать Enter для поиска цвета" 
+                        data-lang-en="Now you can use Enter to find the color"></li>
+                    <li data-lang-ru="Добавлена кнопка changelog на главную страницу" 
+                        data-lang-en="Added a changelog button to the main page"></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires          <br>Idea: AwkwardWalrus</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span><br>
+                    <span data-lang-ru="Идея: AwkwardWalrus" data-lang-en="Idea: AwkwardWalrus"></span>
+                    <span class="contributor-label" data-lang-ru="Идея" data-lang-en="Idea"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">March 2, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 2 марта 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Fixed "Darck" to "Dark"</li>
-                    <li>Fixed OG FAIRY stuff</li>
-                    <li>Added Exotic Pure colors</li>
-                    <li>Fixed: All random "O"s in the color graph have been replaced with "0"</li>
+                    <li><span class="bug-badge" data-lang-ru="Исправлено" data-lang-en="Fixed"></span> 
+                        <span data-lang-ru="Заменено &quot;Darck&quot; на &quot;Dark&quot;" data-lang-en="Fixed &quot;Darck&quot; to &quot;Dark&quot;"></span></li>
+                    <li data-lang-ru="Исправлены предметы OG FAIRY" data-lang-en="Fixed OG FAIRY stuff"></li>
+                    <li data-lang-ru="Добавлены Exotic Pure цвета" data-lang-en="Added Exotic Pure colors"></li>
+                    <li data-lang-ru="Исправлено: Все случайные &quot;O&quot; в цветовом графике были заменены на &quot;0&quot;" 
+                        data-lang-en="Fixed: All random &quot;O&quot;s in the color graph have been replaced with &quot;0&quot;"></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires          <br>Bug Reporter: jonnytheagent</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span><br>
+                    <span data-lang-ru="Сообщил об ошибке: jonnytheagent" data-lang-en="Bug Reporter: jonnytheagent"></span>
+                    <span class="contributor-label" data-lang-ru="Тестировщик" data-lang-en="Tester"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">February 27, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 27 февраля 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>The armor table has been reduced from 500 lines to 230 lines (Cells with the same codes are merged)</li>
-                    <li>Updated to make the table understand line breaks</li>
+                    <li><span class="feature-badge" data-lang-ru="Улучшение" data-lang-en="Improvement"></span> 
+                        <span data-lang-ru="Таблица брони сокращена с 500 строк до 230 строк (Объединены ячейки с одинаковыми кодами)" 
+                              data-lang-en="The armor table has been reduced from 500 lines to 230 lines (Cells with the same codes are merged)"></span></li>
+                    <li data-lang-ru="Обновлена функция для понимания таблицей переносов строк" 
+                        data-lang-en="Updated to make the table understand line breaks"></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">February 26, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 26 февраля 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Fixed CRYSTAL Offwhite code</li>
-                    <li>Added a hint picture from which FAIRY, CRYSTAL, OG FAIRY, OG FAIRY+ were taken</li>
-                    <li>Added CRYSTAL, FAIRY, OG FAIRY, OG FAIRY+ to database</li>
+                    <li><span class="bug-badge" data-lang-ru="Исправлено" data-lang-en="Fixed"></span> 
+                        <span data-lang-ru="Исправлен код CRYSTAL Offwhite" data-lang-en="Fixed CRYSTAL Offwhite code"></span></li>
+                    <li data-lang-ru="Добавлено подсказочное изображение, из которого были взяты FAIRY, CRYSTAL, OG FAIRY, OG FAIRY+" 
+                        data-lang-en="Added a hint picture from which FAIRY, CRYSTAL, OG FAIRY, OG FAIRY+ were taken"></li>
+                    <li data-lang-ru="Добавлены CRYSTAL, FAIRY, OG FAIRY, OG FAIRY+ в базу данных" 
+                        data-lang-en="Added CRYSTAL, FAIRY, OG FAIRY, OG FAIRY+ to database"></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires          <br>Thanks to: jonnytheagent</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span><br>
+                    <span data-lang-ru="Благодарность: jonnytheagent" data-lang-en="Thanks to: jonnytheagent"></span>
+                    <span class="contributor-label" data-lang-ru="Помощник" data-lang-en="Helper"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">February 25, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 25 февраля 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Fixed ranks</li>
+                    <li data-lang-ru="Исправлены ранги" data-lang-en="Fixed ranks"></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">February 21, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 21 февраля 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Major update: Now using delta E CIE76 to find difference</li>
-                    <li>Version 2 release:
+                    <li><span class="feature-badge major" data-lang-ru="Важное обновление" data-lang-en="Major update"></span> 
+                        <span data-lang-ru="Теперь используется delta E CIE76 для нахождения разницы" 
+                              data-lang-en="Now using delta E CIE76 to find difference"></span></li>
+                    <li>
+                        <span data-lang-ru="Релиз версии 2:" data-lang-en="Version 2 release:"></span>
                         <ul>
-                            <li>No need to enter # for HEX</li>
-                            <li>Output of the five closest matches</li>
-                            <li>History of requests added</li>
-                            <li>English language added</li>
-                            <li>Visual component improved</li>
+                            <li data-lang-ru="Больше не нужно вводить # для HEX" data-lang-en="No need to enter # for HEX"></li>
+                            <li data-lang-ru="Вывод пяти ближайших совпадений" data-lang-en="Output of the five closest matches"></li>
+                            <li data-lang-ru="Добавлена история запросов" data-lang-en="History of requests added"></li>
+                            <li data-lang-ru="Добавлен английский язык" data-lang-en="English language added"></li>
+                            <li data-lang-ru="Улучшен визуальный компонент" data-lang-en="Visual component improved"></li>
                         </ul>
                     </li>
                 </ul>
-                <div class="commit-info">Author: yoksaires</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
             </div>
         </div>
 
         <div class="changelog-entry">
-            <div class="changelog-date">February 18, 2025</div>
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 18 февраля 2025</div>
             <div class="changelog-content">
                 <ul>
-                    <li>Renamed from index.html</li>
-                    <li>Added all dyes to checklist</li>
-                    <li>Initial release</li>
+                    <li data-lang-ru="Переименовано из index.html" data-lang-en="Renamed from index.html"></li>
+                    <li data-lang-ru="Добавлены все красители в список" data-lang-en="Added all dyes to checklist"></li>
+                    <li><span class="feature-badge major" data-lang-ru="Важно" data-lang-en="Important"></span> 
+                        <span data-lang-ru="Первый релиз" data-lang-en="Initial release"></span></li>
                 </ul>
-                <div class="commit-info">Author: yoksaires</div>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Определение начального языка
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+
+        // Установка выбранного языка при загрузке страницы
+        window.onload = function() {
+            // Установка темы
+            const savedTheme = localStorage.getItem('selectedTheme') || 'light';
+            document.body.classList.add(`${savedTheme}-theme`);
+            
+            // Установка языка
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.value = currentLanguage;
+            applyLanguage();
+        };
+
+        // Функция переключения языка
+        function toggleLanguage() {
+            const languageSelect = document.getElementById('languageSelect');
+            currentLanguage = languageSelect.value;
+            localStorage.setItem('selectedLanguage', currentLanguage);
+            applyLanguage();
+        }
+
+        // Функция применения языка к элементам страницы
+        function applyLanguage() {
+            // Применяем язык ко всем элементам с атрибутами data-lang-ru и data-lang-en
+            document.querySelectorAll('[data-lang-ru][data-lang-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-lang-${currentLanguage}`);
+            });
+            
+            // Применяем язык к атрибутам, таким как placeholder
+            document.querySelectorAll('[data-attr-lang-ru][data-attr-lang-en]').forEach(element => {
+                const attrName = element.getAttribute('data-attr-name');
+                if (attrName) {
+                    element.setAttribute(attrName, element.getAttribute(`data-attr-lang-${currentLanguage}`));
+                }
+            });
+        }
+    </script>
+    
+    <style>
+        /* Стили для выбора языка */
+        .changelog-header, .about-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .language-select-container {
+            position: relative;
+        }
+        
+        #languageSelect {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        #languageSelect:hover {
+            border-color: #007BFF;
+        }
+        
+        #languageSelect:focus {
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+        }
+        
+        /* Адаптации для тем */
+        body.dark-theme #languageSelect {
+            background-color: #333;
+            color: white;
+            border-color: #555;
+        }
+        
+        body.dark-theme #languageSelect:hover {
+            border-color: #1c90ff;
+        }
+        
+        body.cosmic-theme #languageSelect,
+        body.drinwater-theme #languageSelect,
+        body.colors-theme #languageSelect {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        body.cosmic-theme #languageSelect:hover,
+        body.drinwater-theme #languageSelect:hover,
+        body.colors-theme #languageSelect:hover {
+            border-color: #38a0ff;
+        }
+    </style>
 </body>
 </html> 

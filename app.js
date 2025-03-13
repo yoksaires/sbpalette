@@ -314,7 +314,12 @@ const translations = {
             drinwater: 'Вода',
             colors: 'Цвета'
         },
-        armorTypeHeader: 'Тип брони'
+        armorTypeHeader: 'Тип брони',
+        fieldSelection: 'Выбор полей',
+        fieldOrder: 'Порядок полей',
+        orderInstructions: 'Перетащите поля для изменения порядка копирования:',
+        dragHint: 'Удерживайте ≡ и перетаскивайте для изменения порядка',
+        dragHandleTitle: 'Перетащите для изменения позиции'
     },
     en: {
         title: 'SBPalette for Hypixel',
@@ -339,7 +344,12 @@ const translations = {
             drinwater: 'Drinwater',
             colors: 'Colors'
         },
-        armorTypeHeader: 'Armor Type'
+        armorTypeHeader: 'Armor Type',
+        fieldSelection: 'Field Selection',
+        fieldOrder: 'Field Order',
+        orderInstructions: 'Drag fields to change copying order:',
+        dragHint: 'Hold ≡ and drag to change order',
+        dragHandleTitle: 'Drag to reorder'
     }
 };
 
@@ -496,117 +506,266 @@ function fillTable(colors) {
     }
 }
 
-// Функция для открытия модального окна настроек
-function openSettingsModal() {
-    const modal = document.createElement('div');
-    modal.className = 'settings-modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-button" onclick="closeSettingsModal()">🔴</span>
-            <h2>${translations[currentLanguage].copySettingsTitle}</h2>
-            <form id="copySettingsForm">
-
-                <!-- Всегда есть строка с введённым HEX -->
-                <label><input type="checkbox" name="armorType"> ${translations[currentLanguage].armorTypeHeader}</label><br>
-                <!-- Всегда есть строка с введённым типом брони -->
-                <label><input type="checkbox" name="hexWithX"> Hex with Xs (Xx Xx Xx)</label><br>
-
-                <!-- Строка с введённым HEX и RGB -->
-                <label><input type="checkbox" name="enteredRedHex"> Entered Red HEX</label><br>
-                <label><input type="checkbox" name="enteredGreenHex"> Entered Green HEX</label><br>
-                <label><input type="checkbox" name="enteredBlueHex"> Entered Blue HEX</label><br>
-                <label><input type="checkbox" name="enteredRedRgb"> Entered Red RGB</label><br>
-                <label><input type="checkbox" name="enteredGreenRgb"> Entered Green RGB</label><br>
-                <label><input type="checkbox" name="enteredBlueRgb"> Entered Blue RGB</label><br>
-
-                <label><input type="checkbox" name="name"> ${translations[currentLanguage].armorHeader}</label><br>
-                <label><input type="checkbox" name="color"> ${translations[currentLanguage].colorHeader}</label><br>
-
-                <!-- Строка с ближайшим HEX и RGB -->
-                <label><input type="checkbox" name="closestRedHex"> Closest Red HEX</label><br>
-                <label><input type="checkbox" name="closestGreenHex"> Closest Green HEX</label><br>
-                <label><input type="checkbox" name="closestBlueHex"> Closest Blue HEX</label><br>
-                <label><input type="checkbox" name="closestRedRgb"> Closest Red RGB</label><br>
-                <label><input type="checkbox" name="closestGreenRgb"> Closest Green RGB</label><br>
-                <label><input type="checkbox" name="closestBlueRgb"> Closest Blue RGB</label><br>
-
-                <label><input type="checkbox" name="distance"> ${translations[currentLanguage].differenceHeader}</label><br>
-                <label><input type="checkbox" name="rank"> ${translations[currentLanguage].tierHeader}</label><br>
-                <button type="button" onclick="saveCopySettings()">${translations[currentLanguage].saveButton}</button>
-            </form>
-            <i>
-                I know, I know, there's a lot of unnecessary stuff here. The next thing I'll do is fine-tune this menu. Any ideas? - Dm on Discord voksaieres
-            </i>
-        </div>
-    `;
-    document.body.appendChild(modal);
-
-    // Установить состояние чекбоксов в соответствии с сохранёнными настройками
-    const settings = JSON.parse(localStorage.getItem('copySettings')) || {
-        name: true,
-        color: true,
-        enteredRedHex: true,
-        enteredGreenHex: true,
-        enteredBlueHex: true,
-        enteredRedRgb: true,
-        enteredGreenRgb: true,
-        enteredBlueRgb: true,
-        hexWithX: true,
-        distance: true,
-        rank: true
-    };
-
-    const form = document.getElementById('copySettingsForm');
-    Object.keys(settings).forEach(key => {
-        const checkbox = form.querySelector(`input[name="${key}"]`);
-        if (checkbox) {
-            checkbox.checked = settings[key];
+// Показать вкладку настроек и заполнить ее
+function showSettingsTab(tabName) {
+    document.querySelectorAll('.settings-tab-content').forEach(tab => {
+        tab.style.display = 'none';
+    });
+    
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    document.getElementById(tabName + 'Tab').style.display = 'block';
+    document.querySelector(`.tab-button[onclick="showSettingsTab('${tabName}')"]`).classList.add('active');
+    
+    // Если переключились на вкладку порядка полей, убедимся что список заполнен
+    if (tabName === 'order') {
+        // Убедимся, что список не пуст
+        const orderList = document.getElementById('fieldOrderList');
+        if (orderList && orderList.children.length === 0) {
+            // Если список пуст, заполним его заново
+            const settings = JSON.parse(localStorage.getItem('copySettings')) || getDefaultSettings();
+            populateFieldOrderList(settings.order);
+            // Реинициализируем сортировку
+            initSortable();
         }
+    }
+}
+
+// Создаём список полей для сортировки
+function populateFieldOrderList(orderArray) {
+    const orderList = document.getElementById('fieldOrderList');
+    if (!orderList) return;
+    
+    // Очистим список
+    orderList.innerHTML = '';
+    
+    // Проверим, есть ли у нас подсказка о drag-and-drop
+    let dragHint = document.querySelector('.drag-hint');
+    if (!dragHint) {
+        // Если нет, создадим ее
+        dragHint = document.createElement('div');
+        dragHint.className = 'drag-hint';
+        dragHint.innerHTML = `<div class="hint-icon">↕️</div><div>${translations[currentLanguage].dragHint || 'Удерживайте ≡ и перетаскивайте для изменения порядка'}</div>`;
+        const orderContainer = document.getElementById('orderTab');
+        if (orderContainer) {
+            // Добавляем подсказку перед инструкциями
+            const instructionsDiv = orderContainer.querySelector('.order-instructions');
+            if (instructionsDiv) {
+                orderContainer.insertBefore(dragHint, instructionsDiv.nextSibling);
+            } else {
+                orderContainer.insertBefore(dragHint, orderContainer.firstChild);
+            }
+        }
+    }
+    
+    // Используем сохранённый порядок или создаём стандартный
+    const fieldOrder = orderArray && orderArray.length > 0 ? orderArray : getDefaultFieldOrder();
+    
+    // Добавляем элементы в список
+    fieldOrder.forEach(field => {
+        const fieldName = getFieldDisplayName(field);
+        const li = document.createElement('li');
+        li.className = 'sortable-item';
+        li.setAttribute('data-field', field);
+        li.innerHTML = `
+            <div class="drag-handle" title="${translations[currentLanguage].dragHandleTitle || 'Перетащите для изменения позиции'}">≡</div>
+            <div class="field-name">${fieldName}</div>
+        `;
+        orderList.appendChild(li);
+    });
+    
+    // Проверим, что список не пуст
+    if (orderList.children.length === 0) {
+        // Если почему-то список всё ещё пуст, явно заполним его стандартными значениями
+        getDefaultFieldOrder().forEach(field => {
+            const fieldName = getFieldDisplayName(field);
+            const li = document.createElement('li');
+            li.className = 'sortable-item';
+            li.setAttribute('data-field', field);
+            li.innerHTML = `
+                <div class="drag-handle" title="${translations[currentLanguage].dragHandleTitle || 'Перетащите для изменения позиции'}">≡</div>
+                <div class="field-name">${fieldName}</div>
+            `;
+            orderList.appendChild(li);
+        });
+    }
+    
+    console.log('Создано элементов для сортировки:', orderList.children.length);
+}
+
+// Получаем понятное имя поля для отображения
+function getFieldDisplayName(fieldKey) {
+    const displayNames = {
+        'hexInput': 'HEX код',
+        'hexWithX': 'HEX с X (Xx Xx Xx)',
+        'armorType': translations[currentLanguage].armorTypeHeader || 'Тип брони',
+        'enteredRedHex': 'Красный HEX (ввод)',
+        'enteredGreenHex': 'Зелёный HEX (ввод)',
+        'enteredBlueHex': 'Синий HEX (ввод)',
+        'enteredRedRgb': 'Красный RGB (ввод)',
+        'enteredGreenRgb': 'Зелёный RGB (ввод)',
+        'enteredBlueRgb': 'Синий RGB (ввод)',
+        'name': translations[currentLanguage].armorHeader || 'Броня',
+        'color': translations[currentLanguage].colorHeader || 'Цвет',
+        'closestRedHex': 'Красный HEX (ближ.)',
+        'closestGreenHex': 'Зелёный HEX (ближ.)',
+        'closestBlueHex': 'Синий HEX (ближ.)',
+        'closestRedRgb': 'Красный RGB (ближ.)',
+        'closestGreenRgb': 'Зелёный RGB (ближ.)',
+        'closestBlueRgb': 'Синий RGB (ближ.)',
+        'distance': translations[currentLanguage].differenceHeader || 'Разница',
+        'rank': translations[currentLanguage].tierHeader || 'Ранг'
+    };
+    
+    return displayNames[fieldKey] || fieldKey;
+}
+
+// Инициализация сортировки
+function initSortable() {
+    const orderList = document.getElementById('fieldOrderList');
+    if (!orderList) return;
+    
+    // Здесь можно будет использовать библиотеку для drag-n-drop, 
+    // но для простого примера используем собственную реализацию
+    
+    let dragItem = null;
+    
+    // Обработчики для перетаскивания
+    orderList.querySelectorAll('.sortable-item').forEach(item => {
+        item.querySelector('.drag-handle').addEventListener('mousedown', function(e) {
+            dragItem = item;
+            dragItem.classList.add('dragging');
+            
+            // Координаты начального положения курсора
+            const initialY = e.clientY;
+            const initialItemTop = item.offsetTop;
+            
+            // Обработчик движения мыши
+            function mouseMoveHandler(e) {
+                const newY = e.clientY;
+                const deltaY = newY - initialY;
+                
+                // Перемещаем элемент
+                dragItem.style.top = `${initialItemTop + deltaY}px`;
+                
+                // Определяем новую позицию
+                const items = Array.from(orderList.querySelectorAll('.sortable-item:not(.dragging)'));
+                const itemBelow = items.find(item => {
+                    return e.clientY < item.offsetTop + item.offsetHeight / 2;
+                });
+                
+                if (itemBelow) {
+                    orderList.insertBefore(dragItem, itemBelow);
+                } else {
+                    // Если элемент внизу списка
+                    orderList.appendChild(dragItem);
+                }
+            }
+            
+            // Обработчик отпускания мыши
+            function mouseUpHandler() {
+                dragItem.classList.remove('dragging');
+                dragItem.style.top = '';
+                dragItem = null;
+                
+                document.removeEventListener('mousemove', mouseMoveHandler);
+                document.removeEventListener('mouseup', mouseUpHandler);
+            }
+            
+            document.addEventListener('mousemove', mouseMoveHandler);
+            document.addEventListener('mouseup', mouseUpHandler);
+            
+            e.preventDefault();
+        });
     });
 }
 
-// Функция для закрытия модального окна
-function closeSettingsModal() {
-    const modal = document.querySelector('.settings-modal');
-    if (modal) {
-        document.body.removeChild(modal);
-    }
+// Получить стандартные настройки
+function getDefaultSettings() {
+    return {
+        fields: {
+            armorType: true,
+            hexWithX: true,
+            enteredRedHex: true,
+            enteredGreenHex: true,
+            enteredBlueHex: true,
+            enteredRedRgb: true,
+            enteredGreenRgb: true,
+            enteredBlueRgb: true,
+            name: true,
+            color: true,
+            closestRedHex: true,
+            closestGreenHex: true,
+            closestBlueHex: true,
+            closestRedRgb: true,
+            closestGreenRgb: true,
+            closestBlueRgb: true,
+            distance: true,
+            rank: true
+        },
+        order: getDefaultFieldOrder()
+    };
+}
+
+// Получить стандартный порядок полей
+function getDefaultFieldOrder() {
+    return [
+        'hexInput',
+        'hexWithX',
+        'armorType',
+        'enteredRedHex',
+        'enteredGreenHex',
+        'enteredBlueHex',
+        'enteredRedRgb',
+        'enteredGreenRgb',
+        'enteredBlueRgb',
+        'name',
+        'color',
+        'closestRedHex',
+        'closestGreenHex',
+        'closestBlueHex',
+        'closestRedRgb',
+        'closestGreenRgb',
+        'closestBlueRgb',
+        'distance',
+        'rank'
+    ];
 }
 
 // Функция для сохранения настроек копирования
 function saveCopySettings() {
     const form = document.getElementById('copySettingsForm');
     const formData = new FormData(form);
-    const settings = {};
-    formData.forEach((value, key) => {
-        settings[key] = true;
+    const settings = getDefaultSettings();
+    
+    // Сбрасываем все поля
+    Object.keys(settings.fields).forEach(key => {
+        settings.fields[key] = false;
     });
+    
+    // Устанавливаем выбранные поля
+    formData.forEach((value, key) => {
+        settings.fields[key] = true;
+    });
+    
+    // Сохраняем порядок полей
+    const orderList = document.getElementById('fieldOrderList');
+    if (orderList) {
+        settings.order = Array.from(orderList.querySelectorAll('.sortable-item')).map(item => 
+            item.getAttribute('data-field')
+        );
+    }
+    
     localStorage.setItem('copySettings', JSON.stringify(settings));
     closeSettingsModal();
 }
 
-// Обновление функции копирования с учётом типа брони
+// Обновление функции копирования с учётом типа брони и порядка полей
 function copyRowToClipboard(hex, item, armorType) {
-    const settings = JSON.parse(localStorage.getItem('copySettings')) || {
-        name: true,
-        color: true,
-        enteredRedHex: true,
-        enteredGreenHex: true,
-        enteredBlueHex: true,
-        enteredRedRgb: true,
-        enteredGreenRgb: true,
-        enteredBlueRgb: true,
-        closestRedHex: true,
-        closestGreenHex: true,
-        closestBlueHex: true,
-        closestRedRgb: true,
-        closestGreenRgb: true,
-        closestBlueRgb: true,
-        hexWithX: true,
-        distance: true,
-        rank: true,
-        armorType: true
-    };
+    const savedSettings = JSON.parse(localStorage.getItem('copySettings'));
+    const settings = savedSettings || getDefaultSettings();
 
     const input = hex.startsWith('#') ? hex.slice(1) : hex;
 
@@ -624,6 +783,7 @@ function copyRowToClipboard(hex, item, armorType) {
     const closestGreenRgb = rgb.g;
     const closestBlueRgb = rgb.b;
     const hexWithX = `${enteredRedHex[0]}x ${enteredGreenHex[0]}x ${enteredBlueHex[0]}x`;
+    const hexInput = input;
 
     // Добавление типа брони в строку копирования
     const armorTypeMap = {
@@ -632,26 +792,40 @@ function copyRowToClipboard(hex, item, armorType) {
         '👖': 'Satin Trousers',
         '👞': 'Oxford Shoes'
     };
-
-    let rowText = `${hex.startsWith('#') ? hex.slice(1) : hex}`;
-    if (settings.hexWithX) rowText += `\t${hexWithX}`;
-    if (settings.armorType) rowText += `\t${armorTypeMap[armorType]}`;
-    if (settings.enteredRedHex) rowText += `\t${enteredRedHex}`;
-    if (settings.enteredGreenHex) rowText += `\t${enteredGreenHex}`;
-    if (settings.enteredBlueHex) rowText += `\t${enteredBlueHex}`;
-    if (settings.enteredRedRgb) rowText += `\t${enteredRedRgb}`;
-    if (settings.enteredGreenRgb) rowText += `\t${enteredGreenRgb}`;
-    if (settings.enteredBlueRgb) rowText += `\t${enteredBlueRgb}`;
-    if (settings.name) rowText += `\t${item.name}`;
-    if (settings.color) rowText += `\t${item.color}`;
-    if (settings.closestRedHex) rowText += `\t${closestRedHex}`;
-    if (settings.closestGreenHex) rowText += `\t${closestGreenHex}`;
-    if (settings.closestBlueHex) rowText += `\t${closestBlueHex}`;
-    if (settings.closestRedRgb) rowText += `\t${closestRedRgb}`;
-    if (settings.closestGreenRgb) rowText += `\t${closestGreenRgb}`;
-    if (settings.closestBlueRgb) rowText += `\t${closestBlueRgb}`;
-    if (settings.distance) rowText += `\t${item.distance.toFixed(3)}`;
-    if (settings.rank) rowText += `\t${getRank(item.distance)}`;
+    
+    // Создаем объект со всеми возможными полями
+    const fieldValues = {
+        'hexInput': hexInput,
+        'hexWithX': hexWithX,
+        'armorType': armorTypeMap[armorType],
+        'enteredRedHex': enteredRedHex,
+        'enteredGreenHex': enteredGreenHex,
+        'enteredBlueHex': enteredBlueHex,
+        'enteredRedRgb': enteredRedRgb,
+        'enteredGreenRgb': enteredGreenRgb,
+        'enteredBlueRgb': enteredBlueRgb,
+        'name': item.name,
+        'color': item.color,
+        'closestRedHex': closestRedHex,
+        'closestGreenHex': closestGreenHex,
+        'closestBlueHex': closestBlueHex,
+        'closestRedRgb': closestRedRgb,
+        'closestGreenRgb': closestGreenRgb,
+        'closestBlueRgb': closestBlueRgb,
+        'distance': item.distance.toFixed(3),
+        'rank': getRank(item.distance)
+    };
+    
+    // Собираем значения в нужном порядке с учетом включенных полей
+    let rowText = '';
+    
+    for (const field of settings.order) {
+        // Проверяем, что поле 'hexInput' всегда включено, остальные - по настройке
+        if (field === 'hexInput' || settings.fields[field]) {
+            if (rowText) rowText += '\t';
+            rowText += fieldValues[field];
+        }
+    }
 
     navigator.clipboard.writeText(rowText).then(() => {
         alert('Row copied to clipboard!');
@@ -820,3 +994,93 @@ window.addEventListener('beforeunload', () => {
         localStorage.setItem('copySettings', JSON.stringify(settings));
     }
 });
+
+// Функция для закрытия модального окна
+function closeSettingsModal() {
+    const modal = document.querySelector('.settings-modal');
+    if (modal) {
+        document.body.removeChild(modal);
+    }
+}
+
+// Функция для открытия модального окна настроек
+function openSettingsModal() {
+    const modal = document.createElement('div');
+    modal.className = 'settings-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-button" onclick="closeSettingsModal()">🔴</span>
+            <h2>${translations[currentLanguage].copySettingsTitle}</h2>
+            
+            <div class="settings-tabs">
+                <button class="tab-button active" onclick="showSettingsTab('fields')">${translations[currentLanguage].fieldSelection || 'Выбор полей'}</button>
+                <button class="tab-button" onclick="showSettingsTab('order')">${translations[currentLanguage].fieldOrder || 'Порядок полей'}</button>
+            </div>
+            
+            <div id="fieldsTab" class="settings-tab-content">
+                <form id="copySettingsForm">
+                    <!-- Всегда есть строка с введённым HEX -->
+                    <label><input type="checkbox" name="armorType"> ${translations[currentLanguage].armorTypeHeader}</label><br>
+                    <!-- Всегда есть строка с введённым типом брони -->
+                    <label><input type="checkbox" name="hexWithX"> Hex with Xs (Xx Xx Xx)</label><br>
+
+                    <!-- Строка с введённым HEX и RGB -->
+                    <label><input type="checkbox" name="enteredRedHex"> Entered Red HEX</label><br>
+                    <label><input type="checkbox" name="enteredGreenHex"> Entered Green HEX</label><br>
+                    <label><input type="checkbox" name="enteredBlueHex"> Entered Blue HEX</label><br>
+                    <label><input type="checkbox" name="enteredRedRgb"> Entered Red RGB</label><br>
+                    <label><input type="checkbox" name="enteredGreenRgb"> Entered Green RGB</label><br>
+                    <label><input type="checkbox" name="enteredBlueRgb"> Entered Blue RGB</label><br>
+
+                    <label><input type="checkbox" name="name"> ${translations[currentLanguage].armorHeader}</label><br>
+                    <label><input type="checkbox" name="color"> ${translations[currentLanguage].colorHeader}</label><br>
+
+                    <!-- Строка с ближайшим HEX и RGB -->
+                    <label><input type="checkbox" name="closestRedHex"> Closest Red HEX</label><br>
+                    <label><input type="checkbox" name="closestGreenHex"> Closest Green HEX</label><br>
+                    <label><input type="checkbox" name="closestBlueHex"> Closest Blue HEX</label><br>
+                    <label><input type="checkbox" name="closestRedRgb"> Closest Red RGB</label><br>
+                    <label><input type="checkbox" name="closestGreenRgb"> Closest Green RGB</label><br>
+                    <label><input type="checkbox" name="closestBlueRgb"> Closest Blue RGB</label><br>
+
+                    <label><input type="checkbox" name="distance"> ${translations[currentLanguage].differenceHeader}</label><br>
+                    <label><input type="checkbox" name="rank"> ${translations[currentLanguage].tierHeader}</label><br>
+                </form>
+            </div>
+            
+            <div id="orderTab" class="settings-tab-content" style="display:none;">
+                <div class="order-instructions">
+                    ${translations[currentLanguage].orderInstructions || 'Перетащите поля для изменения порядка копирования:'}
+                </div>
+                <ul id="fieldOrderList" class="sortable-list">
+                    <!-- Будет заполнен динамически -->
+                </ul>
+            </div>
+            
+            <div class="settings-footer">
+                <button type="button" onclick="saveCopySettings()">${translations[currentLanguage].saveButton}</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Установить состояние чекбоксов в соответствии с сохранёнными настройками
+    const settings = JSON.parse(localStorage.getItem('copySettings')) || getDefaultSettings();
+
+    const form = document.getElementById('copySettingsForm');
+    Object.keys(settings.fields).forEach(key => {
+        const checkbox = form.querySelector(`input[name="${key}"]`);
+        if (checkbox) {
+            checkbox.checked = settings.fields[key];
+        }
+    });
+    
+    // Явно вызываем заполнение списка для сортировки
+    populateFieldOrderList(settings.order);
+    
+    // Инициализируем сортировку после создания DOM-элементов
+    setTimeout(() => {
+        initSortable();
+        console.log('Sortable инициализирован');
+    }, 100);
+}

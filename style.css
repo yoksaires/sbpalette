@@ -529,7 +529,9 @@ td.color-cell {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .settings-modal .close-button {
@@ -537,6 +539,204 @@ td.color-cell {
     top: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+/* Стили для вкладок настроек */
+.settings-tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    position: relative;
+    opacity: 0.7;
+}
+
+.tab-button.active {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.tab-button.active:after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #007BFF;
+}
+
+.settings-tab-content {
+    padding: 10px 0;
+}
+
+/* Стили для сортируемого списка */
+.sortable-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: block;
+}
+
+.sortable-item {
+    padding: 12px;
+    margin: 8px 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: grab;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.sortable-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sortable-item.dragging {
+    opacity: 0.8;
+    position: absolute;
+    width: calc(100% - 20px);
+    z-index: 100;
+    cursor: grabbing;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.drag-handle {
+    cursor: grab;
+    margin-right: 15px;
+    color: #666;
+    font-size: 22px;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.drag-handle:hover {
+    background-color: rgba(0, 123, 255, 0.2);
+    color: #333;
+    transform: scale(1.1);
+}
+
+.field-name {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+/* Стили для подсказки о drag-and-drop */
+.drag-hint {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 193, 7, 0.2);
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+    font-size: 15px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(255, 193, 7, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    }
+}
+
+.hint-icon {
+    font-size: 22px;
+    margin-right: 12px;
+}
+
+.order-instructions {
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    background-color: rgba(0, 123, 255, 0.1);
+    border-left: 4px solid #007BFF;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* Адаптация для разных тем */
+body.dark-theme .sortable-item {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .sortable-item:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .drag-handle {
+    color: #ccc;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-theme .drag-handle:hover {
+    background-color: rgba(0, 123, 255, 0.3);
+    color: #fff;
+}
+
+body.dark-theme .sortable-item:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-theme .drag-hint {
+    background-color: rgba(255, 193, 7, 0.15);
+}
+
+body.dark-theme .order-instructions {
+    background-color: rgba(0, 123, 255, 0.2);
+}
+
+body.cosmic-theme .sortable-item,
+body.drinwater-theme .sortable-item,
+body.colors-theme .sortable-item {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.cosmic-theme .sortable-item:hover,
+body.drinwater-theme .sortable-item:hover,
+body.colors-theme .sortable-item:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+body.cosmic-theme .order-instructions,
+body.drinwater-theme .order-instructions,
+body.colors-theme .order-instructions {
+    background-color: rgba(0, 123, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.settings-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.settings-footer button {
+    min-width: 100px;
 }
 
 /* Адаптация стилей модального окна в зависимости от темы */
@@ -565,105 +765,532 @@ body.colors-theme .settings-modal {
     color: #000;
 }
 
-/* Стили для about.html */
-.about-container {
-    max-width: 800px;
+/* Стили для about.html и changelog.html */
+
+/* Общие стили для контейнеров страниц */
+.about-container,
+.changelog-container {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
 }
 
-.about-section {
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-}
-
-.contact-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.contact-info img {
-    width: 24px;
-    height: 24px;
-}
-
-.feature-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.feature-list li {
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
-}
-
-.feature-list li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #007BFF;
-}
-
-.tutorial-step {
-    margin-bottom: 15px;
-    padding: 10px;
-    border-left: 3px solid #007BFF;
-}
-
+/* Стили для кнопки "Назад" */
 .back-button {
-    display: inline-block;
-    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 25px;
     padding: 10px 20px;
     background-color: #007BFF;
     color: white;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 30px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.back-button:before {
+    content: "←";
+    margin-right: 10px;
+    font-size: 18px;
 }
 
 .back-button:hover {
     background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.github-info {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: rgba(0, 123, 255, 0.1);
-    border-radius: 4px;
-    border-left: 3px solid #007BFF;
-}
-
-/* Стили для changelog.html */
-.changelog-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.changelog-entry {
+/* Стили для заголовков */
+.about-container h1,
+.changelog-container h1 {
+    font-size: 2.5rem;
     margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    color: #007BFF;
+    position: relative;
+    padding-bottom: 10px;
 }
 
-.changelog-date {
+.about-container h1:after,
+.changelog-container h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #007BFF, transparent);
+    border-radius: 2px;
+}
+
+.about-container h2,
+.changelog-container h2 {
+    font-size: 1.8rem;
+    margin: 30px 0 15px;
+    color: #0056b3;
+}
+
+.about-container h3,
+.changelog-container h3 {
+    font-size: 1.4rem;
+    margin: 25px 0 10px;
+    color: #0069d9;
+}
+
+/* Стили для секций и карточек */
+.about-section,
+.changelog-entry {
+    margin-bottom: 35px;
+    padding: 25px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-left: 5px solid #007BFF;
+    overflow: hidden;
+}
+
+.about-section:hover,
+.changelog-entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Анимация для секций при загрузке страницы */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-section,
+.changelog-entry {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.about-section:nth-child(1),
+.changelog-entry:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.about-section:nth-child(2),
+.changelog-entry:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.about-section:nth-child(3),
+.changelog-entry:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.about-section:nth-child(4),
+.changelog-entry:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.about-section:nth-child(5),
+.changelog-entry:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+/* Специальные стили для секции GitHub */
+.github-info {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: rgba(0, 123, 255, 0.05);
+    border-radius: 10px;
+    border-left: 5px solid #007BFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.github-info:before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/25/25231.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    transform: rotate(15deg);
+}
+
+/* Стили для списков */
+.feature-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.feature-list li {
+    margin-bottom: 12px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.feature-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #28a745;
     font-weight: bold;
+    font-size: 16px;
+}
+
+/* Стили для контактной информации */
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+    padding: 12px 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.contact-info:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.contact-info img {
+    width: 28px;
+    height: 28px;
+    filter: grayscale(0.5);
+    transition: all 0.3s ease;
+}
+
+.contact-info:hover img {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+
+.contact-info a {
     color: #007BFF;
-    margin-bottom: 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-info a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Стили для шагов туториала */
+.tutorial-step {
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-left: 4px solid #28a745;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.tutorial-step:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateX(5px);
+}
+
+.tutorial-step h3 {
+    margin-top: 0;
+    color: #28a745;
+}
+
+/* Специальные стили для страницы changelog */
+.changelog-date {
+    font-weight: 600;
+    color: #007BFF;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    display: inline-block;
+    background-color: rgba(0, 123, 255, 0.1);
+    padding: 5px 15px;
+    border-radius: 20px;
 }
 
 .changelog-content {
-    margin-left: 20px;
+    margin-left: 0;
+}
+
+.changelog-content ul {
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+.changelog-content ul li {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.changelog-content ul li:before {
+    content: "•";
+    color: #007BFF;
+    font-weight: bold;
+    position: absolute;
+    left: -20px;
+}
+
+.changelog-content ul ul {
+    margin: 10px 0;
 }
 
 .commit-info {
     color: #666;
     font-size: 0.9em;
-    margin-top: 5px;
+    margin-top: 15px;
+    text-align: right;
+    font-style: italic;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
+}
+
+/* Адаптация для темной темы */
+body.dark-theme .about-container,
+body.dark-theme .changelog-container {
+    color: #e1e1e1;
+}
+
+body.dark-theme .about-section,
+body.dark-theme .changelog-entry {
+    background-color: rgba(40, 40, 40, 0.9);
+    border-left-color: #1c90ff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .about-container h1,
+body.dark-theme .changelog-container h1,
+body.dark-theme .about-container h2,
+body.dark-theme .changelog-container h2,
+body.dark-theme .about-container h3,
+body.dark-theme .changelog-container h3 {
+    color: #1c90ff;
+}
+
+body.dark-theme .github-info {
+    background-color: rgba(28, 144, 255, 0.1);
+}
+
+body.dark-theme .contact-info {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .contact-info:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .tutorial-step {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .tutorial-step:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .changelog-date {
+    background-color: rgba(28, 144, 255, 0.2);
+}
+
+body.dark-theme .commit-info {
+    color: #aaa;
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Адаптация для cosmic-theme, drinwater-theme и colors-theme */
+body.cosmic-theme .about-section,
+body.cosmic-theme .changelog-entry,
+body.drinwater-theme .about-section,
+body.drinwater-theme .changelog-entry,
+body.colors-theme .about-section,
+body.colors-theme .changelog-entry {
+    background-color: rgba(15, 15, 25, 0.7);
+    backdrop-filter: blur(10px);
+    border-left-color: #38a0ff;
+}
+
+body.cosmic-theme .github-info,
+body.drinwater-theme .github-info,
+body.colors-theme .github-info {
+    background-color: rgba(56, 160, 255, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+body.cosmic-theme .contact-info,
+body.drinwater-theme .contact-info,
+body.colors-theme .contact-info,
+body.cosmic-theme .tutorial-step,
+body.drinwater-theme .tutorial-step,
+body.colors-theme .tutorial-step {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+body.cosmic-theme .changelog-date,
+body.drinwater-theme .changelog-date,
+body.colors-theme .changelog-date {
+    background-color: rgba(56, 160, 255, 0.2);
+}
+
+/* Добавление стиля хедера и фильтр для фонового изображения */
+body.cosmic-theme:before,
+body.drinwater-theme:before,
+body.colors-theme:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 768px) {
+    .about-container,
+    .changelog-container {
+        padding: 15px;
+    }
+    
+    .about-section,
+    .changelog-entry {
+        padding: 15px;
+    }
+    
+    .about-container h1,
+    .changelog-container h1 {
+        font-size: 2rem;
+    }
+    
+    .about-container h2,
+    .changelog-container h2 {
+        font-size: 1.5rem;
+    }
+    
+    .feature-list li {
+        padding-left: 25px;
+    }
+}
+
+/* Стили для выбора языка на страницах about и changelog */
+.changelog-header, .about-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.language-select-container {
+    position: relative;
+}
+
+#languageSelect {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#languageSelect:hover {
+    border-color: #007BFF;
+}
+
+#languageSelect:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+}
+
+/* Адаптации селектора языка для тем */
+body.dark-theme #languageSelect {
+    background-color: #333;
+    color: white;
+    border-color: #555;
+}
+
+body.dark-theme #languageSelect:hover {
+    border-color: #1c90ff;
+}
+
+body.cosmic-theme #languageSelect,
+body.drinwater-theme #languageSelect,
+body.colors-theme #languageSelect {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.cosmic-theme #languageSelect:hover,
+body.drinwater-theme #languageSelect:hover,
+body.colors-theme #languageSelect:hover {
+    border-color: #38a0ff;
+}
+
+/* Дополнительные стили для страницы changelog */
+.changelog-intro {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: rgba(0, 123, 255, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #007BFF;
+}
+
+.feature-badge, .bug-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.feature-badge {
+    background-color: #28a745;
+    color: white;
+}
+
+.feature-badge.major {
+    background-color: #007BFF;
+}
+
+.bug-badge {
+    background-color: #dc3545;
+    color: white;
+}
+
+.contributor-label {
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+body.dark-theme .changelog-intro {
+    background-color: rgba(28, 144, 255, 0.1);
+}
+
+body.cosmic-theme .changelog-intro,
+body.drinwater-theme .changelog-intro,
+body.colors-theme .changelog-intro {
+    background-color: rgba(56, 160, 255, 0.15);
+    backdrop-filter: blur(5px);
 }
