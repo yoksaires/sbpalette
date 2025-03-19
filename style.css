@@ -849,14 +849,49 @@ body.colors-theme .order-instructions {
 }
 
 .settings-footer {
-    text-align: center;
     margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #ccc;
+    text-align: right;
+    padding: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .settings-footer button {
-    min-width: 100px;
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.settings-footer .reset-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.settings-footer .reset-button:hover {
+    background-color: #d32f2f;
+}
+
+body.dark-theme .settings-footer .reset-button {
+    background-color: #b71c1c;
+}
+
+body.dark-theme .settings-footer .reset-button:hover {
+    background-color: #d32f2f;
+}
+
+body.cosmic-theme .settings-footer .reset-button,
+body.drinwater-theme .settings-footer .reset-button,
+body.colors-theme .settings-footer .reset-button {
+    background-color: rgba(244, 67, 54, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+body.cosmic-theme .settings-footer .reset-button:hover,
+body.drinwater-theme .settings-footer .reset-button:hover,
+body.colors-theme .settings-footer .reset-button:hover {
+    background-color: rgba(211, 47, 47, 0.9);
 }
 
 /* Адаптация стилей модального окна в зависимости от темы */

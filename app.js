@@ -9,7 +9,7 @@ const armorData = [
 {"name":"Jade Dye","color":"#00A86B"},
 {"name":"Helmet & Chestplate & Leggings & Boots of Growth","color":"#00be00"},
 {"name":"Cactus Helmet & Chestplate & Leggings & Boots \nEmerald Armor Helmet & Chestplate & Leggings & Boots \nParty Top Hat","color":"#00ff00"},
-{"name":"Rotten Chestplate & Leggings","color":"#017d31"},
+{"name":"Rotten Chestplate & Leggings \nBackwater Armor Chestplate & Leggings & Boots","color":"#017d31"},
 {"name":"Squash Chestplate","color":"#03430e"},
 {"name":"Glacite Chestplate & Leggings & Boots","color":"#03fcf8"},
 {"name":"Stereo Pants","color":"#04cfd3"},
@@ -307,6 +307,7 @@ const translations = {
         enteredColor: 'Введённый цвет:',
         copySettingsTitle: 'Настройки копирования',
         saveButton: 'Сохранить',
+        resetButton: 'Сбросить настройки',
         themes: {
             light: 'Светлая',
             dark: 'Темная',
@@ -337,6 +338,7 @@ const translations = {
         enteredColor: 'Entered color:',
         copySettingsTitle: 'Copy Settings',
         saveButton: 'Save',
+        resetButton: 'Reset Settings',
         themes: {
             light: 'Light',
             dark: 'Dark',
@@ -608,7 +610,7 @@ function populateFieldOrderList(orderArray) {
 function getFieldDisplayName(fieldKey) {
     const displayNames = {
         'ru': {
-            'hexInput': 'Введенный HEX код',
+            'hexInput': 'HEX код',
             'hexWithX': 'HEX с X (Xx Xx Xx)',
             'armorType': translations[currentLanguage].armorTypeHeader || 'Тип брони',
             'enteredRedHex': 'Красный HEX (ввод)',
@@ -617,19 +619,19 @@ function getFieldDisplayName(fieldKey) {
             'enteredRedRgb': 'Красный RGB (ввод)',
             'enteredGreenRgb': 'Зелёный RGB (ввод)',
             'enteredBlueRgb': 'Синий RGB (ввод)',
-            'name': translations[currentLanguage].armorHeader || 'Ближайшая броня',
-            'color': translations[currentLanguage].colorHeader || 'Цвет ближайшей брони',
+            'name': translations[currentLanguage].armorHeader || 'Броня',
+            'color': translations[currentLanguage].colorHeader || 'Цвет',
             'closestRedHex': 'Красный HEX (ближ.)',
             'closestGreenHex': 'Зелёный HEX (ближ.)',
             'closestBlueHex': 'Синий HEX (ближ.)',
             'closestRedRgb': 'Красный RGB (ближ.)',
             'closestGreenRgb': 'Зелёный RGB (ближ.)',
             'closestBlueRgb': 'Синий RGB (ближ.)',
-            'distance': translations[currentLanguage].differenceHeader || 'Дельта (Разница)',
-            'rank': translations[currentLanguage].tierHeader || 'Ранг (Тир)'
+            'distance': translations[currentLanguage].differenceHeader || 'Разница',
+            'rank': translations[currentLanguage].tierHeader || 'Ранг'
         },
         'en': {
-            'hexInput': 'HEX code (input)',
+            'hexInput': 'HEX code',
             'hexWithX': 'HEX with X (Xx Xx Xx)',
             'armorType': translations[currentLanguage].armorTypeHeader || 'Armor Type',
             'enteredRedHex': 'Red HEX (input)',
@@ -638,16 +640,16 @@ function getFieldDisplayName(fieldKey) {
             'enteredRedRgb': 'Red RGB (input)',
             'enteredGreenRgb': 'Green RGB (input)',
             'enteredBlueRgb': 'Blue RGB (input)',
-            'name': translations[currentLanguage].armorHeader || 'Closest armor',
-            'color': translations[currentLanguage].colorHeader || 'Color of closest armor',
+            'name': translations[currentLanguage].armorHeader || 'Armor',
+            'color': translations[currentLanguage].colorHeader || 'Color',
             'closestRedHex': 'Red HEX (closest)',
             'closestGreenHex': 'Green HEX (closest)',
             'closestBlueHex': 'Blue HEX (closest)',
             'closestRedRgb': 'Red RGB (closest)',
             'closestGreenRgb': 'Green RGB (closest)',
             'closestBlueRgb': 'Blue RGB (closest)',
-            'distance': translations[currentLanguage].differenceHeader || 'Delta (Difference)',
-            'rank': translations[currentLanguage].tierHeader || 'Rank (Tier)'
+            'distance': translations[currentLanguage].differenceHeader || 'Difference',
+            'rank': translations[currentLanguage].tierHeader || 'Rank'
         }
     };
     
@@ -863,6 +865,16 @@ function saveCopySettings() {
     
     localStorage.setItem('copySettings', JSON.stringify(settings));
     closeSettingsModal();
+}
+
+// Функция для сброса настроек копирования
+function resetCopySettings() {
+    const defaultSettings = getDefaultSettings();
+    localStorage.setItem('copySettings', JSON.stringify(defaultSettings));
+    
+    // Перезагружаем модальное окно для применения новых настроек
+    closeSettingsModal();
+    openSettingsModal();
 }
 
 // Обновление функции копирования с учётом типа брони и порядка полей
@@ -1161,6 +1173,7 @@ function openSettingsModal() {
             </div>
             
             <div class="settings-footer">
+                <button type="button" onclick="resetCopySettings()" class="reset-button">🔄 ${translations[currentLanguage].resetButton}</button>
                 <button type="button" onclick="saveCopySettings()">${translations[currentLanguage].saveButton}</button>
             </div>
         </div>
