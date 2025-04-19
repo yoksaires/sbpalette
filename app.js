@@ -288,7 +288,35 @@ function rgbToLab(rgb) {
     return xyzToLab(xyz);
 }
 
-let currentLanguage = 'en';
+// Глобальные переменные
+let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+let animationEnabled = localStorage.getItem('sbpalette-animation-enabled') !== 'false'; // По умолчанию включено
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Загрузка темы и языка
+    const savedTheme = localStorage.getItem('selectedTheme') || 'light';
+    document.body.className = `${savedTheme}-theme`;
+    
+    // Установка переключателя анимации в правильное положение
+    const toggleButton = document.getElementById('animationToggle');
+    const toggleText = document.getElementById('animationToggleText');
+    
+    if (toggleButton && toggleText) {
+        if (animationEnabled) {
+            toggleButton.classList.add('active');
+            toggleText.textContent = currentLanguage === 'ru' ? 'Анимация ВКЛ' : 'Animation ON';
+        } else {
+            toggleButton.classList.remove('active');
+            toggleText.textContent = currentLanguage === 'ru' ? 'Анимация ВЫКЛ' : 'Animation OFF';
+        }
+    }
+    
+    // Другие инициализации...
+    
+    // Проверка наличия цветов в URL для сравнения
+    getColorsFromUrl();
+});
 
 const translations = {
     ru: {
@@ -334,7 +362,10 @@ const translations = {
         color2Header: 'Цвет 2',
         deltaE: 'Дельта E',
         deltaE2000: 'Дельта E 2000',
-        linkCopied: 'Ссылка скопирована в буфер обмена!'
+        linkCopied: 'Ссылка скопирована в буфер обмена!',
+        middleColor: 'Средний цвет',
+        animationOn: 'Анимация включена',
+        animationOff: 'Анимация выключена'
     },
     en: {
         title: 'SBPalette for Hypixel',
@@ -379,7 +410,10 @@ const translations = {
         color2Header: 'Color 2',
         deltaE: 'Delta E',
         deltaE2000: 'Delta E 2000',
-        linkCopied: 'Link copied to clipboard!'
+        linkCopied: 'Link copied to clipboard!',
+        middleColor: 'Middle color',
+        animationOn: 'Animation ON',
+        animationOff: 'Animation OFF'
     }
 };
 
@@ -1118,22 +1152,6 @@ function getColorFromUrl() {
     }
 }
 
-// Загрузка сохраненной темы при загрузке страницы
-window.onload = function() {
-    loadHistory();
-    
-    // Проверяем URL параметры
-    getColorFromUrl();
-    
-    // Загрузка сохраненной темы
-    const savedTheme = localStorage.getItem('selectedTheme') || 'light';
-    document.getElementById('themeSelect').value = savedTheme;
-    document.body.classList.add(`${savedTheme}-theme`);
-    
-    // Обновление языковых настроек для селектора тем
-    updateThemeSelectOptions();
-}
-
 function updateThemeSelectOptions() {
     const themeSelect = document.getElementById('themeSelect');
     const options = themeSelect.options;
@@ -1328,6 +1346,10 @@ function compareColors() {
     const lab1 = rgbToLab(rgb1);
     const lab2 = rgbToLab(rgb2);
     
+    // Calculate middle color (using Lab space for perceptual accuracy)
+    const middleColor = calculateMiddleColor(lab1, lab2);
+    const middleColorHex = labToHex(middleColor);
+    
     const deltaE = calculateDeltaE(lab1, lab2);
     const deltaE2000 = calculateDeltaE2000(lab1, lab2);
     const rank = getRank(deltaE);
@@ -1336,10 +1358,18 @@ function compareColors() {
     // Display results
     resultDiv.innerHTML = `
         <p>${translations[currentLanguage].deltaE || "Delta E"} (CIE76): <strong>${deltaE.toFixed(2)}</strong> (${rank})</p>
+        <p>${translations[currentLanguage].deltaE2000 || "Delta E 2000"}: <strong>${deltaE2000.toFixed(2)}</strong> (${rank2000})</p>
+        <p>${translations[currentLanguage].middleColor || "Middle color"}: 
+           <strong>${middleColorHex}</strong> 
+           <span class="color-preview" style="background-color: ${middleColorHex}; display: inline-block; vertical-align: middle;"></span>
+        </p>
     `;
     
     // Fill comparison table
-    fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE);
+    fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE, middleColorHex);
+    
+    // Анимируем трапеции с выбранными цветами
+    animateColorRectangles(color1, color2);
 }
 
 function updateComparisonPreviews(color1, color2) {
@@ -1452,7 +1482,7 @@ function calculateDeltaE2000(lab1, lab2) {
     return deltaE;
 }
 
-function fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE) {
+function fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE, middleColorHex) {
     const tableBody = document.querySelector('#comparisonTable tbody');
     tableBody.innerHTML = '';
     
@@ -1460,11 +1490,11 @@ function fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE) {
     const deltaE2000 = calculateDeltaE2000(lab1, lab2);
     
     // Add rows for each property
-    addComparisonRow(tableBody, 'HEX', color1, color2, '-');
+    addComparisonRow(tableBody, 'HEX', color1, color2, middleColorHex);
     addComparisonRow(tableBody, 'RGB', 
         `R: ${rgb1.r}, G: ${rgb1.g}, B: ${rgb1.b}`, 
         `R: ${rgb2.r}, G: ${rgb2.g}, B: ${rgb2.b}`,
-        '-'
+        `${translations[currentLanguage].middle || "Middle"}`
     );
     
     // Add Lab components
@@ -1497,7 +1527,7 @@ function fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE) {
     addComparisonRow(tableBody, 'Delta E 2000', 
         '-', 
         '-',
-        `${deltaE2000.toFixed(2)}`
+        `${deltaE2000.toFixed(2)} (${getRank(deltaE2000)})`
     );
 }
 
@@ -1525,7 +1555,11 @@ function addComparisonRow(tableBody, property, value1, value2, difference) {
     row.appendChild(value2Cell);
     
     const diffCell = document.createElement('td');
-    diffCell.textContent = difference;
+    if (property === 'HEX') {
+        diffCell.innerHTML = `${difference} <span class="color-preview" style="background-color: ${difference};"></span>`;
+    } else {
+        diffCell.textContent = difference;
+    }
     row.appendChild(diffCell);
     
     tableBody.appendChild(row);
@@ -1534,6 +1568,9 @@ function addComparisonRow(tableBody, property, value1, value2, difference) {
 function handleCompareKeyPress(event) {
     if (event.key === 'Enter') {
         compareColors();
+    } else {
+        // Сбрасываем анимацию при вводе новых данных
+        resetColorRectangles();
     }
 }
 
@@ -1577,37 +1614,155 @@ function getColorsFromUrl() {
         
         if (color1 && color2) {
             compareColors();
+            
+            // Небольшая задержка перед анимацией, чтобы DOM успел обновиться
+            setTimeout(() => {
+                // Дополнительно запускаем анимацию для лучшего эффекта
+                let formattedColor1 = color1;
+                let formattedColor2 = color2;
+                
+                if (!formattedColor1.startsWith('#')) {
+                    formattedColor1 = '#' + formattedColor1;
+                }
+                
+                if (!formattedColor2.startsWith('#')) {
+                    formattedColor2 = '#' + formattedColor2;
+                }
+                
+                animateColorRectangles(formattedColor1, formattedColor2);
+            }, 500);
         }
     }
 }
 
-// Загрузка сохраненной темы при загрузке страницы
-window.onload = function() {
-    if (document.getElementById('historyContainer')) {
-        loadHistory();
+// Глобальная переменная для отслеживания состояния анимации
+animationEnabled = true;
+
+// Функция для анимации цветных трапеций
+function animateColorRectangles(color1, color2) {
+    // Если анимация отключена, не показываем трапеции
+    if (!animationEnabled) return;
+    
+    const leftRect = document.getElementById('leftRectangle');
+    const rightRect = document.getElementById('rightRectangle');
+    
+    if (!leftRect || !rightRect) return;
+    
+    // Сначала сбросим стили, если анимация уже была запущена
+    leftRect.classList.remove('show-left', 'pulsate');
+    rightRect.classList.remove('show-right', 'pulsate');
+    
+    // Небольшая задержка для сброса анимации
+    setTimeout(() => {
+        // Установим цвета трапеций
+        leftRect.style.backgroundColor = color1;
+        rightRect.style.backgroundColor = color2;
+        
+        // Запускаем анимацию
+        leftRect.classList.add('show-left');
+        rightRect.classList.add('show-right');
+    }, 50);
+}
+
+// Функция для сброса анимации трапеций
+function resetColorRectangles() {
+    const leftRect = document.getElementById('leftRectangle');
+    const rightRect = document.getElementById('rightRectangle');
+    
+    if (leftRect && rightRect) {
+        leftRect.classList.remove('show-left', 'pulsate');
+        rightRect.classList.remove('show-right', 'pulsate');
+    }
+}
+
+// Функция для включения/выключения анимации
+function toggleAnimation() {
+    const toggleButton = document.getElementById('animationToggle');
+    const toggleText = document.getElementById('animationToggleText');
+    
+    if (!toggleButton || !toggleText) return;
+    
+    // Переключаем состояние анимации
+    animationEnabled = !animationEnabled;
+    
+    // Добавляем эффект пульсации при нажатии
+    toggleButton.classList.add('pulse-animation');
+    setTimeout(() => {
+        toggleButton.classList.remove('pulse-animation');
+    }, 300);
+    
+    // Обновляем класс кнопки и текст в зависимости от состояния
+    if (animationEnabled) {
+        toggleButton.classList.add('active');
+        toggleText.textContent = currentLanguage === 'ru' ? 'Анимация ВКЛ' : 'Animation ON';
+        
+        // Если есть цвета, запускаем анимацию
+        const color1Input = document.getElementById('color1Input');
+        const color2Input = document.getElementById('color2Input');
+        
+        if (color1Input && color2Input && 
+            color1Input.value.trim() !== '' && 
+            color2Input.value.trim() !== '') {
+            animateColorRectangles(color1Input.value, color2Input.value);
+        }
+    } else {
+        toggleButton.classList.remove('active');
+        toggleText.textContent = currentLanguage === 'ru' ? 'Анимация ВЫКЛ' : 'Animation OFF';
+        resetColorRectangles();
     }
     
-    // Проверяем URL параметры
-    getColorsFromUrl();
+    // Сохраняем состояние в localStorage
+    localStorage.setItem('sbpalette-animation-enabled', animationEnabled ? 'true' : 'false');
+}
+
+// Функция для расчета среднего цвета в пространстве Lab
+function calculateMiddleColor(lab1, lab2) {
+    return {
+        l: (lab1.l + lab2.l) / 2,
+        a: (lab1.a + lab2.a) / 2,
+        b: (lab1.b + lab2.b) / 2
+    };
+}
+
+// Функция для конвертации Lab в RGB
+function labToRgb(lab) {
+    // Lab в XYZ
+    let y = (lab.l + 16) / 116;
+    let x = lab.a / 500 + y;
+    let z = y - lab.b / 200;
     
-    // Загрузка сохраненной темы
-    const savedTheme = localStorage.getItem('selectedTheme') || 'light';
-    const themeSelect = document.getElementById('themeSelect');
-    if (themeSelect) {
-        themeSelect.value = savedTheme;
-    }
-    document.body.classList.add(`${savedTheme}-theme`);
+    x = 0.95047 * ((x * x * x > 0.008856) ? x * x * x : (x - 16/116) / 7.787);
+    y = 1.00000 * ((y * y * y > 0.008856) ? y * y * y : (y - 16/116) / 7.787);
+    z = 1.08883 * ((z * z * z > 0.008856) ? z * z * z : (z - 16/116) / 7.787);
     
-    // Установка языка
-    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
-    currentLanguage = savedLanguage;
-    const languageSelect = document.getElementById('languageSelect');
-    if (languageSelect) {
-        languageSelect.value = currentLanguage;
-    }
+    // XYZ в RGB
+    let r = x *  3.2406 + y * -1.5372 + z * -0.4986;
+    let g = x * -0.9689 + y *  1.8758 + z *  0.0415;
+    let b = x *  0.0557 + y * -0.2040 + z *  1.0570;
     
-    // Обновление языковых настроек для селектора тем
-    if (themeSelect) {
-        updateThemeSelectOptions();
-    }
+    r = (r > 0.0031308) ? (1.055 * Math.pow(r, 1/2.4) - 0.055) : 12.92 * r;
+    g = (g > 0.0031308) ? (1.055 * Math.pow(g, 1/2.4) - 0.055) : 12.92 * g;
+    b = (b > 0.0031308) ? (1.055 * Math.pow(b, 1/2.4) - 0.055) : 12.92 * b;
+    
+    return {
+        r: Math.max(0, Math.min(255, Math.round(r * 255))),
+        g: Math.max(0, Math.min(255, Math.round(g * 255))),
+        b: Math.max(0, Math.min(255, Math.round(b * 255)))
+    };
+}
+
+// Функция для конвертации Lab в HEX
+function labToHex(lab) {
+    const rgb = labToRgb(lab);
+    return rgbToHex(rgb);
+}
+
+// Функция для конвертации RGB в HEX
+function rgbToHex(rgb) {
+    return '#' + [rgb.r, rgb.g, rgb.b]
+        .map(x => {
+            const hex = x.toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+        })
+        .join('');
 }

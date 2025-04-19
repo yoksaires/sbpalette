@@ -27,6 +27,18 @@
         </div>
     </div>
     
+    <!-- Контейнер для анимированных прямоугольников -->
+    <div class="color-rectangles-container">
+        <div class="color-rectangle left" id="leftRectangle"></div>
+        <div class="color-rectangle right" id="rightRectangle"></div>
+    </div>
+    
+    <!-- Кнопка включения/выключения анимации -->
+    <button id="animationToggle" class="animation-toggle active" onclick="toggleAnimation()">
+        <span class="animation-toggle-icon"></span>
+        <span id="animationToggleText">Animation ON</span>
+    </button>
+    
     <div class="compare-container">
         <div class="color-input-group">
             <div class="color-input-box">
