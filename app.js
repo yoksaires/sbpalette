@@ -320,7 +320,20 @@ const translations = {
         fieldOrder: 'Порядок полей',
         orderInstructions: 'Перетащите поля для изменения порядка копирования:',
         dragHint: 'Удерживайте ≡ и перетаскивайте для изменения порядка',
-        dragHandleTitle: 'Перетащите для изменения позиции'
+        dragHandleTitle: 'Перетащите для изменения позиции',
+        
+        // Color comparison page
+        compareTitle: 'Сравнение цветов',
+        compareButton: 'Сравнить',
+        shareButton: 'Поделиться',
+        color1Placeholder: 'Введите первый HEX код',
+        color2Placeholder: 'Введите второй HEX код',
+        comparisonResult: 'Результат сравнения',
+        propertyHeader: 'Свойство',
+        color1Header: 'Цвет 1',
+        color2Header: 'Цвет 2',
+        deltaE: 'Дельта E',
+        linkCopied: 'Ссылка скопирована в буфер обмена!'
     },
     en: {
         title: 'SBPalette for Hypixel',
@@ -351,7 +364,20 @@ const translations = {
         fieldOrder: 'Field Order',
         orderInstructions: 'Drag fields to change copying order:',
         dragHint: 'Hold ≡ and drag to change order',
-        dragHandleTitle: 'Drag to reorder'
+        dragHandleTitle: 'Drag to reorder',
+        
+        // Color comparison page
+        compareTitle: 'Color Comparison',
+        compareButton: 'Compare',
+        shareButton: 'Share',
+        color1Placeholder: 'Enter first HEX code',
+        color2Placeholder: 'Enter second HEX code',
+        comparisonResult: 'Comparison Result',
+        propertyHeader: 'Property',
+        color1Header: 'Color 1',
+        color2Header: 'Color 2',
+        deltaE: 'Delta E',
+        linkCopied: 'Link copied to clipboard!'
     }
 };
 
@@ -971,34 +997,76 @@ function checkColorFromHistory(hex) {
 function toggleLanguage() {
     const languageSelect = document.getElementById('languageSelect');
     currentLanguage = languageSelect.value;
+    localStorage.setItem('selectedLanguage', currentLanguage);
 
-    const title = document.getElementById('title');
-    const findButton = document.querySelector('button[onclick="checkColor()"]');
-    const clearHistoryButton = document.querySelector('button[onclick="clearHistory()"]');
-    const hexInput = document.getElementById('hexInput');
-    const historyTitle = document.getElementById('historyTitle');
-    const tableTitle = document.getElementById('tableTitle');
-    const armorHeader = document.getElementById('armorHeader');
-    const hexHeader = document.getElementById('hexHeader');
-    const colorHeader = document.getElementById('colorHeader');
-    const differenceHeader = document.getElementById('differenceHeader');
-    const tierHeader = document.getElementById('tierHeader');
+    // Update main page elements if they exist
+    if (document.getElementById('hexInput')) {
+        const title = document.getElementById('title');
+        const findButton = document.querySelector('button[onclick="checkColor()"]');
+        const clearHistoryButton = document.querySelector('button[onclick="clearHistory()"]');
+        const hexInput = document.getElementById('hexInput');
+        const historyTitle = document.getElementById('historyTitle');
+        const tableTitle = document.getElementById('tableTitle');
+        const armorHeader = document.getElementById('armorHeader');
+        const hexHeader = document.getElementById('hexHeader');
+        const colorHeader = document.getElementById('colorHeader');
+        const differenceHeader = document.getElementById('differenceHeader');
+        const tierHeader = document.getElementById('tierHeader');
+        const armorTypeHeader = document.getElementById('armorTypeHeader');
+        const shareButton = document.querySelector('button[onclick="shareUrl()"]');
 
-    title.textContent = translations[currentLanguage].title;
-    findButton.textContent = translations[currentLanguage].findButton;
-    clearHistoryButton.textContent = translations[currentLanguage].clearHistoryButton;
-    hexInput.placeholder = translations[currentLanguage].hexPlaceholder;
-    historyTitle.textContent = translations[currentLanguage].historyTitle;
-    tableTitle.textContent = translations[currentLanguage].tableTitle;
-    armorHeader.textContent = translations[currentLanguage].armorHeader;
-    hexHeader.textContent = translations[currentLanguage].hexHeader;
-    colorHeader.textContent = translations[currentLanguage].colorHeader;
-    differenceHeader.textContent = translations[currentLanguage].differenceHeader;
-    tierHeader.textContent = translations[currentLanguage].tierHeader;
-    armorTypeHeader.textContent = translations[currentLanguage].armorTypeHeader;
+        title.textContent = translations[currentLanguage].title;
+        findButton.textContent = translations[currentLanguage].findButton;
+        clearHistoryButton.textContent = translations[currentLanguage].clearHistoryButton;
+        hexInput.placeholder = translations[currentLanguage].hexPlaceholder;
+        historyTitle.textContent = translations[currentLanguage].historyTitle;
+        tableTitle.textContent = translations[currentLanguage].tableTitle;
+        armorHeader.textContent = translations[currentLanguage].armorHeader;
+        hexHeader.textContent = translations[currentLanguage].hexHeader;
+        colorHeader.textContent = translations[currentLanguage].colorHeader;
+        differenceHeader.textContent = translations[currentLanguage].differenceHeader;
+        tierHeader.textContent = translations[currentLanguage].tierHeader;
+        if (armorTypeHeader) armorTypeHeader.textContent = translations[currentLanguage].armorTypeHeader;
+        if (shareButton) shareButton.textContent = translations[currentLanguage].shareButton;
 
-    checkColor(); // Перезапустить проверку цвета для обновления текста результата
+        checkColor(); // Refresh color check to update result text
+    }
+    
+    // Update comparison page elements if they exist
+    if (document.getElementById('color1Input')) {
+        const title = document.getElementById('title');
+        const compareButton = document.querySelector('button[onclick="compareColors()"]');
+        const shareButton = document.querySelector('button[onclick="shareComparisonUrl()"]');
+        const color1Input = document.getElementById('color1Input');
+        const color2Input = document.getElementById('color2Input');
+        const propertyHeader = document.getElementById('propertyHeader');
+        const color1Header = document.getElementById('color1Header');
+        const color2Header = document.getElementById('color2Header');
+        const differenceHeader = document.getElementById('differenceHeader');
+        
+        title.textContent = translations[currentLanguage].compareTitle;
+        compareButton.textContent = translations[currentLanguage].compareButton;
+        shareButton.textContent = translations[currentLanguage].shareButton;
+        color1Input.placeholder = translations[currentLanguage].color1Placeholder;
+        color2Input.placeholder = translations[currentLanguage].color2Placeholder;
+        propertyHeader.textContent = translations[currentLanguage].propertyHeader;
+        color1Header.textContent = translations[currentLanguage].color1Header;
+        color2Header.textContent = translations[currentLanguage].color2Header;
+        differenceHeader.textContent = translations[currentLanguage].differenceHeader;
+        
+        // Refresh color comparison if both colors are entered
+        if (color1Input.value && color2Input.value) {
+            compareColors();
+        }
+    }
+    
+    // Always update theme selector
     updateThemeSelectOptions();
+    
+    // Update about/changelog page elements with data-lang attributes
+    document.querySelectorAll('[data-lang-ru][data-lang-en]').forEach(element => {
+        element.textContent = element.getAttribute(`data-lang-${currentLanguage}`);
+    });
 }
 
 function clearHistory() {
@@ -1225,4 +1293,216 @@ function updateFieldOrderBasedOnSelection() {
     
     // Реинициализируем сортировку
     initSortable();
+}
+
+// Color comparison page functions
+function compareColors() {
+    let color1 = document.getElementById('color1Input').value.trim().toUpperCase();
+    let color2 = document.getElementById('color2Input').value.trim().toUpperCase();
+    const resultDiv = document.getElementById('comparisonResult');
+    
+    // Add # if missing
+    if (!color1.startsWith('#')) {
+        color1 = '#' + color1;
+    }
+    
+    if (!color2.startsWith('#')) {
+        color2 = '#' + color2;
+    }
+    
+    // Validate inputs
+    if (color1.length !== 7 || !/^#[0-9A-F]{6}$/.test(color1) || 
+        color2.length !== 7 || !/^#[0-9A-F]{6}$/.test(color2)) {
+        resultDiv.textContent = translations[currentLanguage].invalidHex || "Invalid HEX color format";
+        return;
+    }
+    
+    // Update color previews
+    updateComparisonPreviews(color1, color2);
+    
+    // Calculate color difference
+    const rgb1 = hexToRgb(color1);
+    const rgb2 = hexToRgb(color2);
+    const lab1 = rgbToLab(rgb1);
+    const lab2 = rgbToLab(rgb2);
+    
+    const deltaE = calculateDeltaE(lab1, lab2);
+    const rank = getRank(deltaE);
+    
+    // Display results
+    resultDiv.innerHTML = `<p>${translations[currentLanguage].deltaE || "Delta E"}: <strong>${deltaE.toFixed(2)}</strong> (${rank})</p>`;
+    
+    // Fill comparison table
+    fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE);
+}
+
+function updateComparisonPreviews(color1, color2) {
+    const color1Preview = document.getElementById('color1Preview');
+    const color2Preview = document.getElementById('color2Preview');
+    
+    if (color1Preview && color1.length === 7 && /^#[0-9A-F]{6}$/i.test(color1)) {
+        color1Preview.style.backgroundColor = color1;
+    }
+    
+    if (color2Preview && color2.length === 7 && /^#[0-9A-F]{6}$/i.test(color2)) {
+        color2Preview.style.backgroundColor = color2;
+    }
+}
+
+function calculateDeltaE(lab1, lab2) {
+    const deltaL = lab1.l - lab2.l;
+    const deltaA = lab1.a - lab2.a;
+    const deltaB = lab1.b - lab2.b;
+    
+    return Math.sqrt(deltaL * deltaL + deltaA * deltaA + deltaB * deltaB);
+}
+
+function fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE) {
+    const tableBody = document.querySelector('#comparisonTable tbody');
+    tableBody.innerHTML = '';
+    
+    // Add rows for each property
+    addComparisonRow(tableBody, 'HEX', color1, color2, '-');
+    addComparisonRow(tableBody, 'RGB', 
+        `R: ${rgb1.r}, G: ${rgb1.g}, B: ${rgb1.b}`, 
+        `R: ${rgb2.r}, G: ${rgb2.g}, B: ${rgb2.b}`,
+        '-'
+    );
+    
+    // Add Lab components
+    addComparisonRow(tableBody, 'L (Lightness)', 
+        lab1.l.toFixed(2), 
+        lab2.l.toFixed(2),
+        Math.abs(lab1.l - lab2.l).toFixed(2)
+    );
+    
+    addComparisonRow(tableBody, 'a (Red/Green)', 
+        lab1.a.toFixed(2), 
+        lab2.a.toFixed(2),
+        Math.abs(lab1.a - lab2.a).toFixed(2)
+    );
+    
+    addComparisonRow(tableBody, 'b (Yellow/Blue)', 
+        lab1.b.toFixed(2), 
+        lab2.b.toFixed(2),
+        Math.abs(lab1.b - lab2.b).toFixed(2)
+    );
+    
+    // Add total difference
+    addComparisonRow(tableBody, 'Delta E (CIE76)', 
+        '-', 
+        '-',
+        `${deltaE.toFixed(2)} (${getRank(deltaE)})`
+    );
+}
+
+function addComparisonRow(tableBody, property, value1, value2, difference) {
+    const row = document.createElement('tr');
+    
+    const propCell = document.createElement('td');
+    propCell.textContent = property;
+    row.appendChild(propCell);
+    
+    const value1Cell = document.createElement('td');
+    if (property === 'HEX') {
+        value1Cell.innerHTML = `${value1} <span class="color-preview" style="background-color: ${value1};"></span>`;
+    } else {
+        value1Cell.textContent = value1;
+    }
+    row.appendChild(value1Cell);
+    
+    const value2Cell = document.createElement('td');
+    if (property === 'HEX') {
+        value2Cell.innerHTML = `${value2} <span class="color-preview" style="background-color: ${value2};"></span>`;
+    } else {
+        value2Cell.textContent = value2;
+    }
+    row.appendChild(value2Cell);
+    
+    const diffCell = document.createElement('td');
+    diffCell.textContent = difference;
+    row.appendChild(diffCell);
+    
+    tableBody.appendChild(row);
+}
+
+function handleCompareKeyPress(event) {
+    if (event.key === 'Enter') {
+        compareColors();
+    }
+}
+
+function shareComparisonUrl() {
+    const color1 = document.getElementById('color1Input').value.trim();
+    const color2 = document.getElementById('color2Input').value.trim();
+    const baseUrl = 'https://yoksaires.github.io/sbpalette/compare.html';
+    const urlWithParams = `${baseUrl}?c1=${encodeURIComponent(color1)}&c2=${encodeURIComponent(color2)}`;
+    
+    navigator.clipboard.writeText(urlWithParams).then(() => {
+        alert(translations[currentLanguage].linkCopied || 'Link copied to clipboard!');
+    }, (err) => {
+        console.error('Error copying: ', err);
+    });
+}
+
+function getColorsFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Check if we're on the main page
+    if (document.getElementById('hexInput')) {
+        const color = urlParams.get('color');
+        if (color) {
+            const hexInput = document.getElementById('hexInput');
+            hexInput.value = color;
+            checkColor();
+        }
+    } 
+    // Check if we're on the comparison page
+    else if (document.getElementById('color1Input') && document.getElementById('color2Input')) {
+        const color1 = urlParams.get('c1');
+        const color2 = urlParams.get('c2');
+        
+        if (color1) {
+            document.getElementById('color1Input').value = color1;
+        }
+        
+        if (color2) {
+            document.getElementById('color2Input').value = color2;
+        }
+        
+        if (color1 && color2) {
+            compareColors();
+        }
+    }
+}
+
+// Загрузка сохраненной темы при загрузке страницы
+window.onload = function() {
+    if (document.getElementById('historyContainer')) {
+        loadHistory();
+    }
+    
+    // Проверяем URL параметры
+    getColorsFromUrl();
+    
+    // Загрузка сохраненной темы
+    const savedTheme = localStorage.getItem('selectedTheme') || 'light';
+    const themeSelect = document.getElementById('themeSelect');
+    if (themeSelect) {
+        themeSelect.value = savedTheme;
+    }
+    document.body.classList.add(`${savedTheme}-theme`);
+    
+    // Установка языка
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    currentLanguage = savedLanguage;
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) {
+        languageSelect.value = currentLanguage;
+    }
+    
+    // Обновление языковых настроек для селектора тем
+    if (themeSelect) {
+        updateThemeSelectOptions();
+    }
 }

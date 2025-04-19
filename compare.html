@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Comparison - SBPalette</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.png">
+</head>
+<body>
+    <div class="header">
+        <h1 id="title">Color Comparison</h1>
+        <div class="header-buttons">
+            <select id="languageSelect" onchange="toggleLanguage()">
+                <option value="ru">Русский</option>
+                <option value="en" selected>English</option>
+            </select>
+            <select id="themeSelect" onchange="toggleTheme()">
+                <option value="light" selected>Light</option>
+                <option value="dark">Dark</option>
+                <option value="cosmic">Cosmic</option>
+                <option value="drinwater">Drinwater</option>
+                <option value="colors">Colors</option>
+            </select>
+            <button onclick="window.location.href='main.html'" class="back-button">Back to Main</button>
+            <button onclick="window.location.href='about.html'" class="about-button">About</button>
+        </div>
+    </div>
+    
+    <div class="compare-container">
+        <div class="color-input-group">
+            <div class="color-input-box">
+                <input type="text" id="color1Input" placeholder="Enter first HEX code" onkeypress="handleCompareKeyPress(event)">
+                <div class="color-preview large-preview" id="color1Preview"></div>
+            </div>
+            
+            <div class="comparison-vs">VS</div>
+            
+            <div class="color-input-box">
+                <input type="text" id="color2Input" placeholder="Enter second HEX code" onkeypress="handleCompareKeyPress(event)">
+                <div class="color-preview large-preview" id="color2Preview"></div>
+            </div>
+        </div>
+        
+        <button onclick="compareColors()" class="compare-button">Compare Colors</button>
+        <button onclick="shareComparisonUrl()" class="share-button">Share Comparison</button>
+        
+        <div class="result comparison-result" id="comparisonResult"></div>
+        
+        <div class="comparison-table-container">
+            <table id="comparisonTable" class="comparison-table">
+                <thead>
+                    <tr>
+                        <th id="propertyHeader">Property</th>
+                        <th id="color1Header">Color 1</th>
+                        <th id="color2Header">Color 2</th>
+                        <th id="differenceHeader">Difference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Will be filled with color comparison data -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 
