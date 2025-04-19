@@ -333,6 +333,7 @@ const translations = {
         color1Header: 'Цвет 1',
         color2Header: 'Цвет 2',
         deltaE: 'Дельта E',
+        deltaE2000: 'Дельта E 2000',
         linkCopied: 'Ссылка скопирована в буфер обмена!'
     },
     en: {
@@ -377,6 +378,7 @@ const translations = {
         color1Header: 'Color 1',
         color2Header: 'Color 2',
         deltaE: 'Delta E',
+        deltaE2000: 'Delta E 2000',
         linkCopied: 'Link copied to clipboard!'
     }
 };
@@ -1327,10 +1329,14 @@ function compareColors() {
     const lab2 = rgbToLab(rgb2);
     
     const deltaE = calculateDeltaE(lab1, lab2);
+    const deltaE2000 = calculateDeltaE2000(lab1, lab2);
     const rank = getRank(deltaE);
+    const rank2000 = getRank(deltaE2000);
     
     // Display results
-    resultDiv.innerHTML = `<p>${translations[currentLanguage].deltaE || "Delta E"}: <strong>${deltaE.toFixed(2)}</strong> (${rank})</p>`;
+    resultDiv.innerHTML = `
+        <p>${translations[currentLanguage].deltaE || "Delta E"} (CIE76): <strong>${deltaE.toFixed(2)}</strong> (${rank})</p>
+    `;
     
     // Fill comparison table
     fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE);
@@ -1357,9 +1363,101 @@ function calculateDeltaE(lab1, lab2) {
     return Math.sqrt(deltaL * deltaL + deltaA * deltaA + deltaB * deltaB);
 }
 
+// Функция для расчета DeltaE2000
+function calculateDeltaE2000(lab1, lab2) {
+    // Константы
+    const kL = 1;
+    const kC = 1;
+    const kH = 1;
+    
+    // Расчет для DeltaE2000
+    const L1 = lab1.l;
+    const a1 = lab1.a;
+    const b1 = lab1.b;
+    
+    const L2 = lab2.l;
+    const a2 = lab2.a;
+    const b2 = lab2.b;
+    
+    // Шаг 1: Расчет C и h
+    const C1 = Math.sqrt(a1 * a1 + b1 * b1);
+    const C2 = Math.sqrt(a2 * a2 + b2 * b2);
+    
+    const meanC = (C1 + C2) / 2;
+    const G = 0.5 * (1 - Math.sqrt(Math.pow(meanC, 7) / (Math.pow(meanC, 7) + Math.pow(25, 7))));
+    
+    const a1Prime = a1 * (1 + G);
+    const a2Prime = a2 * (1 + G);
+    
+    const C1Prime = Math.sqrt(a1Prime * a1Prime + b1 * b1);
+    const C2Prime = Math.sqrt(a2Prime * a2Prime + b2 * b2);
+    
+    let h1Prime = Math.atan2(b1, a1Prime) * 180 / Math.PI;
+    if (h1Prime < 0) h1Prime += 360;
+    
+    let h2Prime = Math.atan2(b2, a2Prime) * 180 / Math.PI;
+    if (h2Prime < 0) h2Prime += 360;
+    
+    // Шаг 2: Расчет dL', dC', dH'
+    const deltaLPrime = L2 - L1;
+    const deltaCPrime = C2Prime - C1Prime;
+    
+    let deltahPrime;
+    if (C1Prime * C2Prime === 0) {
+        deltahPrime = 0;
+    } else if (Math.abs(h2Prime - h1Prime) <= 180) {
+        deltahPrime = h2Prime - h1Prime;
+    } else if (h2Prime - h1Prime > 180) {
+        deltahPrime = h2Prime - h1Prime - 360;
+    } else {
+        deltahPrime = h2Prime - h1Prime + 360;
+    }
+    
+    const deltaHPrime = 2 * Math.sqrt(C1Prime * C2Prime) * Math.sin(deltahPrime * Math.PI / 360);
+    
+    // Шаг 3: Расчет CIEDE2000
+    const meanLPrime = (L1 + L2) / 2;
+    const meanCPrime = (C1Prime + C2Prime) / 2;
+    
+    let meanHPrime;
+    if (C1Prime * C2Prime === 0) {
+        meanHPrime = h1Prime + h2Prime;
+    } else if (Math.abs(h1Prime - h2Prime) <= 180) {
+        meanHPrime = (h1Prime + h2Prime) / 2;
+    } else if (h1Prime + h2Prime < 360) {
+        meanHPrime = (h1Prime + h2Prime + 360) / 2;
+    } else {
+        meanHPrime = (h1Prime + h2Prime - 360) / 2;
+    }
+    
+    const T = 1 - 0.17 * Math.cos((meanHPrime - 30) * Math.PI / 180) 
+              + 0.24 * Math.cos((2 * meanHPrime) * Math.PI / 180) 
+              + 0.32 * Math.cos((3 * meanHPrime + 6) * Math.PI / 180) 
+              - 0.20 * Math.cos((4 * meanHPrime - 63) * Math.PI / 180);
+    
+    const SL = 1 + (0.015 * Math.pow(meanLPrime - 50, 2)) / Math.sqrt(20 + Math.pow(meanLPrime - 50, 2));
+    const SC = 1 + 0.045 * meanCPrime;
+    const SH = 1 + 0.015 * meanCPrime * T;
+    
+    const RT = -2 * Math.sqrt(Math.pow(meanCPrime, 7) / (Math.pow(meanCPrime, 7) + Math.pow(25, 7))) 
+               * Math.sin((60 * Math.exp(-Math.pow((meanHPrime - 275) / 25, 2))) * Math.PI / 180);
+    
+    const deltaE = Math.sqrt(
+        Math.pow(deltaLPrime / (kL * SL), 2) + 
+        Math.pow(deltaCPrime / (kC * SC), 2) + 
+        Math.pow(deltaHPrime / (kH * SH), 2) + 
+        RT * (deltaCPrime / (kC * SC)) * (deltaHPrime / (kH * SH))
+    );
+    
+    return deltaE;
+}
+
 function fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE) {
     const tableBody = document.querySelector('#comparisonTable tbody');
     tableBody.innerHTML = '';
+    
+    // Вычисляем DeltaE2000
+    const deltaE2000 = calculateDeltaE2000(lab1, lab2);
     
     // Add rows for each property
     addComparisonRow(tableBody, 'HEX', color1, color2, '-');
@@ -1388,11 +1486,18 @@ function fillComparisonTable(color1, color2, rgb1, rgb2, lab1, lab2, deltaE) {
         Math.abs(lab1.b - lab2.b).toFixed(2)
     );
     
-    // Add total difference
+    // Add total differences
     addComparisonRow(tableBody, 'Delta E (CIE76)', 
         '-', 
         '-',
         `${deltaE.toFixed(2)} (${getRank(deltaE)})`
+    );
+    
+    // Добавляем DeltaE2000
+    addComparisonRow(tableBody, 'Delta E 2000', 
+        '-', 
+        '-',
+        `${deltaE2000.toFixed(2)}`
     );
 }
 
