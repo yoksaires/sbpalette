@@ -244,7 +244,25 @@ const armorData = [
 {"name":"Pure Yellow Dye","color":"#FFF700"},
 {"name":"Nutcracker Leggings","color":"#fff9eb"},
 {"name":"Farm Suit Helmet & Chestplate & Leggings & Boots","color":"#ffff00"},
-{"name":"Heavy Helmet & Boots \nHelmet of the Pack \nPure White Dye \nSnow Suit Chestplate & Leggings & Boots \nExotic Pure White","color":"#ffffff"}
+{"name":"Heavy Helmet & Boots \nHelmet of the Pack \nPure White Dye \nSnow Suit Chestplate & Leggings & Boots \nExotic Pure White","color":"#ffffff"},
+{"name":"True Red","color":"#FF0000"},
+{"name":"True Orange","color":"#FFA500"},
+{"name":"True Yellow","color":"#FFFF00"},
+{"name":"True Lime","color":"#32CD32"},
+{"name":"True Dark Green","color":"#006400"},
+{"name":"True Dark Blue","color":"#00008B"},
+{"name":"True Dark Grey","color":"#A9A9A9"},
+{"name":"True Cyan","color":"#00FFFF"},
+{"name":"True Brown","color":"#964B00"},
+{"name":"True Light Blue","color":"#ADD8E6"},
+{"name":"True Purple","color":"#A020F0"},
+{"name":"True Light Grey","color":"#D3D3D3"},
+{"name":"True Magenta","color":"#ff00ff"},
+{"name":"True Black","color":"#000000"},
+{"name":"True Pink","color":"#FFC0CB"},
+{"name":"True White","color":"#ffffff"},
+{"name":"Treasure Dye","color":"#FCD12A"},
+{"name":"Kuudra Follower Chestplate & Leggings & Boots","color":"#35530A"}
 ];
 
 function rgbToXyz(rgb) {
