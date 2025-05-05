@@ -336,108 +336,67 @@ document.addEventListener('DOMContentLoaded', function() {
     getColorsFromUrl();
 });
 
+// Объект с переводами
 const translations = {
-    ru: {
-        title: 'SBPalette for Hypixel',
-        findButton: 'Найти',
-        clearHistoryButton: 'Сбросить историю',
-        hexPlaceholder: 'Введите HEX код',
-        historyTitle: 'История запросов:',
-        tableTitle: 'Таблица ближайших цветов:',
-        armorHeader: 'Ближайщая броня',
-        hexHeader: 'HEX',
-        colorHeader: 'Цвет ближайшей брони',
-        differenceHeader: 'Дельта (Разница)',
-        tierHeader: 'Ранг',
-        invalidHex: 'Неверный формат HEX кода',
-        enteredColor: 'Введённый цвет:',
-        copySettingsTitle: 'Настройки копирования',
-        saveButton: 'Сохранить',
-        resetButton: 'Сбросить настройки',
-        themes: {
-            light: 'Светлая',
-            dark: 'Темная',
-            cosmic: 'Космическая',
-            drinwater: 'Вода',
-            colors: 'Цвета'
-        },
-        armorTypeHeader: 'Тип брони',
-        fieldSelection: 'Выбор полей',
-        fieldOrder: 'Порядок полей',
-        orderInstructions: 'Перетащите поля для изменения порядка копирования:',
-        dragHint: 'Удерживайте ≡ и перетаскивайте для изменения порядка',
-        dragHandleTitle: 'Перетащите для изменения позиции',
-        
-        // Color comparison page
-        compareTitle: 'Сравнение цветов',
-        compareButton: 'Сравнить',
-        shareButton: 'Поделиться',
-        color1Placeholder: 'Введите первый HEX код',
-        color2Placeholder: 'Введите второй HEX код',
-        comparisonResult: 'Результат сравнения',
-        propertyHeader: 'Свойство',
-        color1Header: 'Цвет 1',
-        color2Header: 'Цвет 2',
-        deltaE: 'Дельта E',
-        deltaE2000: 'Дельта E 2000',
-        linkCopied: 'Ссылка скопирована в буфер обмена!',
-        middleColor: 'Средний цвет',
-        animationOn: 'Анимация включена',
-        animationOff: 'Анимация выключена'
+    'ru': {
+        'title': 'SB Палитра - Подбор ближайших цветов',
+        'checkColor': 'Проверить цвет',
+        'invalidColor': 'Неверный формат цвета',
+        'hexInputPlaceholder': 'Введите HEX цвет',
+        'history': 'История',
+        'results': 'Результаты',
+        'clearHistory': 'Очистить историю',
+        'noHistory': 'История пуста',
+        'compareColors': 'Сравнение цветов',
+        'armor': 'Броня',
+        'hexCode': 'HEX код',
+        'color': 'Цвет',
+        'difference': 'Разница',
+        'similarColors': 'Похожие цвета',
+        'animationOn': 'Анимация включена',
+        'animationOff': 'Анимация выключена',
+        'compareButton': 'Сравнить с другими цветами',
+        'goBack': 'Вернуться назад',
+        'themeToggle': 'Сменить тему',
+        'share': 'Поделиться',
+        'copied': 'Скопировано!',
+        'rank': 'Ранг',
+        'name': 'Название',
+        'rgbCode': 'RGB код',
+        'enteredColor': 'Введенный цвет:'
     },
-    en: {
-        title: 'SBPalette for Hypixel',
-        findButton: 'Find',
-        clearHistoryButton: 'Clear History',
-        hexPlaceholder: 'Enter HEX code',
-        historyTitle: 'History of Requests:',
-        tableTitle: 'Table of Closest Colors:',
-        armorHeader: 'Closest armor',
-        hexHeader: 'HEX',
-        colorHeader: 'Color of the closest armor',
-        differenceHeader: 'Delta (Difference)',
-        tierHeader: 'Rank',
-        invalidHex: 'Invalid HEX code format',
-        enteredColor: 'Entered color:',
-        copySettingsTitle: 'Copy Settings',
-        saveButton: 'Save',
-        resetButton: 'Reset Settings',
-        themes: {
-            light: 'Light',
-            dark: 'Dark',
-            cosmic: 'Cosmic',
-            drinwater: 'Drinwater',
-            colors: 'Colors'
-        },
-        armorTypeHeader: 'Armor Type',
-        fieldSelection: 'Field Selection',
-        fieldOrder: 'Field Order',
-        orderInstructions: 'Drag fields to change copying order:',
-        dragHint: 'Hold ≡ and drag to change order',
-        dragHandleTitle: 'Drag to reorder',
-        
-        // Color comparison page
-        compareTitle: 'Color Comparison',
-        compareButton: 'Compare',
-        shareButton: 'Share',
-        color1Placeholder: 'Enter first HEX code',
-        color2Placeholder: 'Enter second HEX code',
-        comparisonResult: 'Comparison Result',
-        propertyHeader: 'Property',
-        color1Header: 'Color 1',
-        color2Header: 'Color 2',
-        deltaE: 'Delta E',
-        deltaE2000: 'Delta E 2000',
-        linkCopied: 'Link copied to clipboard!',
-        middleColor: 'Middle color',
-        animationOn: 'Animation ON',
-        animationOff: 'Animation OFF'
+    'en': {
+        'title': 'SB Palette - Find Closest Colors',
+        'checkColor': 'Check Color',
+        'invalidColor': 'Invalid color format',
+        'hexInputPlaceholder': 'Enter HEX color',
+        'history': 'History',
+        'results': 'Results',
+        'clearHistory': 'Clear history',
+        'noHistory': 'No history',
+        'compareColors': 'Color Comparison',
+        'armor': 'Armor',
+        'hexCode': 'HEX code',
+        'color': 'Color',
+        'difference': 'Difference',
+        'similarColors': 'Similar Colors',
+        'animationOn': 'Animation enabled',
+        'animationOff': 'Animation disabled',
+        'compareButton': 'Compare with other colors',
+        'goBack': 'Go back',
+        'themeToggle': 'Toggle theme',
+        'share': 'Share',
+        'copied': 'Copied!',
+        'rank': 'Rank',
+        'name': 'Name',
+        'rgbCode': 'RGB code',
+        'enteredColor': 'Entered color:'
     }
 };
 
 function checkColor() {
     let hex = document.getElementById('hexInput').value.trim().toUpperCase();
-    const resultDiv = document.getElementById('result');
+    const resultDiv = document.getElementById('resultContainer');
 
     // Автоматическое добавление #, если его нет
     if (!hex.startsWith('#')) {
@@ -445,7 +404,7 @@ function checkColor() {
     }
 
     if (hex.length !== 7 || !/^#[0-9A-F]{6}$/.test(hex)) {
-        resultDiv.textContent = translations[currentLanguage].invalidHex;
+        resultDiv.textContent = translations[currentLanguage].invalidColor;
         updateColorPreview('');
         return;
     }
@@ -526,38 +485,23 @@ function getRank(distance) {
 
 function fillTable(colors) {
     const tableBody = document.getElementById('colorTable').getElementsByTagName('tbody')[0];
-    const copyTableBody = document.getElementById('copyTable').getElementsByTagName('tbody')[0];
-    tableBody.innerHTML = ''; // Очистить таблицу
-    copyTableBody.innerHTML = ''; // Очистить таблицу с кнопками
-
-    const hexInputValue = document.getElementById('hexInput').value.trim().toUpperCase();
-
+    tableBody.innerHTML = '';
     colors.forEach((item, index) => {
         const row = tableBody.insertRow();
-        const cellName = row.insertCell(0);
+        const cellArmor = row.insertCell(0);
         const cellHex = row.insertCell(1);
         const cellColor = row.insertCell(2);
-        const cellDistance = row.insertCell(3);
-        const cellRank = row.insertCell(4);
+        const cellDifference = row.insertCell(3);
+        const cellTier = row.insertCell(4);
+        const cellCopy = row.insertCell(5);
 
-        cellName.textContent = item.name;
+        cellArmor.textContent = item.name;
         cellHex.textContent = item.color;
-        cellColor.className = 'color-cell';
         cellColor.style.backgroundColor = item.color;
-        cellDistance.textContent = item.distance.toFixed(2);
-        cellRank.textContent = getRank(item.distance); // Получить ранг
+        cellDifference.textContent = item.distance.toFixed(3);
+        cellTier.textContent = getRank(item.distance);
 
-        //условный класс к ячейкам
-        cellName.className = `cell-name-${index}`;
-        cellHex.className = `cell-hex-${index}`;
-        cellColor.className = `cell-color-${index}`;
-        cellDistance.className = `cell-distance-${index}`;
-        cellRank.className = `cell-rank-${index}`;
-
-        // Добавляем кнопку копирования и выпадающий список в отдельную таблицу
-        const copyRow = copyTableBody.insertRow();
-        const cellCopy = copyRow.insertCell(0);
-
+        // Кнопки копирования
         const armorTypeSelect = document.createElement('select');
         armorTypeSelect.innerHTML = `
             <option value="🎩">🎩</option>
@@ -568,24 +512,16 @@ function fillTable(colors) {
         armorTypeSelect.className = 'armor-type-select';
 
         const copyButton = document.createElement('button');
-        copyButton.innerHTML = '📋'; // Используем эмодзи буфера обмена
+        copyButton.innerHTML = '📋';
         copyButton.className = 'copy-button';
-        copyButton.onclick = () => copyRowToClipboard(hexInputValue, item, armorTypeSelect.value);
+        copyButton.onclick = () => {
+            const hex = document.getElementById('hexInput').value.trim().toUpperCase();
+            copyRowToClipboard(hex, item, armorTypeSelect.value);
+        };
 
         cellCopy.appendChild(armorTypeSelect);
         cellCopy.appendChild(copyButton);
     });
-
-    // Убедимся, что заголовок таблицы копирования всегда создается
-    const copyTable = document.getElementById('copyTable');
-    if (!copyTable.tHead) {
-        const copyTableHeader = copyTable.createTHead();
-        const copyTableHeaderRow = copyTableHeader.insertRow(0);
-        const copyTableHeaderCell = copyTableHeaderRow.insertCell(0);
-        copyTableHeaderCell.innerHTML = '<span>Copy ⚙️</span>';
-        copyTableHeaderCell.style.cursor = 'pointer';
-        copyTableHeaderCell.onclick = () => openSettingsModal();
-    }
 }
 
 // Показать вкладку настроек и заполнить ее
@@ -1049,78 +985,150 @@ function checkColorFromHistory(hex) {
 }
 
 function toggleLanguage() {
-    const languageSelect = document.getElementById('languageSelect');
-    currentLanguage = languageSelect.value;
-    localStorage.setItem('selectedLanguage', currentLanguage);
-
-    // Update main page elements if they exist
-    if (document.getElementById('hexInput')) {
-        const title = document.getElementById('title');
-        const findButton = document.querySelector('button[onclick="checkColor()"]');
-        const clearHistoryButton = document.querySelector('button[onclick="clearHistory()"]');
-        const hexInput = document.getElementById('hexInput');
-        const historyTitle = document.getElementById('historyTitle');
-        const tableTitle = document.getElementById('tableTitle');
-        const armorHeader = document.getElementById('armorHeader');
-        const hexHeader = document.getElementById('hexHeader');
-        const colorHeader = document.getElementById('colorHeader');
-        const differenceHeader = document.getElementById('differenceHeader');
-        const tierHeader = document.getElementById('tierHeader');
-        const armorTypeHeader = document.getElementById('armorTypeHeader');
-        const shareButton = document.querySelector('button[onclick="shareUrl()"]');
-
-        title.textContent = translations[currentLanguage].title;
-        findButton.textContent = translations[currentLanguage].findButton;
-        clearHistoryButton.textContent = translations[currentLanguage].clearHistoryButton;
-        hexInput.placeholder = translations[currentLanguage].hexPlaceholder;
-        historyTitle.textContent = translations[currentLanguage].historyTitle;
-        tableTitle.textContent = translations[currentLanguage].tableTitle;
-        armorHeader.textContent = translations[currentLanguage].armorHeader;
-        hexHeader.textContent = translations[currentLanguage].hexHeader;
-        colorHeader.textContent = translations[currentLanguage].colorHeader;
-        differenceHeader.textContent = translations[currentLanguage].differenceHeader;
-        tierHeader.textContent = translations[currentLanguage].tierHeader;
-        if (armorTypeHeader) armorTypeHeader.textContent = translations[currentLanguage].armorTypeHeader;
-        if (shareButton) shareButton.textContent = translations[currentLanguage].shareButton;
-
-        checkColor(); // Refresh color check to update result text
+    currentLanguage = currentLanguage === 'ru' ? 'en' : 'ru';
+    localStorage.setItem('language', currentLanguage);
+    
+    // Обновляем заголовок страницы
+    document.title = translations[currentLanguage]['title'];
+    
+    // Обновляем кнопки
+    const findButton = document.getElementById('findButton');
+    if (findButton) {
+        findButton.textContent = translations[currentLanguage]['checkColor'];
     }
     
-    // Update comparison page elements if they exist
-    if (document.getElementById('color1Input')) {
-        const title = document.getElementById('title');
-        const compareButton = document.querySelector('button[onclick="compareColors()"]');
-        const shareButton = document.querySelector('button[onclick="shareComparisonUrl()"]');
-        const color1Input = document.getElementById('color1Input');
-        const color2Input = document.getElementById('color2Input');
-        const propertyHeader = document.getElementById('propertyHeader');
-        const color1Header = document.getElementById('color1Header');
-        const color2Header = document.getElementById('color2Header');
-        const differenceHeader = document.getElementById('differenceHeader');
+    const clearHistoryButton = document.getElementById('clearHistoryButton');
+    if (clearHistoryButton) {
+        clearHistoryButton.textContent = translations[currentLanguage]['clearHistory'];
+    }
+    
+    const compareButton = document.getElementById('compareButton');
+    if (compareButton) {
+        compareButton.textContent = translations[currentLanguage]['compareButton'];
+    }
+    
+    const goBackButton = document.getElementById('goBackButton');
+    if (goBackButton) {
+        goBackButton.textContent = translations[currentLanguage]['goBack'];
+    }
+    
+    const shareButton = document.getElementById('shareButton');
+    if (shareButton) {
+        shareButton.textContent = translations[currentLanguage]['share'];
+    }
+    
+    // Обновляем заголовки разделов
+    const historyHeader = document.querySelector('.history-header');
+    if (historyHeader) {
+        historyHeader.textContent = translations[currentLanguage]['history'];
+    }
+    
+    const resultsHeader = document.querySelector('.results-header');
+    if (resultsHeader) {
+        resultsHeader.textContent = translations[currentLanguage]['results'];
+    }
+    
+    const compareHeader = document.querySelector('.compare-header');
+    if (compareHeader) {
+        compareHeader.textContent = translations[currentLanguage]['compareColors'];
+    }
+    
+    // Обновляем плейсхолдер в поле ввода
+    const hexInput = document.getElementById('hexInput');
+    if (hexInput) {
+        hexInput.placeholder = translations[currentLanguage]['hexInputPlaceholder'];
+    }
+    
+    // Обновляем заголовки таблиц
+    const tableHeaders = document.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+        const headerText = header.textContent.trim();
         
-        title.textContent = translations[currentLanguage].compareTitle;
-        compareButton.textContent = translations[currentLanguage].compareButton;
-        shareButton.textContent = translations[currentLanguage].shareButton;
-        color1Input.placeholder = translations[currentLanguage].color1Placeholder;
-        color2Input.placeholder = translations[currentLanguage].color2Placeholder;
-        propertyHeader.textContent = translations[currentLanguage].propertyHeader;
-        color1Header.textContent = translations[currentLanguage].color1Header;
-        color2Header.textContent = translations[currentLanguage].color2Header;
-        differenceHeader.textContent = translations[currentLanguage].differenceHeader;
-        
-        // Refresh color comparison if both colors are entered
-        if (color1Input.value && color2Input.value) {
-            compareColors();
+        // Проверяем и обновляем заголовки для обоих языков
+        if (headerText === translations['ru']['armor'] || headerText === translations['en']['armor']) {
+            header.textContent = translations[currentLanguage]['armor'];
+        } else if (headerText === translations['ru']['hexCode'] || headerText === translations['en']['hexCode'] || 
+                  headerText === 'HEX код' || headerText === 'HEX code') {
+            header.textContent = translations[currentLanguage]['hexCode'];
+        } else if (headerText === translations['ru']['color'] || headerText === translations['en']['color']) {
+            header.textContent = translations[currentLanguage]['color'];
+        } else if (headerText === translations['ru']['difference'] || headerText === translations['en']['difference']) {
+            header.textContent = translations[currentLanguage]['difference'];
+        } else if (headerText === translations['ru']['rank'] || headerText === translations['en']['rank']) {
+            header.textContent = translations[currentLanguage]['rank'];
+        } else if (headerText === translations['ru']['name'] || headerText === translations['en']['name']) {
+            header.textContent = translations[currentLanguage]['name'];
+        } else if (headerText === translations['ru']['rgbCode'] || headerText === translations['en']['rgbCode'] || 
+                  headerText.includes('RGB')) {
+            header.textContent = translations[currentLanguage]['rgbCode'];
         }
+    });
+    
+    // Обновляем все сообщения и уведомления
+    const noHistoryMessage = document.querySelector('.no-history-message');
+    if (noHistoryMessage) {
+        noHistoryMessage.textContent = translations[currentLanguage]['noHistory'];
     }
     
-    // Always update theme selector
-    updateThemeSelectOptions();
+    // Обновляем текст в кнопке переключения анимации
+    const toggleText = document.getElementById('toggleText');
+    if (toggleText) {
+        toggleText.textContent = animationEnabled ? 
+            translations[currentLanguage]['animationOn'] : 
+            translations[currentLanguage]['animationOff'];
+    }
     
-    // Update about/changelog page elements with data-lang attributes
-    document.querySelectorAll('[data-lang-ru][data-lang-en]').forEach(element => {
-        element.textContent = element.getAttribute(`data-lang-${currentLanguage}`);
-    });
+    // Обновляем тексты всплывающих подсказок
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.setAttribute('title', translations[currentLanguage]['themeToggle']);
+    }
+    
+    // Если существуют элементы результатов сравнения, обновляем их тексты
+    const comparisonTableHeaders = document.querySelectorAll('#comparisonTable th');
+    if (comparisonTableHeaders.length > 0) {
+        comparisonTableHeaders.forEach(header => {
+            const headerText = header.textContent.trim();
+            // Обновляем заголовки таблицы сравнения
+            if (headerText.includes('Свойство') || headerText.includes('Property')) {
+                header.textContent = currentLanguage === 'ru' ? 'Свойство' : 'Property';
+            } else if (headerText.includes('Цвет 1') || headerText.includes('Color 1')) {
+                header.textContent = currentLanguage === 'ru' ? 'Цвет 1' : 'Color 1';
+            } else if (headerText.includes('Цвет 2') || headerText.includes('Color 2')) {
+                header.textContent = currentLanguage === 'ru' ? 'Цвет 2' : 'Color 2';
+            } else if (headerText.includes('Разница') || headerText.includes('Difference')) {
+                header.textContent = translations[currentLanguage]['difference'];
+            }
+        });
+    }
+    
+    // Обновляем заголовок в модальном окне настроек, если оно открыто
+    const settingsHeader = document.querySelector('.settings-header');
+    if (settingsHeader) {
+        settingsHeader.textContent = currentLanguage === 'ru' ? 'Настройки' : 'Settings';
+    }
+    
+    // Проверяем, существуют ли вкладки настроек и обновляем их
+    const copyTabButton = document.getElementById('copyTabButton');
+    if (copyTabButton) {
+        copyTabButton.textContent = currentLanguage === 'ru' ? 'Копирование' : 'Copy';
+    }
+    
+    const displayTabButton = document.getElementById('displayTabButton');
+    if (displayTabButton) {
+        displayTabButton.textContent = currentLanguage === 'ru' ? 'Отображение' : 'Display';
+    }
+    
+    // Обновляем тексты в настройках полей копирования
+    updateCopySettingsLabels();
+    
+    // Проверяем, есть ли в инпуте значение, и если да - обновляем проверку цвета
+    if (hexInput && hexInput.value.trim() !== '') {
+        checkColor();
+    }
+    
+    // Обновляем историю
+    loadHistory();
 }
 
 function clearHistory() {
@@ -1154,6 +1162,7 @@ function toggleTheme() {
     localStorage.setItem('selectedTheme', selectedTheme);
 }
 
+// Первая функция handleKeyPress - оставляем ее
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         checkColor();
@@ -1181,11 +1190,7 @@ function updateThemeSelectOptions() {
     options[4].text = translations[currentLanguage].themes.colors;
 }
 
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        checkColor();
-    }
-}
+// Удаляем второе определение функции handleKeyPress отсюда
 
 function openChangelog() {
     // Можно открыть в новой вкладке
@@ -1784,3 +1789,96 @@ function rgbToHex(rgb) {
         })
         .join('');
 }
+
+// Функция для обновления текстов в настройках копирования
+function updateCopySettingsLabels() {
+    const copySettingsForm = document.getElementById('copySettingsForm');
+    if (!copySettingsForm) return;
+    
+    // Обновляем заголовок
+    const settingsTitle = copySettingsForm.querySelector('.settings-title');
+    if (settingsTitle) {
+        settingsTitle.textContent = translations[currentLanguage].copySettingsTitle;
+    }
+    
+    // Обновляем метки чекбоксов
+    const labels = copySettingsForm.querySelectorAll('label');
+    labels.forEach(label => {
+        const dataKey = label.getAttribute('data-translation-key');
+        if (dataKey && translations[currentLanguage][dataKey]) {
+            label.textContent = translations[currentLanguage][dataKey];
+        }
+    });
+    
+    // Обновляем кнопку закрытия
+    const closeButton = copySettingsForm.querySelector('.close-button');
+    if (closeButton) {
+        closeButton.textContent = translations[currentLanguage].closeButton || 'X';
+    }
+}
+
+// Мобильное меню
+const mobileMenuButton = document.querySelector('.mobile-menu-button');
+const sideMenu = document.getElementById('sideMenu');
+const mobileLangToggle = document.getElementById('mobileLangToggle');
+const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+const mobileAnimationToggle = document.getElementById('mobileAnimationToggle');
+const mobileClearHistory = document.getElementById('mobileClearHistory');
+
+// Обработчики для мобильного меню
+mobileMenuButton.addEventListener('click', () => {
+    mobileMenuButton.classList.toggle('active');
+    sideMenu.classList.toggle('active');
+});
+
+// Закрытие меню при клике вне его
+document.addEventListener('click', (e) => {
+    if (!sideMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+        mobileMenuButton.classList.remove('active');
+        sideMenu.classList.remove('active');
+    }
+});
+
+// Обработчики для кнопок мобильного меню
+mobileLangToggle.addEventListener('click', () => {
+    toggleLanguage();
+    updateMobileMenuText();
+    mobileMenuButton.classList.remove('active');
+    sideMenu.classList.remove('active');
+});
+
+mobileThemeToggle.addEventListener('click', () => {
+    toggleTheme();
+    updateMobileMenuText();
+    mobileMenuButton.classList.remove('active');
+    sideMenu.classList.remove('active');
+});
+
+mobileAnimationToggle.addEventListener('click', () => {
+    toggleAnimation();
+    updateMobileMenuText();
+    mobileMenuButton.classList.remove('active');
+    sideMenu.classList.remove('active');
+});
+
+mobileClearHistory.addEventListener('click', () => {
+    clearHistory();
+    mobileMenuButton.classList.remove('active');
+    sideMenu.classList.remove('active');
+});
+
+function updateMobileMenuText() {
+    mobileLangToggle.textContent = currentLanguage === 'ru' ? 'English' : 'Русский';
+    mobileThemeToggle.textContent = currentLanguage === 'ru' ? 
+        (isDarkTheme ? 'Светлая тема' : 'Темная тема') : 
+        (isDarkTheme ? 'Light theme' : 'Dark theme');
+    mobileAnimationToggle.textContent = currentLanguage === 'ru' ? 
+        (animationEnabled ? 'Отключить анимацию' : 'Включить анимацию') : 
+        (animationEnabled ? 'Disable animation' : 'Enable animation');
+    mobileClearHistory.textContent = currentLanguage === 'ru' ? 'Очистить историю' : 'Clear history';
+}
+
+// Обновляем текст кнопок при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    updateMobileMenuText();
+});

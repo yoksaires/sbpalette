@@ -4,66 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SBPalette</title>
+    <link rel="icon" href="logo.png">
     <link rel="stylesheet" href="style.css">
-	<link rel="icon" href="logo.png">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
 <body>
-    <div class="header">
-        <h1 id="title">SBPalette for Hypixel</h1>
-        <div class="header-buttons">
-            <select id="languageSelect" onchange="toggleLanguage()">
-                <option value="ru">Русский</option>
-                <option value="en" selected>English</option>
-            </select>
-            <select id="themeSelect" onchange="toggleTheme()">
-                <option value="light" selected>Светлая</option>
-                <option value="dark">Темная</option>
-                <option value="cosmic">Космическая</option>
-                <option value="drinwater">Вода</option>
-                <option value="colors">Цвета</option>
-            </select>
-            <button onclick="clearHistory()">Clear History</button>
-            <button onclick="openChangelog()" class="changelog-button">Changelog</button>
-            <button onclick="window.location.href='about.html'" class="about-button">About</button>
-            <button onclick="window.location.href='compare.html'" class="compare-button">Compare Colors</button>
+    <!-- <div id="sideMenu">
+        <button id="mobileLangToggle">English</button>
+        <button id="mobileThemeToggle">Темная тема</button>
+        <button id="mobileAnimationToggle">Анимация</button>
+        <button id="mobileClearHistory">Очистить историю</button>
+    </div> -->
+
+    <div class="container">
+        <div class="header">
+            <h1 id="title">SBPalette</h1>
+            <div class="header-buttons">
+                <select id="languageSelect" onchange="toggleLanguage()">
+                    <option value="ru">Русский</option>
+                    <option value="en" selected>English</option>
+                </select>
+                <select id="themeSelect" onchange="toggleTheme()">
+                    <option value="light" selected>Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="cosmic">Cosmic</option>
+                    <option value="drinwater">Drinwater</option>
+                    <option value="colors">Colors</option>
+                </select>
+                <button onclick="window.location.href='about.html'" class="about-button" data-lang-ru="О проекте" data-lang-en="About">About</button>
+                <button onclick="window.location.href='compare.html'" class="compare-button-nav" data-lang-ru="Сравнить цвета" data-lang-en="Compare Colors">Compare Colors</button>
+                <button onclick="alert('В разработке')" class="ah-button" data-lang-ru="Аукцион" data-lang-en="AH">AH</button>
+                <button onclick="window.location.href='changelog.html'" class="changelog-button" data-lang-ru="Список изменений" data-lang-en="Changelog">Changelog</button>
+            </div>
         </div>
-    </div>
-    <input type="text" id="hexInput" placeholder="Enter HEX code" onkeypress="handleKeyPress(event)">
-    <!--<div class="color-preview" id="colorPreview"></div> -->
-    <button onclick="checkColor()">Find</button>
-    <button onclick="shareUrl()">Share</button>
-    <div class="result" id="result"></div>
-    <h2 id="historyTitle">History of Requests:</h2>
-    <div class="history-container" id="historyContainer">
-        <!-- Заполнится при сохранении запросов -->
-    </div>
-    <h2 id="tableTitle">Table of Closest Colors:</h2>
-    <div style="display: flex;">
-        <table id="colorTable" border="1">
-            <thead>
-                <tr>
-                    <th id="armorHeader">Armor</th>
-                    <th id="hexHeader">HEX</th>
-                    <th id="colorHeader">Color</th>
-                    <th id="differenceHeader">Difference</th>
-                    <th id="tierHeader">Rank</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Заполнится при поиске ближайших цветов -->
-            </tbody>
-        </table>
-        <table id="copyTable">
-            <thead>
-                <tr>
-                    <th style="cursor: pointer;" onclick="openSettingsModal()">Copy ⚙️</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Заполнится кнопками Copy -->
-            </tbody>
-        </table>
+        
+        <div class="main-container">
+            <div class="search-container">
+                <div class="color-input-section">
+                    <h2 class="section-header" data-lang-ru="Проверка цвета" data-lang-en="Check Color">Check Color</h2>
+                    <div class="input-container">
+                        <input type="text" id="hexInput" placeholder="#hex, rgb or name" data-lang-ru="#hex, rgb или название" data-lang-en="#hex, rgb or name" onkeypress="handleKeyPress(event)">
+                        <div class="color-preview" id="colorPreview"></div>
+                    </div>
+                    <div class="button-container">
+                        <button onclick="checkColor()" id="findButton" data-lang-ru="Найти" data-lang-en="Find">Find</button>
+                        <button onclick="shareUrl()" id="shareButton" data-lang-ru="Поделиться" data-lang-en="Share">Share</button>
+                    </div>
+                </div>
+                
+                <div class="result" id="resultContainer"></div>
+            </div>
+            
+            <div class="history-section">
+                <h2 class="section-header" data-lang-ru="История запросов" data-lang-en="History of Requests">History of Requests</h2>
+                <div class="button-container history-buttons">
+                    <button onclick="clearHistory()" id="clearHistoryButton" data-lang-ru="Очистить историю" data-lang-en="Clear History">Clear History</button>
+                </div>
+                <div class="history-container" id="historyContainer">
+                    <!-- Заполнится при сохранении запросов -->
+                </div>
+            </div>
+            
+            <div class="table-section">
+                <h2 class="section-header" data-lang-ru="Таблица цветов" data-lang-en="Color Table">Color Table</h2>
+                <div class="table-container">
+                    <table id="colorTable" border="1">
+                        <thead>
+                            <tr>
+                                <th id="armorHeader">Armor</th>
+                                <th id="hexHeader">HEX</th>
+                                <th id="colorHeader">Color</th>
+                                <th id="differenceHeader">Difference</th>
+                                <th id="tierHeader">Rank</th>
+                                <th id="copyHeader" style="cursor: pointer;" onclick="openSettingsModal()">Copy ⚙️</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Заполнится при поиске ближайших цветов -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>

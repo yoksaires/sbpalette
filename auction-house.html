@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBPalette - Auction House</title>
+    <link rel="icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Minecraft', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2 {
+            color: #3498db;
+        }
+        
+        /* Стили для кнопок */
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Minecraft', Arial, sans-serif;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Стили для фильтров */
+        .filters {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        /* Стили для списка предметов */
+        .item-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .item-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .rare {
+            border-left: 5px solid #f1c40f;
+            background-color: #fffde7;
+        }
+        
+        .item-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .item-info, .color-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .lore {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        
+        .lore p {
+            margin: 2px 0;
+        }
+        
+        /* Стили для бейджей редкости */
+        .tier-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            color: white;
+        }
+        
+        .tier-legendary {
+            background-color: #FFD700;
+            color: #333;
+        }
+        
+        .tier-mythic {
+            background-color: #AA00FF;
+        }
+        
+        .tier-epic {
+            background-color: #5500FF;
+        }
+        
+        .tier-rare {
+            background-color: #0055FF;
+        }
+        
+        .tier-common {
+            background-color: #AAAAAA;
+        }
+        
+        /* Стили для кнопок копирования и отладки */
+        .item-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .copy-command, .debug-button {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Minecraft', Arial, sans-serif;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-command:hover, .debug-button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Стили для отображения отладочной информации */
+        .debug-info {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .debug-content h4 {
+            margin-top: 0;
+            color: #3498db;
+        }
+        
+        .debug-json {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        /* Стили для форматирования Minecraft */
+        .mc-format-0 { color: #000000; } /* black */
+        .mc-format-1 { color: #0000AA; } /* dark blue */
+        .mc-format-2 { color: #00AA00; } /* dark green */
+        .mc-format-3 { color: #00AAAA; } /* dark aqua */
+        .mc-format-4 { color: #AA0000; } /* dark red */
+        .mc-format-5 { color: #AA00AA; } /* dark purple */
+        .mc-format-6 { color: #FFAA00; } /* gold */
+        .mc-format-7 { color: #AAAAAA; } /* gray */
+        .mc-format-8 { color: #555555; } /* dark gray */
+        .mc-format-9 { color: #5555FF; } /* blue */
+        .mc-format-a { color: #55FF55; } /* green */
+        .mc-format-b { color: #55FFFF; } /* aqua */
+        .mc-format-c { color: #FF5555; } /* red */
+        .mc-format-d { color: #FF55FF; } /* light purple */
+        .mc-format-e { color: #FFFF55; } /* yellow */
+        .mc-format-f { color: #FFFFFF; } /* white */
+        
+        /* Индикатор загрузки */
+        .loading-indicator {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(0,0,0,0.2);
+            border-radius: 50%;
+            border-top-color: #3498db;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Стили для уведомления "предметы не найдены" */
+        .no-items-found {
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 20px;
+            color: #777;
+        }
+        
+        /* Адаптивный дизайн */
+        @media (max-width: 768px) {
+            .item-details {
+                flex-direction: column;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-button">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="container">
+        <div class="header">
+            <h1 id="title">Auction House</h1>
+            <div class="header-buttons">
+                <select id="languageSelect" onchange="toggleLanguage()">
+                    <option value="ru">Русский</option>
+                    <option value="en" selected>English</option>
+                </select>
+                <select id="themeSelect" onchange="toggleTheme()">
+                    <option value="light" selected>Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="cosmic">Cosmic</option>
+                    <option value="drinwater">Drinwater</option>
+                    <option value="colors">Colors</option>
+                </select>
+                <button onclick="window.location.href='main.html'" class="back-button" data-lang-ru="Назад" data-lang-en="Back">Back</button>
+            </div>
+        </div>
+        
+        <div class="main-container">
+            <!-- API Key Input Section (Initially Visible) -->
+            <div id="apiKeySection" class="api-key-section">
+                <div class="api-key-container">
+                    <h2 data-lang-ru="Введите API ключ Hypixel" data-lang-en="Enter Hypixel API Key">Enter Hypixel API Key</h2>
+                    <input type="text" id="apiKeyInput" placeholder="API Key" data-lang-ru="API ключ" data-lang-en="API Key">
+                    <div id="apiKeyError" class="api-key-error" style="display: none;"></div>
+                    <button onclick="submitApiKey()" id="submitApiKeyButton" data-lang-ru="Подтвердить" data-lang-en="Submit">Submit</button>
+                    <div id="apiKeyInfo" class="api-key-info-container"></div>
+                </div>
+            </div>
+
+            <!-- Auction House Content (Initially Hidden) -->
+            <div id="auctionHouseContent" class="auction-house-content" style="display: none;">
+                <div class="settings-section">
+                    <h2 class="section-header" data-lang-ru="Настройки" data-lang-en="Settings">Settings</h2>
+                    <div class="settings-container">
+                        <button onclick="editApiKey()" id="editApiKeyButton" data-lang-ru="Редактировать API ключ" data-lang-en="Edit API Key">Edit API Key</button>
+                        <div class="api-limit-info">
+                            <p data-lang-ru="⚠️ Следите за ограничениями API в вашем Dashboard" data-lang-en="⚠️ Watch your API rate limits in your Dashboard">⚠️ Watch your API rate limits in your Dashboard</p>
+                        </div>
+                        
+                        <!-- Rare Items Hunter -->
+                        <div class="rare-items-section">
+                            <h3 data-lang-ru="Охотник за редкими предметами" data-lang-en="Rare Items Hunter">Rare Items Hunter</h3>
+                            
+                            <div class="search-controls">
+                                <button onclick="startRareItemsSearch()" id="startSearchButton" data-lang-ru="Начать поиск" data-lang-en="Start Search">Start Search</button>
+                                <button onclick="stopRareItemsSearch()" id="stopSearchButton" data-lang-ru="Остановить" data-lang-en="Stop" disabled>Stop</button>
+                                
+                                <div class="auto-refresh">
+                                    <input type="checkbox" id="autoRefresh" checked>
+                                    <label for="autoRefresh" data-lang-ru="Автообновление каждые" data-lang-en="Auto-refresh every">Auto-refresh every</label>
+                                    <input type="number" id="refreshInterval" value="30" min="5" max="300">
+                                    <span data-lang-ru="секунд" data-lang-en="seconds">seconds</span>
+                                </div>
+                            </div>
+                            
+                            <div class="target-items">
+                                <h4 data-lang-ru="Искомые предметы" data-lang-en="Target Items">Target Items:</h4>
+                                <ul>
+                                    <li>Velvet Top Hat</li>
+                                    <li>Cashmere Jacket</li>
+                                    <li>Satin Trousers</li>
+                                    <li>Oxford Shoes</li>
+                                </ul>
+                            </div>
+                            
+                            <div id="searchStatus">
+                                <span data-lang-ru="Статус: Готов к поиску" data-lang-en="Status: Ready to search">Status: Ready to search</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Original Filters -->
+                        <div class="filter-controls">
+                            <h3 data-lang-ru="Фильтры" data-lang-en="Filters">Filters</h3>
+                            <div class="filter-row">
+                                <label for="itemTypeFilter" data-lang-ru="Тип предмета:" data-lang-en="Item Type:">Item Type:</label>
+                                <select id="itemTypeFilter">
+                                    <option value="all" data-lang-ru="Все" data-lang-en="All">All</option>
+                                    <option value="weapon" data-lang-ru="Оружие" data-lang-en="Weapon">Weapon</option>
+                                    <option value="armor" data-lang-ru="Броня" data-lang-en="Armor">Armor</option>
+                                    <option value="accessory" data-lang-ru="Аксессуары" data-lang-en="Accessory">Accessory</option>
+                                </select>
+                            </div>
+                            <div class="filter-row">
+                                <label for="rarityFilter" data-lang-ru="Редкость:" data-lang-en="Rarity:">Rarity:</label>
+                                <select id="rarityFilter">
+                                    <option value="all" data-lang-ru="Все" data-lang-en="All">All</option>
+                                    <option value="common" data-lang-ru="Обычный" data-lang-en="Common">Common</option>
+                                    <option value="uncommon" data-lang-ru="Необычный" data-lang-en="Uncommon">Uncommon</option>
+                                    <option value="rare" data-lang-ru="Редкий" data-lang-en="Rare">Rare</option>
+                                    <option value="epic" data-lang-ru="Эпический" data-lang-en="Epic">Epic</option>
+                                    <option value="legendary" data-lang-ru="Легендарный" data-lang-en="Legendary">Legendary</option>
+                                    <option value="mythic" data-lang-ru="Мифический" data-lang-en="Mythic">Mythic</option>
+                                </select>
+                            </div>
+                            <button onclick="fetchRandomItem()" id="fetchButton" data-lang-ru="Получить случайный предмет" data-lang-en="Fetch Random Item">Fetch Random Item</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="auction-results">
+                    <h2 class="section-header" data-lang-ru="Результаты" data-lang-en="Results">Results</h2>
+                    
+                    <!-- Rare Items Results -->
+                    <div id="rareItemsResults" class="rare-items-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                    
+                    <div id="itemDetailsContainer" class="item-details-container">
+                        <!-- Item details will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio for notifications -->
+    <audio id="notificationSound">
+        <source src="data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAAGhgDh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAWTAAAAAAAABobXGSQjAAAAAAD/+xDEAAAK7KNf9BEAIlTHLv81gBGbLxbqZc9d2jIhTCgttEzS8xKZ1JSjJhgnHIJCnrAgA44Dcj8QOuBgdw7h3Dud/O5CEcqAIEoDhxwMDuHcO4dw7nfz///iAIAlYnD/1TGrtfRkfUwfA0JiNgzFCtVRe1ZFTJUuJKFwPiQEBAQWGCQkIf4hAQEBH//igQEBASsCAgILf/7D///g0CAh8igICAxT/+wkROVMQU1FMy45OS41VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7EsQ6gAt0qWv2KgAJlTBt/sYeHVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7EMRuARuZeW/WngGAAAP8AAAARVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==" type="audio/mp3">
+    </audio>
+
+    <script src="auction-house.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Rare Items Hunter functionality
+        let searchInterval;
+        let targetItems = ['Velvet Top Hat', 'Cashmere Jacket', 'Satin Trousers', 'Oxford Shoes'];
+        
+        function startRareItemsSearch() {
+            document.getElementById('startSearchButton').disabled = true;
+            document.getElementById('stopSearchButton').disabled = false;
+            
+            const searchStatus = document.getElementById('searchStatus');
+            searchStatus.innerHTML = '<span data-lang-ru="Статус: Поиск..." data-lang-en="Status: Searching...">Status: Searching...</span> <div class="loading-indicator"></div>';
+            
+            // Perform initial search
+            searchRareItems();
+            
+            // Set up auto-refresh if enabled
+            if (document.getElementById('autoRefresh').checked) {
+                const intervalSeconds = parseInt(document.getElementById('refreshInterval').value);
+                searchInterval = setInterval(searchRareItems, intervalSeconds * 1000);
+            }
+        }
+        
+        function stopRareItemsSearch() {
+            document.getElementById('startSearchButton').disabled = false;
+            document.getElementById('stopSearchButton').disabled = true;
+            
+            if (searchInterval) {
+                clearInterval(searchInterval);
+                searchInterval = null;
+            }
+            
+            const searchStatus = document.getElementById('searchStatus');
+            searchStatus.innerHTML = '<span data-lang-ru="Статус: Остановлено" data-lang-en="Status: Stopped">Status: Stopped</span>';
+        }
+        
+        function searchRareItems() {
+            // Получение данных с API будет реализовано в auction-house.js
+            // Здесь мы вызываем функцию, которая будет добавлена в auction-house.js
+            if (typeof fetchRareItems === 'function') {
+                fetchRareItems();
+            } else {
+                console.error('fetchRareItems function not found. Please update auction-house.js');
+            }
+        }
+        
+        function displayRareItem(item, containerId = 'rareItemsResults') {
+            const container = document.getElementById(containerId);
+            
+            // Создаем уникальный ID для этого элемента
+            const itemId = `item-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+            
+            // Extract color information from item_lore
+            const colorInfo = extractColorInfo(item.item_lore);
+            console.log("Extracted color info:", colorInfo); // Добавляем логирование
+            
+            // Calculate rarity tier based on color Delta
+            const rarityTier = calculateRarityTier(colorInfo);
+            
+            // Get detailed rarity information 
+            const rarityInfo = calculateRarityBasedOnColor(colorInfo);
+            
+            // Calculate time left
+            const currentTime = Date.now();
+            const endTime = item.end;
+            const timeLeft = endTime - currentTime;
+            const timeLeftFormatted = formatTimeLeft(timeLeft);
+            
+            // Create item element
+            const itemElement = document.createElement('div');
+            itemElement.className = 'item-container';
+            
+            // Add special class for rare items
+            if (rarityTier <= 2) { // T0, T1, T2 are considered rare
+                itemElement.className += ' rare';
+                playNotificationSound();
+            }
+            
+            // Command to access auction
+            const auctionCommand = `/viewauction ${item.uuid}`;
+            
+            // Color badge based on tier
+            const tierClass = getTierClass(rarityInfo && rarityInfo.tier ? rarityInfo.tier : 'common');
+            const tierBadge = `<span class="tier-badge ${tierClass}">${rarityInfo && rarityInfo.tier ? rarityInfo.tier : 'Unknown'}</span>`;
+            
+            // Price formatting
+            const price = item.bin ? item.starting_bid : (item.highest_bid_amount || item.starting_bid);
+            const priceFormatted = formatPrice(price);
+            
+            // Безопасное отображение цветовых значений
+            const hexCode = colorInfo && colorInfo.hexCode ? colorInfo.hexCode : '#888';
+            const rgbText = colorInfo ? 
+                `R:${colorInfo.r || 0} G:${colorInfo.g || 0} B:${colorInfo.b || 0}` : 
+                'N/A';
+            
+            // Безопасное отображение дельты
+            const deltaText = rarityInfo && rarityInfo.delta !== undefined ? 
+                rarityInfo.delta.toFixed(2) : 
+                'N/A';
+            
+            // Добавляем проверки существования свойств
+            let tags = new Set();
+            if (item.tag && item.tag.ExtraAttributes) {
+                if (item.tag.ExtraAttributes.id === "ABIPHONE") {
+                    tags.add("PHONE");
+                }
+            }
+            
+            // Безопасный доступ к свойствам отображения предмета
+            const itemName = item.tag && item.tag.display && item.tag.display.Name ? item.tag.display.Name : "Неизвестный предмет";
+            const itemLore = item.tag && item.tag.display && item.tag.display.Lore ? item.tag.display.Lore : [];
+            const itemImageId = item.id || 0;
+            const itemDamage = item.Damage || 0;
+            
+            // Для обработки lore предмета с проверками
+            let loreHtml = '';
+            if (itemLore && Array.isArray(itemLore)) {
+                loreHtml = itemLore.map(line => `<p>${line}</p>`).join("");
+            }
+            
+            itemElement.innerHTML = `
+                <div class="item ${Array.from(tags).join(" ")}" data-item-id="${itemId}">
+                    <h3>${itemName} ${tierBadge}</h3>
+                    <img src="${getItemImageUrl(itemImageId, itemDamage)}" alt="${itemName}">
+                    <div class="item-details">
+                        <div class="item-info">
+                            <p><strong>Продавец:</strong> ${item.auctioneer || 'Unknown'}</p>
+                            <p><strong>Тип:</strong> ${item.bin ? 'BIN (Buy It Now)' : 'Auction with bids'}</p>
+                            <p><strong>Цена:</strong> ${priceFormatted} монет</p>
+                            <p class="time-left"><strong>Осталось времени:</strong> ${timeLeftFormatted}</p>
+                        </div>
+                        
+                        <div class="color-info">
+                            <p><strong>Цвет:</strong> <span class="color-preview" style="background-color: ${hexCode};"></span> ${hexCode}</p>
+                            <p><strong>RGB:</strong> ${rgbText}</p>
+                            <p><strong>Редкость:</strong> ${rarityInfo && rarityInfo.description ? rarityInfo.description : 'Unknown'} (Delta: ${deltaText})</p>
+                            <p><strong>Похож на:</strong> ${rarityInfo && rarityInfo.closestColor ? rarityInfo.closestColor : 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="lore">${loreHtml}</div>
+                    <div class="item-actions">
+                        <button class="copy-command" onclick="copyAuctionCommand('${item.uuid}')">Копировать команду аукциона</button>
+                        <button class="debug-button" onclick="showItemDebugInfo('${itemId}')">Отладка</button>
+                    </div>
+                    <div id="${itemId}" class="debug-info" style="display: none;"></div>
+                </div>
+            `;
+            
+            container.innerHTML += itemElement.innerHTML;
+            
+            // Сохраняем объект предмета в dataStore
+            window.dataStore = window.dataStore || {};
+            window.dataStore[itemId] = item;
+        }
+        
+        function showItemDebugInfo(itemId) {
+            const debugElement = document.getElementById(`${itemId}`);
+            
+            // Переключаем видимость
+            if (debugElement.style.display === 'none') {
+                // Получаем данные предмета
+                const item = window.dataStore[itemId];
+                if (item) {
+                    // Создаем структуру для отображения отладочной информации, если её еще нет
+                    if (!debugElement.querySelector('.debug-content')) {
+                        const debugContent = document.createElement('div');
+                        debugContent.className = 'debug-content';
+                        
+                        const heading = document.createElement('h4');
+                        heading.textContent = 'Подробная информация о предмете';
+                        debugContent.appendChild(heading);
+                        
+                        const jsonElement = document.createElement('pre');
+                        jsonElement.className = 'debug-json';
+                        debugContent.appendChild(jsonElement);
+                        
+                        debugElement.appendChild(debugContent);
+                    }
+                    
+                    const debugJsonElement = debugElement.querySelector('.debug-json');
+                    debugJsonElement.textContent = formatObjectForDisplay(item);
+                    debugElement.style.display = 'block';
+                } else {
+                    // Если предмет не найден в dataStore
+                    debugElement.innerHTML = '<div class="debug-content"><p>Данные о предмете не найдены</p></div>';
+                    debugElement.style.display = 'block';
+                }
+            } else {
+                debugElement.style.display = 'none';
+            }
+        }
+        
+        function formatObjectForDisplay(obj) {
+            // Форматируем объект для отображения
+            try {
+                // Используем replacer для обработки специальных значений
+                return JSON.stringify(obj, (key, value) => {
+                    // Если значение - строка, которая может содержать Minecraft форматирование
+                    if (typeof value === 'string' && value.includes('§')) {
+                        return `[MC: ${value}]`;
+                    }
+                    // Специальная обработка для больших чисел времени
+                    if (key === 'end' || key === 'start' && typeof value === 'number') {
+                        return `${value} (${new Date(value).toLocaleString()})`;
+                    }
+                    return value;
+                }, 2);
+            } catch (error) {
+                return `Ошибка форматирования: ${error.message}`;
+            }
+        }
+        
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " монет";
+        }
+        
+        function extractColorInfo(itemLore) {
+            // Placeholder function - implement color extraction from lore
+            // This function should parse the item_lore to find color information
+            // For testing, return mock data
+            return { 
+                hexCode: '#FF5733',
+                r: 255,
+                g: 87,
+                b: 51
+            };
+        }
+        
+        function calculateRarityTier(colorInfo) {
+            // Placeholder function - implement rarity calculation based on color delta
+            // Should use the function from main.html to calculate Delta and determine Tier
+            // For testing, return random tier 1-5
+            return Math.floor(Math.random() * 5) + 1;
+        }
+        
+        function formatTimeLeft(timeMs) {
+            try {
+                if (timeMs <= 0) return 'Ended';
+                
+                const seconds = Math.floor(timeMs / 1000);
+                const minutes = Math.floor(seconds / 60);
+                const hours = Math.floor(minutes / 60);
+                const days = Math.floor(hours / 24);
+                
+                if (days > 0) return `${days}d ${hours % 24}h`;
+                if (hours > 0) return `${hours}h ${minutes % 60}m`;
+                if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
+                return `${seconds}s`;
+            } catch (e) {
+                console.error("Error formatting time left:", e, timeMs);
+                return "Unknown";
+            }
+        }
+        
+        function copyAuctionCommand(uuid) {
+            const command = `/viewauction ${uuid}`;
+            navigator.clipboard.writeText(command)
+                .then(() => {
+                    alert("Команда аукциона скопирована!");
+                })
+                .catch(err => {
+                    console.error('Ошибка при копировании: ', err);
+                    alert("Не удалось скопировать команду. Команда: " + command);
+                });
+        }
+        
+        function playNotificationSound() {
+            const sound = document.getElementById('notificationSound');
+            sound.play().catch(error => {
+                console.warn('Autoplay prevented:', error);
+            });
+        }
+        
+        // Helper function to get CSS class for tier badges
+        function getTierClass(tier) {
+            switch(tier) {
+                case 'T0': return 'tier-legendary';
+                case 'T1': return 'tier-mythic';
+                case 'T2': return 'tier-epic';
+                case 'T3': return 'tier-rare';
+                case 'T4': 
+                default: return 'tier-common';
+            }
+        }
+        
+        // Функция для получения URL изображения предмета
+        function getItemImageUrl(itemId, damage = 0) {
+            // Placeholder - можно будет заменить на реальную логику получения изображений
+            // Для Minecraft предметов можно использовать API или локальные изображения
+            return `https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c3/Diamond_JE3_BE3.png`;
+        }
+    </script>
+</body>
+</html> 

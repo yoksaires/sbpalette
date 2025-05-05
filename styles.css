@@ -1,0 +1,446 @@
+/* Мобильное меню */
+.mobile-menu-button {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.mobile-menu-button span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.mobile-menu-button.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.mobile-menu-button.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-button.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+#sideMenu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--bg-color);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    z-index: 999;
+    padding: 80px 20px 20px;
+}
+
+#sideMenu.active {
+    right: 0;
+}
+
+#sideMenu button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#sideMenu button:hover {
+    background-color: var(--button-hover);
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+    
+    .header-buttons {
+        display: none;
+    }
+}
+
+/* Стили для Auction House */
+.api-key-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.api-key-container {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.api-key-container h2 {
+    margin-bottom: 20px;
+}
+
+.api-key-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+}
+
+.auction-house-content {
+    margin-top: 20px;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-container {
+    padding: 15px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#editApiKeyButton {
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#editApiKeyButton:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.filter-controls {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--bg-tertiary, #f5f5f5);
+    border-radius: 6px;
+}
+
+.filter-controls h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.filter-row label {
+    flex: 0 0 120px;
+    font-weight: bold;
+}
+
+.filter-row select {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+}
+
+#fetchButton {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--accent-color, #4CAF50);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#fetchButton:hover {
+    background-color: var(--accent-color-hover, #388E3C);
+}
+
+.auction-results {
+    margin-top: 20px;
+}
+
+.item-details-container {
+    padding: 15px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+}
+
+.item-card {
+    padding: 15px;
+    border-radius: 6px;
+    background-color: var(--bg-tertiary, #f9f9f9);
+    border-left: 5px solid;
+}
+
+.item-card.common {
+    border-left-color: #AAAAAA; /* Серый цвет для обычных предметов */
+}
+
+.item-card.uncommon {
+    border-left-color: #55FF55; /* Зеленый цвет для необычных предметов */
+}
+
+.item-card.rare {
+    border-left-color: #5555FF; /* Синий цвет для редких предметов */
+}
+
+.item-card.epic {
+    border-left-color: #AA00AA; /* Фиолетовый цвет для эпических предметов */
+}
+
+.item-card.legendary {
+    border-left-color: #FFAA00; /* Оранжевый цвет для легендарных предметов */
+}
+
+.item-card.mythic {
+    border-left-color: #FF55FF; /* Розовый цвет для мифических предметов */
+}
+
+.item-name {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: var(--text-primary);
+}
+
+.item-type, .item-rarity {
+    display: inline-block;
+    padding: 3px 8px;
+    margin-right: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: var(--bg-tag, #e0e0e0);
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.item-stats {
+    margin-top: 15px;
+}
+
+.item-stats h4 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.item-stats ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-stats li {
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.stat-name {
+    font-weight: bold;
+    margin-right: 5px;
+    min-width: 120px;
+}
+
+.item-description {
+    margin-top: 15px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.item-lore {
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.item-price {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--text-accent, #FF9800);
+}
+
+.item-price span {
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+/* Адаптивный дизайн для мобильных устройств */
+@media (max-width: 768px) {
+    .filter-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-row label {
+        margin-bottom: 5px;
+    }
+    
+    .filter-row select {
+        width: 100%;
+    }
+}
+
+/* Стили для API ключа и сообщений */
+.api-key-error {
+    color: #d32f2f;
+    background-color: rgba(211, 47, 47, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.api-key-info-container {
+    margin-top: 20px;
+    text-align: left;
+    padding: 15px;
+    background-color: rgba(33, 150, 243, 0.1);
+    border-radius: 8px;
+}
+
+.api-key-info {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.api-key-info-container ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.api-key-info-container li {
+    margin-bottom: 5px;
+}
+
+.api-key-info-container code {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.api-key-info-container a {
+    color: #2196F3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.api-key-info-container a:hover {
+    color: #0D47A1;
+    text-decoration: underline;
+}
+
+.api-limit-warning {
+    color: #ff9800;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.api-limit-info {
+    margin: 10px 0;
+    padding: 8px 12px;
+    background-color: rgba(255, 152, 0, 0.1);
+    border-left: 3px solid #ff9800;
+    border-radius: 4px;
+}
+
+.api-limit-info p {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+/* Темные темы */
+.dark-theme .api-key-info-container {
+    background-color: rgba(33, 150, 243, 0.2);
+}
+
+.dark-theme .api-key-error {
+    background-color: rgba(211, 47, 47, 0.2);
+}
+
+.dark-theme .api-limit-info {
+    background-color: rgba(255, 152, 0, 0.2);
+}
+
+.dark-theme .api-key-info-container code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .api-key-info-container a {
+    color: #64B5F6;
+}
+
+.dark-theme .api-key-info-container a:hover {
+    color: #90CAF9;
+}
+
+.cosmic-theme .api-key-info-container,
+.drinwater-theme .api-key-info-container,
+.colors-theme .api-key-info-container {
+    background-color: rgba(33, 150, 243, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+.cosmic-theme .api-key-info-container a,
+.drinwater-theme .api-key-info-container a,
+.colors-theme .api-key-info-container a {
+    color: #82B1FF;
+}
+
+.cosmic-theme .api-key-info-container a:hover,
+.drinwater-theme .api-key-info-container a:hover,
+.colors-theme .api-key-info-container a:hover {
+    color: #BBDEFB;
+}
+
+.cosmic-theme .api-key-error,
+.drinwater-theme .api-key-error,
+.colors-theme .api-key-error {
+    background-color: rgba(211, 47, 47, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+.cosmic-theme .api-limit-info,
+.drinwater-theme .api-limit-info,
+.colors-theme .api-limit-info {
+    background-color: rgba(255, 152, 0, 0.15);
+    backdrop-filter: blur(5px);
+} 
