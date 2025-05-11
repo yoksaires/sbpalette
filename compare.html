@@ -9,12 +9,8 @@
 </head>
 <body>
     <div class="header">
-        <h1 id="title">Color Comparison</h1>
+        <h1 id="title" data-lang-ru="Сравнение цветов" data-lang-en="Color Comparison">Color Comparison</h1>
         <div class="header-buttons">
-            <select id="languageSelect" onchange="toggleLanguage()">
-                <option value="ru">Русский</option>
-                <option value="en" selected>English</option>
-            </select>
             <select id="themeSelect" onchange="toggleTheme()">
                 <option value="light" selected>Light</option>
                 <option value="dark">Dark</option>
@@ -22,8 +18,8 @@
                 <option value="drinwater">Drinwater</option>
                 <option value="colors">Colors</option>
             </select>
-            <button onclick="window.location.href='main.html'" class="back-button">Back to Main</button>
-            <button onclick="window.location.href='about.html'" class="about-button">About</button>
+            <button onclick="window.location.href='main.html'" class="back-button" data-lang-ru="Вернуться на главную" data-lang-en="Back to Main">Back to Main</button>
+            <button onclick="window.location.href='about.html'" class="about-button" data-lang-ru="О проекте" data-lang-en="About">About</button>
         </div>
     </div>
     
@@ -36,26 +32,26 @@
     <!-- Кнопка включения/выключения анимации -->
     <button id="animationToggle" class="animation-toggle active" onclick="toggleAnimation()">
         <span class="animation-toggle-icon"></span>
-        <span id="animationToggleText">Animation ON</span>
+        <span id="animationToggleText" data-lang-ru="Анимация ВКЛ" data-lang-en="Animation ON">Animation ON</span>
     </button>
     
     <div class="compare-container">
         <div class="color-input-group">
             <div class="color-input-box">
-                <input type="text" id="color1Input" placeholder="Enter first HEX code" onkeypress="handleCompareKeyPress(event)">
+                <input type="text" id="color1Input" placeholder="Enter first HEX code" data-lang-ru="Введите первый HEX код" data-lang-en="Enter first HEX code" onkeypress="handleCompareKeyPress(event)">
                 <div class="color-preview large-preview" id="color1Preview"></div>
             </div>
             
             <div class="comparison-vs">VS</div>
             
             <div class="color-input-box">
-                <input type="text" id="color2Input" placeholder="Enter second HEX code" onkeypress="handleCompareKeyPress(event)">
+                <input type="text" id="color2Input" placeholder="Enter second HEX code" data-lang-ru="Введите второй HEX код" data-lang-en="Enter second HEX code" onkeypress="handleCompareKeyPress(event)">
                 <div class="color-preview large-preview" id="color2Preview"></div>
             </div>
         </div>
         
-        <button onclick="compareColors()" class="compare-button">Compare Colors</button>
-        <button onclick="shareComparisonUrl()" class="share-button">Share Comparison</button>
+        <button onclick="compareColors()" class="compare-button" data-lang-ru="Сравнить" data-lang-en="Compare Colors">Compare Colors</button>
+        <button onclick="shareComparisonUrl()" class="share-button" data-lang-ru="Поделиться" data-lang-en="Share">Share</button>
         
         <div class="result comparison-result" id="comparisonResult"></div>
         
@@ -63,10 +59,10 @@
             <table id="comparisonTable" class="comparison-table">
                 <thead>
                     <tr>
-                        <th id="propertyHeader">Property</th>
-                        <th id="color1Header">Color 1</th>
-                        <th id="color2Header">Color 2</th>
-                        <th id="differenceHeader">Difference</th>
+                        <th id="propertyHeader" data-lang-ru="Свойство" data-lang-en="Property">Property</th>
+                        <th id="color1Header" data-lang-ru="Цвет 1" data-lang-en="Color 1">Color 1</th>
+                        <th id="color2Header" data-lang-ru="Цвет 2" data-lang-en="Color 2">Color 2</th>
+                        <th id="differenceHeader" data-lang-ru="Разница" data-lang-en="Difference">Difference</th>
                     </tr>
                 </thead>
                 <tbody>

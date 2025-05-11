@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SB Palette - База данных цветов</title>
+    <title>SB Palette - Colors Database</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <meta name="description" content="База данных цветов для SB Palette. Посмотрите, какие цвета есть у игроков, и как редки ваши цвета.">
+    <meta name="description" content="Color database for SB Palette. Check which colors players have and how rare your colors are.">
     
     <style>
         :root {
@@ -21,6 +21,12 @@
             --border-color: #ddd;
             --success-color: #27ae60;
             --error-color: #e74c3c;
+            --accent-color: #3498db;
+            --accent-hover-color: #2980b9;
+            --table-header-bg: #f0f0f0;
+            --text-secondary: #7f8c8d;
+            --stat-bg: #f9f9f9;
+            --loader-color: #e0e0e0;
         }
         
         .dark-theme {
@@ -30,6 +36,10 @@
             --header-bg: #2980b9;
             --header-text: #ecf0f1;
             --border-color: #1a242f;
+            --table-header-bg: #2c3e50;
+            --text-secondary: #bdc3c7;
+            --stat-bg: #2c3e50;
+            --loader-color: #34495e;
         }
         
         body {
@@ -237,6 +247,34 @@
             cursor: pointer;
         }
         
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+        
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+        
+        footer nav a {
+            color: var(--header-text);
+            margin-left: 15px;
+            text-decoration: none;
+        }
+        
+        footer nav a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        
         @media (max-width: 768px) {
             .search-container input {
                 width: 100%;
@@ -251,36 +289,41 @@
             .statistics-container {
                 grid-template-columns: 1fr;
             }
+            
+            footer .container {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body class="light-theme">
     <header>
         <div class="container">
-            <h1>SB Palette - База данных цветов</h1>
+            <h1>SB Palette - Colors Database</h1>
             <button class="theme-toggle" id="themeToggle">🌙</button>
         </div>
     </header>
 
     <main class="container">
         <div class="tabs">
-            <button class="tab-button active" data-tab="statistics">Статистика</button>
-            <button class="tab-button" data-tab="search">Поиск цвета</button>
-            <button class="tab-button" data-tab="collection">Моя коллекция</button>
+            <button class="tab-button active" data-tab="statistics">Statistics</button>
+            <button class="tab-button" data-tab="search">Search Color</button>
+            <button class="tab-button" data-tab="collection">My Collection</button>
         </div>
 
         <div class="tab-content active" id="statistics">
-            <h2>Статистика цветов</h2>
+            <h2>Color Statistics</h2>
             <div class="loader" id="statsLoader"></div>
             <div class="message" id="statsMessage"></div>
             <div class="statistics-container" id="statsContainer"></div>
         </div>
 
         <div class="tab-content" id="search">
-            <h2>Поиск цвета</h2>
+            <h2>Search Color</h2>
             <div class="search-container">
-                <input type="text" id="colorSearch" placeholder="Введите HEX цвет (например, #FF5500)" maxlength="7">
-                <button id="searchButton">Искать</button>
+                <input type="text" id="colorSearch" placeholder="Enter HEX color (e.g., #FF5500)" maxlength="7">
+                <button id="searchButton">Search</button>
             </div>
             <div class="loader" id="searchLoader"></div>
             <div class="message" id="searchMessage"></div>
@@ -288,10 +331,10 @@
         </div>
 
         <div class="tab-content" id="collection">
-            <h2>Моя коллекция</h2>
+            <h2>My Collection</h2>
             <div class="search-container">
-                <input type="text" id="discordIdInput" placeholder="Введите ваш Discord ID">
-                <button id="loadCollectionButton">Загрузить коллекцию</button>
+                <input type="text" id="discordIdInput" placeholder="Enter your Discord ID">
+                <button id="loadCollectionButton">Load Collection</button>
             </div>
             <div class="loader" id="collectionLoader"></div>
             <div class="message" id="collectionMessage"></div>
@@ -303,8 +346,8 @@
         <div class="container">
             <p>© 2023 SB Palette</p>
             <nav>
-                <a href="main.html">Главная</a>
-                <a href="database.html" class="active">База данных</a>
+                <a href="main.html">Home</a>
+                <a href="database.html" class="active">Database</a>
             </nav>
         </div>
     </footer>
@@ -312,11 +355,11 @@
     <script src="colors-database.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Переключение темы
+            // Theme toggle
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
             
-            // Загрузка сохраненной темы
+            // Load saved theme
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 body.className = savedTheme;
@@ -340,7 +383,7 @@
                 themeToggle.textContent = body.classList.contains('light-theme') ? '🌙' : '☀️';
             }
             
-            // Переключение вкладок
+            // Tab switching
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
             
@@ -348,22 +391,22 @@
                 button.addEventListener('click', function() {
                     const tabName = this.dataset.tab;
                     
-                    // Убираем активный класс у всех кнопок и контентов
+                    // Remove active class from all buttons and contents
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.classList.remove('active'));
                     
-                    // Добавляем активный класс выбранной кнопке и соответствующему контенту
+                    // Add active class to selected button and corresponding content
                     this.classList.add('active');
                     document.getElementById(tabName).classList.add('active');
                     
-                    // Если выбрана вкладка статистики, загружаем статистику
+                    // If statistics tab is selected, load statistics
                     if (tabName === 'statistics') {
                         loadStatistics();
                     }
                 });
             });
             
-            // Поиск цвета
+            // Color search
             const searchButton = document.getElementById('searchButton');
             const colorSearch = document.getElementById('colorSearch');
             
@@ -374,7 +417,7 @@
                 }
             });
             
-            // Загрузка коллекции
+            // Collection loading
             const loadCollectionButton = document.getElementById('loadCollectionButton');
             const discordIdInput = document.getElementById('discordIdInput');
             
@@ -385,7 +428,7 @@
                 }
             });
             
-            // Инициализация страницы - загрузка статистики при первом открытии
+            // Initialize page - load statistics on first open
             loadStatistics();
         });
     </script>

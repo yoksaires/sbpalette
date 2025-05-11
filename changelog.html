@@ -10,7 +10,9 @@
 <body>
     <div class="changelog-container">
         <div class="changelog-header">
-            <a href="main.html" class="back-button" data-lang-ru="Вернуться на главную" data-lang-en="Back to Main"></a>
+            <div class="header-buttons">
+                <button onclick="window.location.href='main.html'" class="about-button">Home</button>
+            </div>
             <div class="language-select-container">
                 <select id="languageSelect" onchange="toggleLanguage()">
                     <option value="ru">Русский</option>
@@ -22,7 +24,76 @@
         <h1><i class="fas fa-history"></i> <span data-lang-ru="История изменений" data-lang-en="Changelog"></span></h1>
         <p class="changelog-intro" data-lang-ru="Здесь вы можете отслеживать все обновления и улучшения SBPalette. Последние изменения отображаются в начале списка." 
            data-lang-en="Here you can track all the updates and improvements to SBPalette. The latest changes are displayed at the beginning of the list."></p>
+           <div class="changelog-entry">
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 20 апреля 2025</div>
+            <div class="changelog-content">
+                <ul>
+                    <li><span class="feature-badge" data-lang-ru="Новая функция" data-lang-en="New feature"></span> 
+                        <span data-lang-ru="Добавлен расчет идеального среднего цвета между двумя сравниваемыми цветами" 
+                              data-lang-en="Added calculation of the perfect middle color between two compared colors"></span></li>
+                    <ul>
+                        <li data-lang-ru="Теперь при сравнении двух цветов вы также увидите их оптимальный средний оттенок"
+                            data-lang-en="Now when comparing two colors, you will also see their optimal middle shade"></li>
+                        <li data-lang-ru="Расчет выполняется в перцептивном цветовом пространстве L*a*b* для более точного восприятия человеческим глазом"
+                            data-lang-en="Calculation is performed in the perceptual L*a*b* color space for more accurate human eye perception"></li>
+                        <li data-lang-ru="Результат отображается как в основном результате, так и в таблице сравнения"
+                            data-lang-en="The result is displayed both in the main result and in the comparison table"></li>
+                    </ul>
+                </ul>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
+            </div>
+        </div>
 
+        <div class="changelog-entry">
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 20 апреля 2025</div>
+            <div class="changelog-content">
+                <ul>
+                    <li><span class="feature-badge" data-lang-ru="Визуализация" data-lang-en="Visualization"></span> 
+                        <span data-lang-ru="Добавлена уникальная анимация с цветными трапециями на странице сравнения цветов" 
+                              data-lang-en="Added unique animation with colored trapezoids on the color comparison page"></span></li>
+                    <ul>
+                        <li data-lang-ru="Теперь при сравнении цветов с левого и правого края экрана появляются анимированные трапеции соответствующих цветов"
+                            data-lang-en="Now when comparing colors, animated trapezoids of corresponding colors appear from the left and right edges of the screen"></li>
+                        <li data-lang-ru="Трапеции имеют асимметричную форму: левая с широким верхом, правая с широким низом" 
+                            data-lang-en="The trapezoids have an asymmetric shape: left one with a wide top, right one with a wide bottom"></li>
+                        <li data-lang-ru="Трапеции соприкасаются в центре экрана, создавая эффект соединения цветов"
+                            data-lang-en="The trapezoids meet in the center of the screen, creating a color fusion effect"></li>
+                    </ul>
+                </ul>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="Разработчик" data-lang-en="Developer"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 30 апреля 2025</div>
+            <div class="changelog-content">
+                <ul>
+                    <li><span class="feature-badge" data-lang-ru="Улучшение" data-lang-en="Improvement"></span> 
+                        <span data-lang-ru="Улучшения интерфейса и настройки анимации на странице сравнения" 
+                              data-lang-en="Interface improvements and animation settings on the comparison page"></span></li>
+                    <ul>
+                        <li data-lang-ru="Добавлена кнопка включения/выключения анимации цветных трапеций"
+                            data-lang-en="Added button to toggle the colored trapezoid animation on/off"></li>
+                        <li data-lang-ru="Кнопка расположена в левом нижнем углу экрана для удобного доступа"
+                            data-lang-en="Button is positioned in the bottom left corner of the screen for easy access"></li>
+                        <li data-lang-ru="Улучшена читаемость таблицы сравнения цветов с более непрозрачным фоном"
+                            data-lang-en="Improved readability of the color comparison table with a more opaque background"></li>
+                        <li data-lang-ru="Настройки анимации теперь сохраняются между сессиями"
+                            data-lang-en="Animation settings are now saved between sessions"></li>
+                    </ul>
+                </ul>
+                <div class="commit-info">
+                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span>
+                    <span class="contributor-label" data-lang-ru="UX" data-lang-en="UX"></span>
+                </div>
+            </div>
+        </div>
         <div class="changelog-entry">
             <div class="changelog-date"><i class="far fa-calendar-alt"></i> 19 апреля 2025</div>
             <div class="changelog-content">
@@ -280,79 +351,7 @@
             </div>
         </div>
 
-        <div class="changelog-entry">
-            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 28 апреля 2025</div>
-            <div class="changelog-content">
-                <ul>
-                    <li><span class="feature-badge" data-lang-ru="Новая функция" data-lang-en="New feature"></span> 
-                        <span data-lang-ru="Добавлен расчет идеального среднего цвета между двумя сравниваемыми цветами" 
-                              data-lang-en="Added calculation of the perfect middle color between two compared colors"></span></li>
-                    <ul>
-                        <li data-lang-ru="Теперь при сравнении двух цветов вы также увидите их оптимальный средний оттенок"
-                            data-lang-en="Now when comparing two colors, you will also see their optimal middle shade"></li>
-                        <li data-lang-ru="Расчет выполняется в перцептивном цветовом пространстве L*a*b* для более точного восприятия человеческим глазом"
-                            data-lang-en="Calculation is performed in the perceptual L*a*b* color space for more accurate human eye perception"></li>
-                        <li data-lang-ru="Результат отображается как в основном результате, так и в таблице сравнения"
-                            data-lang-en="The result is displayed both in the main result and in the comparison table"></li>
-                    </ul>
-                </ul>
-                <div class="commit-info">
-                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span><br>
-                    <span data-lang-ru="Идея: сообщество пользователей" data-lang-en="Idea: user community"></span>
-                    <span class="contributor-label" data-lang-ru="Запрос пользователей" data-lang-en="User request"></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="changelog-entry">
-            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 25 апреля 2025</div>
-            <div class="changelog-content">
-                <ul>
-                    <li><span class="feature-badge" data-lang-ru="Визуализация" data-lang-en="Visualization"></span> 
-                        <span data-lang-ru="Добавлена уникальная анимация с цветными трапециями на странице сравнения цветов" 
-                              data-lang-en="Added unique animation with colored trapezoids on the color comparison page"></span></li>
-                    <ul>
-                        <li data-lang-ru="Теперь при сравнении цветов с левого и правого края экрана появляются анимированные трапеции соответствующих цветов"
-                            data-lang-en="Now when comparing colors, animated trapezoids of corresponding colors appear from the left and right edges of the screen"></li>
-                        <li data-lang-ru="Трапеции имеют асимметричную форму: левая с широким верхом, правая с широким низом" 
-                            data-lang-en="The trapezoids have an asymmetric shape: left one with a wide top, right one with a wide bottom"></li>
-                        <li data-lang-ru="Трапеции соприкасаются в центре экрана, создавая эффект соединения цветов"
-                            data-lang-en="The trapezoids meet in the center of the screen, creating a color fusion effect"></li>
-                    </ul>
-                </ul>
-                <div class="commit-info">
-                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span><br>
-                    <span data-lang-ru="Идея: интерактивное сообщество" data-lang-en="Idea: interactive community"></span>
-                    <span class="contributor-label" data-lang-ru="Креатив" data-lang-en="Creative"></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="changelog-entry">
-            <div class="changelog-date"><i class="far fa-calendar-alt"></i> 30 апреля 2025</div>
-            <div class="changelog-content">
-                <ul>
-                    <li><span class="feature-badge" data-lang-ru="Улучшение" data-lang-en="Improvement"></span> 
-                        <span data-lang-ru="Улучшения интерфейса и настройки анимации на странице сравнения" 
-                              data-lang-en="Interface improvements and animation settings on the comparison page"></span></li>
-                    <ul>
-                        <li data-lang-ru="Добавлена кнопка включения/выключения анимации цветных трапеций"
-                            data-lang-en="Added button to toggle the colored trapezoid animation on/off"></li>
-                        <li data-lang-ru="Кнопка расположена в левом нижнем углу экрана для удобного доступа"
-                            data-lang-en="Button is positioned in the bottom left corner of the screen for easy access"></li>
-                        <li data-lang-ru="Улучшена читаемость таблицы сравнения цветов с более непрозрачным фоном"
-                            data-lang-en="Improved readability of the color comparison table with a more opaque background"></li>
-                        <li data-lang-ru="Настройки анимации теперь сохраняются между сессиями"
-                            data-lang-en="Animation settings are now saved between sessions"></li>
-                    </ul>
-                </ul>
-                <div class="commit-info">
-                    <span data-lang-ru="Автор: yoksaires" data-lang-en="Author: yoksaires"></span><br>
-                    <span data-lang-ru="Идея: улучшение пользовательского опыта" data-lang-en="Idea: user experience improvement"></span>
-                    <span class="contributor-label" data-lang-ru="UX" data-lang-en="UX"></span>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <script>

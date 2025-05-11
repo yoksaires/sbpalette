@@ -7,6 +7,7 @@
     <link rel="icon" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <meta name="description" content="SBPalette - A color finder for SkyBlock armor. Check rarity and find similar colors.">
 </head>
 <body>
     <!-- <div id="sideMenu">
@@ -20,10 +21,6 @@
         <div class="header">
             <h1 id="title">SBPalette</h1>
             <div class="header-buttons">
-                <select id="languageSelect" onchange="toggleLanguage()">
-                    <option value="ru">Русский</option>
-                    <option value="en" selected>English</option>
-                </select>
                 <select id="themeSelect" onchange="toggleTheme()">
                     <option value="light" selected>Light</option>
                     <option value="dark">Dark</option>
@@ -45,10 +42,10 @@
                     <h2 class="section-header" data-lang-ru="Проверка цвета" data-lang-en="Check Color">Check Color</h2>
                     <div class="input-container">
                         <input type="text" id="hexInput" placeholder="#hex, rgb or name" data-lang-ru="#hex, rgb или название" data-lang-en="#hex, rgb or name" onkeypress="handleKeyPress(event)">
-                        <div class="color-preview" id="colorPreview"></div>
+                        <!-- <div class="color-preview" id="colorPreview"></div> -->
                     </div>
                     <div class="button-container">
-                        <button onclick="checkColor()" id="findButton" data-lang-ru="Найти" data-lang-en="Find">Find</button>
+                        <button onclick="checkColor('all')" id="findButton" data-lang-ru="Найти" data-lang-en="Find">Find</button>
                         <button onclick="shareUrl()" id="shareButton" data-lang-ru="Поделиться" data-lang-en="Share">Share</button>
                     </div>
                 </div>

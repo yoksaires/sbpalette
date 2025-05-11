@@ -1,3 +1,7 @@
+// Устанавливаем язык по умолчанию
+const currentLanguage = 'en';
+localStorage.setItem('selectedLanguage', currentLanguage);
+
 // Данные из CSV (предварительно обработаны)
 const armorData = [
     {"name":"Bat Person Chestplate & Leggings & Boots \nNecromancer Lord Chestplate \nObsidian Chestplate \nPure Black Dye \nRancher's Boots \nShadow Assassin Chestplate & Leggings & Boots \nSquid Boots \nTarantula Helmet & Chestplate & Leggings & Boots \nWatcher Chestplate & Leggings & Boots \nWither Chestplate & Leggings & Boots","color":"#000000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
@@ -306,7 +310,6 @@ function rgbToLab(rgb) {
 }
 
 // Глобальные переменные
-let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
 let animationEnabled = localStorage.getItem('sbpalette-animation-enabled') !== 'false'; // По умолчанию включено
 
 // Инициализация при загрузке страницы
@@ -721,7 +724,25 @@ const translations = {
         'collectors': 'Collectors',
         'collectorsCount': 'Collectors count',
         'database': 'Database',
-        'iHaveThisColor': 'I have this color'
+        'iHaveThisColor': 'I have this color',
+        'clearHistoryButton': 'Clear History',
+        'copySettingsTitle': 'Copy Settings',
+        'fieldSelection': 'Field Selection',
+        'fieldOrder': 'Field Order',
+        'orderInstructions': 'Drag fields to change the copy order:',
+        'resetButton': 'Reset',
+        'saveButton': 'Save',
+        'dragHint': 'Hold ≡ and drag to change order',
+        'dragHandleTitle': 'Drag to change position',
+        'middle': 'Middle',
+        'linkCopied': 'Link copied to clipboard!',
+        'themes': {
+            light: 'Light',
+            dark: 'Dark',
+            cosmic: 'Cosmic',
+            drinwater: 'Drinwater',
+            colors: 'Colors'
+        }
     }
 };
 
@@ -1436,205 +1457,8 @@ function checkColorFromHistory(hex, armorType = 'all') {
 }
 
 function toggleLanguage() {
-    currentLanguage = currentLanguage === 'ru' ? 'en' : 'ru';
-    localStorage.setItem('language', currentLanguage);
-    
-    // Обновляем заголовок страницы
-    document.title = translations[currentLanguage]['title'];
-    
-    // Обновляем кнопки типов брони
-    updateArmorTypeButtons();
-    
-    // Обновляем текст кнопки Share в результатах
-    const shareButton = document.getElementById('shareButton');
-    if (shareButton) {
-        shareButton.textContent = translations[currentLanguage]['share'] || 'Share';
-        // Восстанавливаем иконку перед текстом
-        if (shareButton.classList.contains('share-button')) {
-            shareButton.innerHTML = `📋 ${translations[currentLanguage]['share'] || 'Share'}`;
-        }
-    }
-    
-    // Обновляем кнопки
-    const clearHistoryButton = document.getElementById('clearHistoryButton');
-    if (clearHistoryButton) {
-        clearHistoryButton.textContent = translations[currentLanguage]['clearHistory'];
-    }
-    
-    // Обновляем заголовки разделов
-    const historyHeader = document.querySelector('.history-header');
-    if (historyHeader) {
-        historyHeader.textContent = translations[currentLanguage]['history'];
-    }
-    
-    const resultsHeader = document.querySelector('.results-header');
-    if (resultsHeader) {
-        resultsHeader.textContent = translations[currentLanguage]['results'];
-    }
-    
-    const compareHeader = document.querySelector('.compare-header');
-    if (compareHeader) {
-        compareHeader.textContent = translations[currentLanguage]['compareColors'];
-    }
-    
-    // Обновляем плейсхолдер в поле ввода
-    const hexInput = document.getElementById('hexInput');
-    if (hexInput) {
-        hexInput.placeholder = translations[currentLanguage]['hexInputPlaceholder'];
-    }
-    
-    // Обновляем заголовки таблиц
-    const tableHeaders = document.querySelectorAll('th');
-    tableHeaders.forEach(header => {
-        const headerText = header.textContent.trim();
-        
-        // Проверяем и обновляем заголовки для обоих языков
-        if (headerText === translations['ru']['armor'] || headerText === translations['en']['armor']) {
-            header.textContent = translations[currentLanguage]['armor'];
-        } else if (headerText === translations['ru']['hexCode'] || headerText === translations['en']['hexCode'] || 
-                  headerText === 'HEX код' || headerText === 'HEX code') {
-            header.textContent = translations[currentLanguage]['hexCode'];
-        } else if (headerText === translations['ru']['color'] || headerText === translations['en']['color']) {
-            header.textContent = translations[currentLanguage]['color'];
-        } else if (headerText === translations['ru']['difference'] || headerText === translations['en']['difference']) {
-            header.textContent = translations[currentLanguage]['difference'];
-        } else if (headerText === translations['ru']['rank'] || headerText === translations['en']['rank']) {
-            header.textContent = translations[currentLanguage]['rank'];
-        } else if (headerText === translations['ru']['name'] || headerText === translations['en']['name']) {
-            header.textContent = translations[currentLanguage]['name'];
-        } else if (headerText === translations['ru']['rgbCode'] || headerText === translations['en']['rgbCode'] || 
-                  headerText.includes('RGB')) {
-            header.textContent = translations[currentLanguage]['rgbCode'];
-        }
-    });
-    
-    // Обновляем все сообщения и уведомления
-    const noHistoryMessage = document.querySelector('.no-history-message');
-    if (noHistoryMessage) {
-        noHistoryMessage.textContent = translations[currentLanguage]['noHistory'];
-    }
-    
-    // Обновляем текст в кнопке переключения анимации
-    const toggleText = document.getElementById('toggleText');
-    if (toggleText) {
-        toggleText.textContent = animationEnabled ? 
-            translations[currentLanguage]['animationOn'] : 
-            translations[currentLanguage]['animationOff'];
-    }
-    
-    // Обновляем тексты всплывающих подсказок
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.setAttribute('title', translations[currentLanguage]['themeToggle']);
-    }
-    
-    // Если существуют элементы результатов сравнения, обновляем их тексты
-    const comparisonTableHeaders = document.querySelectorAll('#comparisonTable th');
-    if (comparisonTableHeaders.length > 0) {
-        comparisonTableHeaders.forEach(header => {
-            const headerText = header.textContent.trim();
-            // Обновляем заголовки таблицы сравнения
-            if (headerText.includes('Свойство') || headerText.includes('Property')) {
-                header.textContent = currentLanguage === 'ru' ? 'Свойство' : 'Property';
-            } else if (headerText.includes('Цвет 1') || headerText.includes('Color 1')) {
-                header.textContent = currentLanguage === 'ru' ? 'Цвет 1' : 'Color 1';
-            } else if (headerText.includes('Цвет 2') || headerText.includes('Color 2')) {
-                header.textContent = currentLanguage === 'ru' ? 'Цвет 2' : 'Color 2';
-            } else if (headerText.includes('Разница') || headerText.includes('Difference')) {
-                header.textContent = translations[currentLanguage]['difference'];
-            }
-        });
-    }
-    
-    // Обновляем заголовок в модальном окне настроек, если оно открыто
-    const settingsHeader = document.querySelector('.settings-header');
-    if (settingsHeader) {
-        settingsHeader.textContent = currentLanguage === 'ru' ? 'Настройки' : 'Settings';
-    }
-    
-    // Проверяем, существуют ли вкладки настроек и обновляем их
-    const copyTabButton = document.getElementById('copyTabButton');
-    if (copyTabButton) {
-        copyTabButton.textContent = currentLanguage === 'ru' ? 'Копирование' : 'Copy';
-    }
-    
-    const displayTabButton = document.getElementById('displayTabButton');
-    if (displayTabButton) {
-        displayTabButton.textContent = currentLanguage === 'ru' ? 'Отображение' : 'Display';
-    }
-    
-    // Обновляем тексты в настройках полей копирования
-    updateCopySettingsLabels();
-    
-    // Проверяем, есть ли в инпуте значение, и если да - обновляем проверку цвета
-    if (hexInput && hexInput.value.trim() !== '') {
-        checkColor();
-    }
-    
-    // Обновляем историю
-    loadHistory();
-}
-
-function clearHistory() {
-    localStorage.removeItem('colorHistory');
-    document.getElementById('historyContainer').innerHTML = `<div class="no-history-message">${translations[currentLanguage].noHistory}</div>`;
-    
-    // Показываем временное уведомление об очистке истории
-    const clearButton = document.getElementById('clearHistoryButton');
-    if (clearButton) {
-        const originalText = clearButton.textContent;
-        clearButton.textContent = translations[currentLanguage].historyCleared;
-        
-        // Возвращаем оригинальный текст через 2 секунды
-        setTimeout(() => {
-            clearButton.textContent = originalText;
-        }, 2000);
-    }
-}
-
-function updateColorPreview(hex) {
-    const colorPreview = document.getElementById('colorPreview');
-    if (colorPreview) {
-        if (hex.length === 7 && /^#[0-9A-F]{6}$/i.test(hex)) {
-            colorPreview.style.backgroundColor = hex;
-        } else {
-            colorPreview.style.backgroundColor = '';
-        }
-    }
-}
-
-function toggleTheme() {
-    const themeSelect = document.getElementById('themeSelect');
-    const selectedTheme = themeSelect.value;
-    const body = document.body;
-
-    // Удаляем все классы тем
-    body.classList.remove('light-theme', 'dark-theme', 'cosmic-theme', 'drinwater-theme', 'colors-theme');
-    
-    // Добавляем класс выбранной темы
-    body.classList.add(`${selectedTheme}-theme`);
-
-    // Сохраняем выбранную тему в localStorage
-    localStorage.setItem('selectedTheme', selectedTheme);
-}
-
-// Первая функция handleKeyPress - оставляем ее
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        checkColor('all'); // При нажатии Enter ищем по всем типам брони
-    }
-}
-
-function getColorFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const color = urlParams.get('color');
-    const armorType = urlParams.get('type') || 'all';
-    
-    if (color) {
-        const hexInput = document.getElementById('hexInput');
-        hexInput.value = color;
-        checkColor(armorType);
-    }
+    // Language selection is disabled, we're using English only
+    return;
 }
 
 function updateThemeSelectOptions() {
@@ -2573,3 +2397,75 @@ const strings = {
         en: "Invalid HEX format"
     }
 };
+
+// Функция для очистки истории
+function clearHistory() {
+    localStorage.removeItem('colorHistory');
+    document.getElementById('historyContainer').innerHTML = `<div class="no-history-message">${translations[currentLanguage].noHistory}</div>`;
+    
+    // Show temporary notification
+    const clearButton = document.getElementById('clearHistoryButton');
+    if (clearButton) {
+        const originalText = clearButton.textContent;
+        clearButton.textContent = translations[currentLanguage].historyCleared;
+        
+        // Return original text after 2 seconds
+        setTimeout(() => {
+            clearButton.textContent = originalText;
+        }, 2000);
+    }
+}
+
+// Function to handle Enter key press in the input field
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        checkColor('all');
+    }
+}
+
+// Function to toggle between themes
+function toggleTheme() {
+    const themeSelect = document.getElementById('themeSelect');
+    const selectedTheme = themeSelect.value;
+    document.body.className = '';
+    document.body.classList.add(`${selectedTheme}-theme`);
+    localStorage.setItem('selectedTheme', selectedTheme);
+}
+
+// Initialize theme and other settings on page load
+window.onload = function() {
+    // Set theme from localStorage
+    const savedTheme = localStorage.getItem('selectedTheme') || 'light';
+    document.body.className = '';
+    document.body.classList.add(`${savedTheme}-theme`);
+    
+    // Update theme select dropdown
+    const themeSelect = document.getElementById('themeSelect');
+    if (themeSelect) {
+        themeSelect.value = savedTheme;
+    }
+    
+    // Initialize other components
+    loadHistory();
+    getColorsFromUrl();
+    
+    // Update armor type buttons if they exist
+    const armorTypeButtons = document.querySelectorAll('.armor-type-button');
+    if (armorTypeButtons.length > 0) {
+        updateArmorTypeButtons();
+    }
+};
+
+// Function to update color preview
+function updateColorPreview(hex) {
+    const preview = document.getElementById('colorPreview');
+    if (preview) {
+        if (hex) {
+            preview.style.backgroundColor = hex;
+            preview.style.display = 'block';
+        } else {
+            preview.style.backgroundColor = '';
+            preview.style.display = 'none';
+        }
+    }
+}
