@@ -655,13 +655,26 @@ const translations = {
         'name': 'Название',
         'rgbCode': 'RGB код',
         'enteredColor': 'Введенный цвет:',
-        // Новые строки для типов брони
+        // Строки для типов брони
         'allArmor': 'Все',
         'helmet': 'Шлем',
         'chestplate': 'Нагрудник',
         'leggings': 'Поножи',
         'boots': 'Ботинки',
-        'historyCleared': 'История очищена'
+        'historyCleared': 'История очищена',
+        // Строки для базы данных цветов
+        'addToCollection': 'Добавить в коллекцию',
+        'addingColor': 'Добавление цвета',
+        'armorType': 'Тип брони',
+        'discordId': 'Discord ID (например, Username#1234)',
+        'enterDiscordId': 'Пожалуйста, введите Discord ID',
+        'colorAdded': 'Цвет добавлен в коллекцию!',
+        'searchCollection': 'Поиск в коллекции',
+        'myCollection': 'Моя коллекция',
+        'collectors': 'Коллекционеры',
+        'collectorsCount': 'Кол-во коллекционеров',
+        'database': 'База данных',
+        'iHaveThisColor': 'У меня есть этот цвет'
     },
     'en': {
         'title': 'SB Palette - Find Closest Colors',
@@ -689,13 +702,26 @@ const translations = {
         'name': 'Name',
         'rgbCode': 'RGB code',
         'enteredColor': 'Entered color:',
-        // Новые строки для типов брони
+        // Строки для типов брони
         'allArmor': 'All',
         'helmet': 'Helmet',
         'chestplate': 'Chestplate',
         'leggings': 'Leggings',
         'boots': 'Boots',
-        'historyCleared': 'History cleared'
+        'historyCleared': 'History cleared',
+        // Строки для базы данных цветов
+        'addToCollection': 'Add to Collection',
+        'addingColor': 'Adding color',
+        'armorType': 'Armor Type',
+        'discordId': 'Discord ID (e.g. Username#1234)',
+        'enterDiscordId': 'Please enter Discord ID',
+        'colorAdded': 'Color added to collection!',
+        'searchCollection': 'Search in collection',
+        'myCollection': 'My Collection',
+        'collectors': 'Collectors',
+        'collectorsCount': 'Collectors count',
+        'database': 'Database',
+        'iHaveThisColor': 'I have this color'
     }
 };
 
@@ -2397,3 +2423,153 @@ function updateMobileMenuText() {
 document.addEventListener('DOMContentLoaded', () => {
     updateMobileMenuText();
 });
+
+// После секции с кнопкой "Поделиться" добавляем кнопку для перехода в базу данных
+function initializeButtons() {
+    const shareButton = document.createElement("button");
+    shareButton.className = "share-button";
+    shareButton.setAttribute("data-share", strings.shareButton[lang]);
+    shareButton.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M8.59 13.51L15.42 17.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg> ${strings.shareButton[lang]}`;
+    
+    shareButton.addEventListener("click", function() {
+        const type = getActiveArmorType();
+        const hex = document.getElementById("color").value.toUpperCase();
+        const url = window.location.href.split('?')[0] + '?color=' + hex.replace('#', '') + '&type=' + type;
+        
+        navigator.clipboard.writeText(url).then(function() {
+            showNotification(strings.linkCopied[lang]);
+        }).catch(function() {
+            showNotification(strings.copyError[lang]);
+        });
+    });
+    
+    // Создаем кнопку для перехода в базу данных
+    const databaseButton = document.createElement("button");
+    databaseButton.className = "database-button";
+    databaseButton.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg> ${strings.databaseButton[lang]}`;
+    
+    databaseButton.addEventListener("click", function() {
+        window.location.href = "database.html";
+    });
+    
+    // Добавляем обе кнопки в контейнер
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "button-container";
+    buttonContainer.appendChild(shareButton);
+    buttonContainer.appendChild(databaseButton);
+    
+    // Заменяем существующую кнопку "Поделиться" на контейнер с кнопками
+    const buttonsContainer = document.querySelector(".buttons-container");
+    if (buttonsContainer) {
+        const oldShareButton = buttonsContainer.querySelector(".share-button");
+        if (oldShareButton) {
+            oldShareButton.replaceWith(buttonContainer);
+        } else {
+            buttonsContainer.appendChild(buttonContainer);
+        }
+    }
+}
+
+// Добавляем строки для базы данных в объект strings
+const strings = {
+    title: {
+        ru: "SB палитра цветов",
+        en: "SB color palette"
+    },
+    enteredColor: {
+        ru: "Введенный цвет",
+        en: "Entered color"
+    },
+    copyButton: {
+        ru: "Скопировать",
+        en: "Copy"
+    },
+    shareButton: {
+        ru: "Поделиться",
+        en: "Share"
+    },
+    databaseButton: {
+        ru: "База данных",
+        en: "Database"
+    },
+    linkCopied: {
+        ru: "Ссылка скопирована!",
+        en: "Link copied!"
+    },
+    copyError: {
+        ru: "Ошибка при копировании",
+        en: "Copy error"
+    },
+    helmet: {
+        ru: "Шлем",
+        en: "Helmet"
+    },
+    chestplate: {
+        ru: "Нагрудник",
+        en: "Chestplate"
+    },
+    leggings: {
+        ru: "Поножи",
+        en: "Leggings"
+    },
+    boots: {
+        ru: "Ботинки",
+        en: "Boots"
+    },
+    allArmor: {
+        ru: "Все",
+        en: "All"
+    },
+    rgbLabel: {
+        ru: "RGB",
+        en: "RGB"
+    },
+    hsvLabel: {
+        ru: "HSV",
+        en: "HSV"
+    },
+    similarColors: {
+        ru: "Похожие цвета",
+        en: "Similar colors"
+    },
+    similarPaletteItem: {
+        ru: "Похожий цвет",
+        en: "Similar color"
+    },
+    enterColorPlaceholder: {
+        ru: "Введите HEX цвет",
+        en: "Enter HEX color"
+    },
+    calculateButton: {
+        ru: "Рассчитать",
+        en: "Calculate"
+    },
+    loadingColors: {
+        ru: "Загрузка цветов...",
+        en: "Loading colors..."
+    },
+    historyEmpty: {
+        ru: "История пуста",
+        en: "History is empty"
+    },
+    historyCleared: {
+        ru: "История очищена",
+        en: "History cleared"
+    },
+    error: {
+        ru: "Ошибка",
+        en: "Error"
+    },
+    invalidHex: {
+        ru: "Неверный HEX формат",
+        en: "Invalid HEX format"
+    }
+};

@@ -443,4 +443,67 @@
 .colors-theme .api-limit-info {
     background-color: rgba(255, 152, 0, 0.15);
     backdrop-filter: blur(5px);
+}
+
+/* Стили для кнопки базы данных */
+.database-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    margin-left: 10px;
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.database-button svg {
+    margin-right: 6px;
+}
+
+.database-button:hover {
+    background-color: #2d3748;
+    transform: translateY(-2px);
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Стили для темной темы */
+.dark-theme {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --border-color: #3a3a3a;
+    --table-header-bg: #1e1e1e;
+    --card-bg: #1e1e1e;
+    --stat-bg: #2a2a2a;
+    --loader-color: #3a3a3a;
+    --accent-color: #f94c10;
+    --accent-hover-color: #e03900;
+    --error-color: #ff6b6b;
+    --success-color: #66bb6a;
+}
+
+/* Стили для светлой темы */
+.light-theme {
+    --bg-color: #f5f5f5;
+    --text-color: #333333;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --table-header-bg: #f0f0f0;
+    --card-bg: #ffffff;
+    --stat-bg: #f9f9f9;
+    --loader-color: #e0e0e0;
+    --accent-color: #f94c10;
+    --accent-hover-color: #e03900;
+    --error-color: #f44336;
+    --success-color: #4caf50;
 } 
