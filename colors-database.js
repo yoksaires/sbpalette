@@ -1,7 +1,7 @@
 /* SB Palette - Database API Functions */
 
 // URL Google Apps Script 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQFuGJdsqZVxnsV4j2uOlTY39vS2k7PInnLnAKjfOabilBfHMbpHzIsd8zR049JIbhlg/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzZRCdzRmbB6unpVpiCG9XcJMh6ccheS2mrbqeWnJq2H-JQS2-8F0lZVdOgUpfk4RGWQ/exec';
 
 // Функция для получения активного типа брони
 function getActiveArmorType() {
