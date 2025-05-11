@@ -1,268 +1,267 @@
 // Данные из CSV (предварительно обработаны)
 const armorData = [
-    
-{"name":"Bat Person Chestplate & Leggings & Boots \nNecromancer Lord Chestplate \nObsidian Chestplate \nPure Black Dye \nRancher's Boots \nShadow Assassin Chestplate & Leggings & Boots \nSquid Boots \nTarantula Helmet & Chestplate & Leggings & Boots \nWatcher Chestplate & Leggings & Boots \nWither Chestplate & Leggings & Boots","color":"#000000"},
-{"name":"Lapis Armor Chestplate & Leggings & Boots","color":"#0000ff"},
-{"name":"Pure Blue Dye","color":"#0013FF"},
-{"name":"Shark Scale Chestplate & Leggings & Boots","color":"#002ca6"},
-{"name":"Bingo Blue Dye","color":"#002FA7"},
-{"name":"Jade Dye","color":"#00A86B"},
-{"name":"Helmet & Chestplate & Leggings & Boots of Growth","color":"#00be00"},
-{"name":"Cactus Helmet & Chestplate & Leggings & Boots \nEmerald Armor Helmet & Chestplate & Leggings & Boots \nParty Top Hat","color":"#00ff00"},
-{"name":"Rotten Chestplate & Leggings \nBackwater Armor Chestplate & Leggings & Boots","color":"#017d31"},
-{"name":"Squash Chestplate","color":"#03430e"},
-{"name":"Glacite Chestplate & Leggings & Boots","color":"#03fcf8"},
-{"name":"Stereo Pants","color":"#04cfd3"},
-{"name":"Shimmering Light Tunic & Trousers & Slippers (Chestplate & Leggings & Boots)","color":"#07031b"},
-{"name":"Infernal Fervor / Fervor / Burning Fervor / Hot Fervor / Fiery Fervor Boots","color":"#07a674"},
-{"name":"Frostbitten Dye","color":"#09D8EB"},
-{"name":"Final Destination Chestplate & Boots","color":"#0a0011"},
-{"name":"Angler Chestplate & Leggings & Boots","color":"#0b004f"},
-{"name":"Burned Pants","color":"#0c0c96"},
-{"name":"Squash Leggings","color":"#0c4a16"},
-{"name":"Water Hydra Chestplate & Leggings & Boots","color":"#101555"},
-{"name":"Sea Walker Chestplate & Leggings & Boots","color":"#10616e"},
-{"name":"Pearlescent Dye","color":"#115555"},
-{"name":"Guardian Chestplate","color":"#117391"},
-{"name":"Squash Boots","color":"#13561e"},
-{"name":"Wyld Boots","color":"#154918"},
-{"name":"Storm's Chestplate & Leggings","color":"#1793c4"},
-{"name":"Infernal Fervor / Fervor / Burning Fervor / Hot Fervor / Fiery Fervor Leggings","color":"#17bf89"},
-{"name":"Elegant Tuxedo Jacket & Oxfords (Chestplate & Boots) \nExotic Pure Black","color":"#191919"},
-{"name":"Snake-in-a-Boot","color":"#1a004c"},
-{"name":"Reaper Chestplate & Leggings & Boots","color":"#1b1b1b"},
-{"name":"Storm's Boots","color":"#1cd4e4"},
-{"name":"Werewolf Chestplate & Leggings & Boots","color":"#1d1105"},
-{"name":"CRYSTAL Dark Purple","color":"#1F0030"},
-{"name":"Thunder Chestplate & Leggings & Boots","color":"#24dde5"},
-{"name":"Skeleton Lord Chestplate & Leggings & Boots","color":"#268105"},
-{"name":"Slug Boots","color":"#276114"},
-{"name":"Infernal Aurora / Aurora / Burning Aurora / Hot Aurora / Fiery Aurora Chestplate","color":"#2841f1"},
-{"name":"Wise Dragon Chestplate & Leggings & Boots","color":"#29f0e9"},
-{"name":"Dark Purple Dye","color":"#301934"},
-{"name":"Minos Hunter Boots","color":"#304b4e"},
-{"name":"Tentacle Dye","color":"#324D6C"},
-{"name":"CRYSTAL Dark Purple","color":"#46085E"},
-{"name":"Fancy Tuxedo Jacket & Oxfords (Chestplate & Boots)","color":"#332a2a"},
-{"name":"Ugly Boots","color":"#3333ff"},
-{"name":"Exotic Pure Dark Blue","color":"#334CB2"},
-{"name":"Vanguard Chestplate & Leggings & Boots","color":"#3588ff"},
-{"name":"Wyld Leggings","color":"#35b73b"},
-{"name":"Necromancer Lord Leggings","color":"#370147"},
-{"name":"Goblin Chestplate & Leggings & Boots","color":"#37b042"},
-{"name":"Exceedingly Comfy Sneakers","color":"#380024"},
-{"name":"Cheap Tuxedo Jacket & Oxfords (Chestplate & Boots)","color":"#383838"},
-{"name":"Holly Dye","color":"#3C6746"},
-{"name":"Burning Terror / Fiery Terror / Hot Terror / Infernal Terror / Terror Chestplate","color":"#3e05af"},
-{"name":"Aurora / Burning Aurora / Fiery Aurora / Hot Aurora / Infernal Aurora Leggings","color":"#3f56fb"},
-{"name":"Necromancer Lord Boots","color":"#400352"},
-{"name":"Crypt Witherlord Helmet & Chestplate & Leggings & Boots","color":"#450101"},
-{"name":"Goldor's Chestplate","color":"#45413c"},
-{"name":"CRYSTAL Dark Purple","color":"#54146E"},
-{"name":"Nutcracker Boots","color":"#46343a"},
-{"name":"Holy Dragon Chestplate & Leggings & Boots","color":"#47d147"},
-{"name":"Femurgrowth Leggings","color":"#48ff00"},
-{"name":"Maxor's Chestplate","color":"#4a14b7"},
-{"name":"CRYSTAL Dark Purple","color":"#5D1C78"},
-{"name":"Exotic Pure Dark Grey","color":"#4C4C4C"},
-{"name":"Exotic Pure Cyan","color":"#4C7F99"},
-{"name":"Leaflet Tunic & Pants & Sandals (Chestplate & Leggings & Boots)","color":"#4dcc4d"},
-{"name":"Gunther's Sneakers","color":"#4f2886"},
-{"name":"Dung Dye","color":"#4F2A2A"},
-{"name":"Midnight Dye","color":"#50216C"},
-{"name":"Pelt Dye","color":"#50414C"},
-{"name":"Emerald Dye","color":"#50C878"},
-{"name":"Crystal Helmet & Chestplate & Leggings & Boots","color":"#fcf3ff"},
-{"name":"Squire Boots","color":"#545454"},
-{"name":"Fallen Star Chestplate & Leggings & Boots","color":"#586158"},
-{"name":"Fermento Chestplate","color":"#58890c"},
-{"name":"Super Heavy Chestplate & Leggings","color":"#5a6464"},
-{"name":"Glossy Mineral Chestplate & Leggings & Boots","color":"#5b0dae"},
-{"name":"CRYSTAL Lavender","color":"#9C64B3"},
-{"name":"Burning Terror / Fiery Terror / Hot Terror / Infernal Terror / Terror Leggings","color":"#5d23d1"},
-{"name":"Maxor's Leggings","color":"#5d2fb9"},
-{"name":"Spooky Chestplate & Leggings & Boots","color":"#606060"},
-{"name":"Aurora / Burning Aurora / Fiery Aurora / Hot Aurora / Infernal Aurora Boots","color":"#6184fc"},
-{"name":"CRYSTAL Lavender","color":"#A875BD"},
-{"name":"Goldor's Leggings","color":"#65605a"},
-{"name":"CRYSTAL Lavender","color":"#B88BC9"},
-{"name":"CRYSTAL Lavender","color":"#C6A3D4"},
-{"name":"CRYSTAL Offwhite","color":"#D9C1E3"},
-{"name":"Exotic Pure Brown","color":"#664C33"},
-{"name":"Exotic Pure Dark Green","color":"#667F33"},
-{"name":"Exotic Pure Light Blue","color":"#6699D8"},
-{"name":"CRYSTAL Offwhite","color":"#E5D1ED"},
-{"name":"Fermento Leggings","color":"#6a9c1b"},
-{"name":"Magma Lord Chestplate & Leggings & Boots","color":"#6f0f08"},
-{"name":"Byzantium Dye","color":"#702963"},
-{"name":"Iceberg Dye","color":"#71A6D2"},
-{"name":"Matcha Dye","color":"#74A12E"},
-{"name":"Cropie Chestplate","color":"#7a2900"},
-{"name":"Prospecting Helmet & Chestplate & Leggings & Boots","color":"#7a7964"},
-{"name":"Creeper Pants","color":"#7ae82c"},
-{"name":"Chocolate Dye","color":"#7B3F00"},
-{"name":"Burning Terror / Fiery Terror / Hot Terror / Infernal Terror / Terror Boots","color":"#7c44ec"},
-{"name":"Secret Dye","color":"#7D7D7D"},
-{"name":"CRYSTAL Offwhite","color":"#EFE1F5"},
-{"name":"CRYSTAL Offwhite","color":"#FCF3FF"},
-{"name":"Exotic Pure Purple","color":"#7F3FB2"},
-{"name":"Exotic Pure Lime","color":"#7FCC19"},
-{"name":"Aquamarine Dye","color":"#7FFFD4"},
-{"name":"Ghostly Boots","color":"#808080"},
-{"name":"Heavy Chestplate & Leggings","color":"#828282"},
-{"name":"Fermento Boots","color":"#83b03b"},
-{"name":"Fossil Dye","color":"#866F12"},
-{"name":"Goldor's Boots","color":"#88837e"},
-{"name":"Maxor's Boots","color":"#8969c8"},
-{"name":"Melon Chestplate & Leggings & Boots","color":"#899e20"},
-{"name":"Arachne's Chestplate & Leggings & Boots","color":"#8b0000"},
-{"name":"CRYSTAL Purple","color":"#63237D"},
-{"name":"Cropie Leggings","color":"#94451f"},
-{"name":"Carmine Dye","color":"#960018"},
-{"name":"Mocha Dye","color":"#967969"},
-{"name":"CRYSTAL Purple","color":"#6A2C82"},
-{"name":"CRYSTAL Purple","color":"#7E4196"},
-{"name":"Emperor Robes & Leggings & Shoes (Chestplate & Leggings & Boots)","color":"#990d00"},
-{"name":"Exotic Pure Red","color":"#993333"},
-{"name":"Great Spook Helmet & Chestplate & Leggings & Boots","color":"#993399"},
-{"name":"CRYSTAL Purple","color":"#8E51A6"},
-{"name":"Protector Dragon Chestplate & Leggings & Boots","color":"#99978b"},
-{"name":"Exotic Pure Light Grey","color":"#999999"},
-{"name":"Zombie Lord Chestplate & Leggings & Boots","color":"#9b01c1"},
-{"name":"FAIRY Dark Pink Helmet \nOG FAIRY+ Chestplate & Leggings & Boots","color":"#660033"},
-{"name":"Rotten Helmet & Boots","color":"#9e7003"},
-{"name":"Boots of the Rising Sun","color":"#9f8609"},
-{"name":"Frozen Blaze Chestplate & Leggings & Boots","color":"#a0daef"},
-{"name":"Salmon Chestplate & Leggings","color":"#a82b76"},
-{"name":"FAIRY Dark Pink Helmet & Chestplate \nOG FAIRY+ Leggings & Boots","color":"#99004C"},
-{"name":"Celadon Dye","color":"#ACE1AF"},
-{"name":"Bouncy Helmet & Chestplate & Leggings & Boots","color":"#adff2f"},
-{"name":"Unstable Dragon Chestplate & Leggings & Boots","color":"#b212e3"},
-{"name":"Exotic Pure Magenta","color":"#B24CD8"},
-{"name":"FAIRY Hot Pink Helmet & Chestplate & Leggings \nOG FAIRY+ Boots","color":"#CC0066"},
-{"name":"Celeste Dye","color":"#B2FFFF"},
-{"name":"Heat Helmet & Chestplate & Leggings & Boots","color":"#b3b3b3"},
-{"name":"Archfiend Dye","color":"#B80036"},
-{"name":"Copper Dye","color":"#B87333"},
-{"name":"FAIRY Hot Pink Helmet & Chestplate & Leggings & Boots","color":"#FF007F"},
-{"name":"Cropie Boots","color":"#bb6535"},
-{"name":"Adaptive Chestplate & Leggins & Boots","color":"#bfbcb2"},
-{"name":"Spirit Boots","color":"#bfbfbf"},
-{"name":"Salmon Helmet & Boots","color":"#c13c0f"},
-{"name":"FAIRY Pink Chestplate & Leggings & Boots","color":"#FF66B2"},
-{"name":"Cheap Tuxedo Pants","color":"#c7c7c7"},
-{"name":"Yog Helmet & Chestplate & Leggings & Boots","color":"#c83200"},
-{"name":"Brick Red Dye","color":"#CB4154"},
-{"name":"Rabbit Helmet & Chestplate & Leggings & Boots","color":"#cbd2db"},
-{"name":"Fairy's Fedora \nFAIRY Pink Helmet & Chestplate & Leggings & Boots","color":"#ff3399"},
-{"name":"Fairy's Galoshes \nFAIRY Pastel Pink Boots \nOG FAIRY+ Helmet & Chestplate & Leggings","color":"#ffcce5"},
-{"name":"Farmer Boots","color":"#cc5500"},
-{"name":"Fairy's Polo \nOG FAIRY+ Helmet","color":"#ff66b2"},
-{"name":"Periwinkle Dye","color":"#CCCCFF"},
-{"name":"Mineral Chestplate & Leggings & Boots","color":"#cce5ff"},
-{"name":"Moogma Leggings","color":"#ce2c2c"},
-{"name":"Livid Dye","color":"#CEB7AA"},
-{"name":"Zombie Soldier Helmet & Chestplate & Leggings & Boots","color":"#d07f00"},
-{"name":"Starlight Chestplate & Boots","color":"#d400ff"},
-{"name":"Sangria Dye","color":"#D40808"},
-{"name":"Celeste Helmet","color":"#d48ef2"},
-{"name":"Fancy Tuxedo Pants","color":"#d4d4d4"},
-{"name":"Zombie Commander Helmet & Chestplate & Leggings & Boots","color":"#d51230"},
-{"name":"Exotic Pure Orange","color":"#D87F33"},
-{"name":"Strong Dragon Chestplate","color":"#d91e41"},
-{"name":"Fairy's Trousers \nFAIRY Pastel Pink & Leggings & Boots  \nOG FAIRY+ Helmet & Chestplate","color":"#ff99cc"},
-{"name":"Metal / Steel / Stone Chestplate","color":"#d9d9d9"},
-{"name":"Young Dragon Chestplate & Leggings & Boots","color":"#dde4f0"},
-{"name":"Leggings of the Rising Sun","color":"#debc15"},
-{"name":"Rampart Chestplate & Leggings & Boots","color":"#df2e06"},
-{"name":"Strong Dragon Leggings","color":"#e09419"},
-{"name":"Mercenary Boots \nSpeedster Helmet & Chestplate & Leggings & Boots","color":"#e0fcf7"},
-{"name":"Skeleton Grunt Helmet & Chestplate & Leggings & Boots","color":"#e1eb34"},
-{"name":"Flame Dye","color":"#E25822"},
-{"name":"Bone Dye","color":"#E3DAC9"},
-{"name":"Burning Hollow / Fiery Hollow / Hollow / Hot Hollow / Infernal Hollow Boots","color":"#e3fffa"},
-{"name":"OG FAIRY Magenta","color":"#660066"},
-{"name":"OG FAIRY Magenta","color":"#990099"},
-{"name":"Exotic Pure Yellow","color":"#E5E533"},
-{"name":"Burning Crimson / Crimson / Fiery Crimson / Hot Crimson / Infernal Crimson Boots","color":"#e65300"},
-{"name":"Burning Crimson / Crimson / Fiery Crimson / Hot Crimson / Infernal Leggings","color":"#e66105"},
-{"name":"Super Heavy Helmet & Boots","color":"#e6e6e6"},
-{"name":"Necron Dye","color":"#E7413C"},
-{"name":"Necron's Chestplate","color":"#e7413c"},
-{"name":"Necron's Leggings","color":"#e75c3c"},
-{"name":"Necron's Boots","color":"#e76e3c"},
-{"name":"Nyanza Dye","color":"#E9FFDB"},
-{"name":"Flaming Chestplate","color":"#ed6612"},
-{"name":"Pumpkin Helmet & Chestplate & Leggings & Boots","color":"#edaa36"},
-{"name":"OG FAIRY Magenta","color":"#CC00CC"},
-{"name":"Infernal Fervor / Fervor / Burning Fervor / Hot Fervor / Fiery Fervor Chestplate","color":"#f04729"},
-{"name":"Strong Dragon Boots","color":"#f0d124"},
-{"name":"Old Dragon Chestplate & Leggings & Boots","color":"#f0e6aa"},
-{"name":"Superior Dragon Boots","color":"#f25d18"},
-{"name":"Exotic Pure Pink","color":"#F27FA5"},
-{"name":"Superior Dragon Chestplate & Leggings","color":"#f2df11"},
-{"name":"Cyclamen Dye","color":"#F56FA1"},
-{"name":"Nadeshiko Dye","color":"#F6ADC6"},
-{"name":"Blaze Chestplate & Leggings & Boots","color":"#f7da33"},
-{"name":"Nutcracker Chestplate","color":"#fc2f3c"},
-{"name":"OG FAIRY Magenta","color":"#FF00FF"},
-{"name":"OG FAIRY Magenta","color":"#FF33FF"},
-{"name":"Mango Dye","color":"#FDBE02"},
-{"name":"Elegant Tuxedo Pants","color":"#fefdfc"},
-{"name":"Chestplate of the Pack /nMushroom Helmet & Chestplate & Leggings & Boots","color":"#ff0000"},
-{"name":"OG FAIRY Magenta","color":"#FF66FF"},
-{"name":"OG FAIRY Pastel Magenta","color":"#FF99FF"},
-{"name":"Minos Hunter Chestplate & Leggings","color":"#ff0a0a"},
-{"name":"OG FAIRY Pastel Magenta","color":"#FFCCFF"},
-{"name":"OG FAIRY Pastel Purple","color":"#CC99FF"},
-{"name":"Wild Strawberry Dye","color":"#FF43A4"},
-{"name":"Orange Chestplate","color":"#ff4600"},
-{"name":"OG FAIRY Pastel Purple","color":"#E5CCFF"},
-{"name":"OG FAIRY Purple","color":"#330066"},
-{"name":"OG FAIRY Purple","color":"#4C0099"},
-{"name":"Skeleton Master Helmet & Chestplate & Leggings & Boots","color":"#ff6b0b"},
-{"name":"Burning Crimson / Crimson / Fiery Crimson / Hot Crimson / Infernal Crimson Chestplate","color":"#ff6f0c"},
-{"name":"Final Destination Leggings","color":"#ff75ff"},
-{"name":"Celeste Boots","color":"#ff8eb6"},
-{"name":"Celeste Leggings","color":"#ff8eca"},
-{"name":"Celeste Chestplate","color":"#ff8ede"},
-{"name":"Armor of Magma Helmet & Chestplate & Leggings & Boots","color":"#ff9300"},
-{"name":"OG FAIRY Purple","color":"#6600CC"},
-{"name":"OG FAIRY Purple","color":"#7F00FF"},
-{"name":"Berserker Chestplate","color":"#ffa33b"},
-{"name":"Biohazard Suit & Leggings & Boots","color":"#ffac00"},
-{"name":"Berserker Leggings","color":"#ffb727"},
-{"name":"Skeleton Soldier Helmet & Chestplate & Leggings & Boots","color":"#ffbc0b"},
-{"name":"Burning Hollow / Fiery Hollow / Hollow / Hot Hollow / Infernal Hollow Chestplate","color":"#ffcb0d"},
-{"name":"OG FAIRY Purple","color":"#9933FF"},
-{"name":"OG FAIRY Purple","color":"#B266FF"},
-{"name":"Berserker Boots","color":"#ffd427"},
-{"name":"Eleanor's Cap & Tunic & Trousers & Slippers (Chestplate & Leggings & Boots) \nW Logo","color":"#ffd700"},
-{"name":"Sponge Chestplate & Leggings & Boots","color":"#ffdc51"},
-{"name":"Chicken Leggs","color":"#fff200"},
-{"name":"Burning Hollow / Fiery Hollow / Hollow / Hot Hollow / Infernal Hollow Leggings","color":"#fff6a3"},
-{"name":"Pure Yellow Dye","color":"#FFF700"},
-{"name":"Nutcracker Leggings","color":"#fff9eb"},
-{"name":"Farm Suit Helmet & Chestplate & Leggings & Boots","color":"#ffff00"},
-{"name":"Heavy Helmet & Boots \nHelmet of the Pack \nPure White Dye \nSnow Suit Chestplate & Leggings & Boots \nExotic Pure White","color":"#ffffff"},
-{"name":"True Red","color":"#FF0000"},
-{"name":"True Orange","color":"#FFA500"},
-{"name":"True Yellow","color":"#FFFF00"},
-{"name":"True Lime","color":"#32CD32"},
-{"name":"True Dark Green","color":"#006400"},
-{"name":"True Dark Blue","color":"#00008B"},
-{"name":"True Dark Grey","color":"#A9A9A9"},
-{"name":"True Cyan","color":"#00FFFF"},
-{"name":"True Brown","color":"#964B00"},
-{"name":"True Light Blue","color":"#ADD8E6"},
-{"name":"True Purple","color":"#A020F0"},
-{"name":"True Light Grey","color":"#D3D3D3"},
-{"name":"True Magenta","color":"#ff00ff"},
-{"name":"True Black","color":"#000000"},
-{"name":"True Pink","color":"#FFC0CB"},
-{"name":"True White","color":"#ffffff"},
-{"name":"Treasure Dye","color":"#FCD12A"},
-{"name":"Kuudra Follower Chestplate & Leggings & Boots","color":"#35530A"}
+    {"name":"Bat Person Chestplate & Leggings & Boots \nNecromancer Lord Chestplate \nObsidian Chestplate \nPure Black Dye \nRancher's Boots \nShadow Assassin Chestplate & Leggings & Boots \nSquid Boots \nTarantula Helmet & Chestplate & Leggings & Boots \nWatcher Chestplate & Leggings & Boots \nWither Chestplate & Leggings & Boots","color":"#000000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Lapis Armor Chestplate & Leggings & Boots","color":"#0000ff","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Pure Blue Dye","color":"#0013FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Shark Scale Chestplate & Leggings & Boots","color":"#002ca6","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Bingo Blue Dye","color":"#002FA7","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Jade Dye","color":"#00A86B","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Helmet & Chestplate & Leggings & Boots of Growth","color":"#00be00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Cactus Helmet & Chestplate & Leggings & Boots \nEmerald Armor Helmet & Chestplate & Leggings & Boots \nParty Top Hat","color":"#00ff00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Rotten Chestplate & Leggings","color":"#017d31","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"Squash Chestplate","color":"#03430e","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Glacite Chestplate & Leggings & Boots","color":"#03fcf8","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Stereo Pants","color":"#04cfd3","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Shimmering Light Tunic & Trousers & Slippers (Chestplate & Leggings & Boots)","color":"#07031b","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Infernal Fervor / Fervor / Burning Fervor / Hot Fervor / Fiery Fervor Boots","color":"#07a674","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Frostbitten Dye","color":"#09D8EB","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Final Destination Chestplate & Boots","color":"#0a0011","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"1"},
+    {"name":"Angler Chestplate & Leggings & Boots","color":"#0b004f","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burned Pants","color":"#0c0c96","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Squash Leggings","color":"#0c4a16","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Water Hydra Chestplate & Leggings & Boots","color":"#101555","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Sea Walker Chestplate & Leggings & Boots","color":"#10616e","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Pearlescent Dye","color":"#115555","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Guardian Chestplate","color":"#117391","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Squash Boots","color":"#13561e","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Wyld Boots","color":"#154918","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Storm's Chestplate & Leggings","color":"#1793c4","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"Infernal Fervor / Fervor / Burning Fervor / Hot Fervor / Fiery Fervor Leggings","color":"#17bf89","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Elegant Tuxedo Jacket & Oxfords (Chestplate & Boots) \nExotic Pure Black","color":"#191919","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Snake-in-a-Boot","color":"#1a004c","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Reaper Chestplate & Leggings & Boots","color":"#1b1b1b","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Storm's Boots","color":"#1cd4e4","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Werewolf Chestplate & Leggings & Boots","color":"#1d1105","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Dark Purple","color":"#1F0030","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Thunder Chestplate & Leggings & Boots","color":"#24dde5","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Skeleton Lord Chestplate & Leggings & Boots","color":"#268105","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Slug Boots","color":"#276114","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Infernal Aurora / Aurora / Burning Aurora / Hot Aurora / Fiery Aurora Chestplate","color":"#2841f1","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Wise Dragon Chestplate & Leggings & Boots","color":"#29f0e9","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Dark Purple Dye","color":"#301934","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Minos Hunter Boots","color":"#304b4e","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Tentacle Dye","color":"#324D6C","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Dark Purple","color":"#46085E","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Fancy Tuxedo Jacket & Oxfords (Chestplate & Boots)","color":"#332a2a","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"1"},
+    {"name":"Ugly Boots","color":"#3333ff","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Exotic Pure Dark Blue","color":"#334CB2","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Vanguard Chestplate & Leggings & Boots","color":"#3588ff","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Wyld Leggings","color":"#35b73b","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Necromancer Lord Leggings","color":"#370147","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Goblin Chestplate & Leggings & Boots","color":"#37b042","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exceedingly Comfy Sneakers","color":"#380024","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Cheap Tuxedo Jacket & Oxfords (Chestplate & Boots)","color":"#383838","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"1"},
+    {"name":"Holly Dye","color":"#3C6746","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burning Terror / Fiery Terror / Hot Terror / Infernal Terror / Terror Chestplate","color":"#3e05af","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Aurora / Burning Aurora / Fiery Aurora / Hot Aurora / Infernal Aurora Leggings","color":"#3f56fb","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Necromancer Lord Boots","color":"#400352","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Crypt Witherlord Helmet & Chestplate & Leggings & Boots","color":"#450101","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Goldor's Chestplate","color":"#45413c","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"CRYSTAL Dark Purple","color":"#54146E","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Nutcracker Boots","color":"#46343a","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Holy Dragon Chestplate & Leggings & Boots","color":"#47d147","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Femurgrowth Leggings","color":"#48ff00","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Maxor's Chestplate","color":"#4a14b7","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"CRYSTAL Dark Purple","color":"#5D1C78","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Dark Grey","color":"#4C4C4C","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Cyan","color":"#4C7F99","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Leaflet Tunic & Pants & Sandals (Chestplate & Leggings & Boots)","color":"#4dcc4d","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Gunther's Sneakers","color":"#4f2886","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Dung Dye","color":"#4F2A2A","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Midnight Dye","color":"#50216C","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Pelt Dye","color":"#50414C","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Emerald Dye","color":"#50C878","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Crystal Helmet & Chestplate & Leggings & Boots","color":"#fcf3ff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Squire Boots","color":"#545454","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Fallen Star Chestplate & Leggings & Boots","color":"#586158","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Fermento Chestplate","color":"#58890c","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Super Heavy Chestplate & Leggings","color":"#5a6464","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"Glossy Mineral Chestplate & Leggings & Boots","color":"#5b0dae","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Lavender","color":"#9C64B3","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burning Terror / Fiery Terror / Hot Terror / Infernal Terror / Terror Leggings","color":"#5d23d1","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Maxor's Leggings","color":"#5d2fb9","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Spooky Chestplate & Leggings & Boots","color":"#606060","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Aurora / Burning Aurora / Fiery Aurora / Hot Aurora / Infernal Aurora Boots","color":"#6184fc","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"CRYSTAL Lavender","color":"#A875BD","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Goldor's Leggings","color":"#65605a","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"CRYSTAL Lavender","color":"#B88BC9","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Lavender","color":"#C6A3D4","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Offwhite","color":"#D9C1E3","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Brown","color":"#664C33","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Dark Green","color":"#667F33","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Light Blue","color":"#6699D8","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Offwhite","color":"#E5D1ED","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Fermento Leggings","color":"#6a9c1b","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Magma Lord Chestplate & Leggings & Boots","color":"#6f0f08","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Byzantium Dye","color":"#702963","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Iceberg Dye","color":"#71A6D2","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Matcha Dye","color":"#74A12E","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Cropie Chestplate","color":"#7a2900","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Prospecting Helmet & Chestplate & Leggings & Boots","color":"#7a7964","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Creeper Pants","color":"#7ae82c","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Chocolate Dye","color":"#7B3F00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burning Terror / Fiery Terror / Hot Terror / Infernal Terror / Terror Boots","color":"#7c44ec","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Secret Dye","color":"#7D7D7D","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Offwhite","color":"#EFE1F5","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Offwhite","color":"#FCF3FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Purple","color":"#7F3FB2","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Lime","color":"#7FCC19","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Aquamarine Dye","color":"#7FFFD4","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Ghostly Boots","color":"#808080","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Heavy Chestplate & Leggings","color":"#828282","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"Fermento Boots","color":"#83b03b","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Fossil Dye","color":"#866F12","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Goldor's Boots","color":"#88837e","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Maxor's Boots","color":"#8969c8","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Melon Chestplate & Leggings & Boots","color":"#899e20","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Arachne's Chestplate & Leggings & Boots","color":"#8b0000","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Purple","color":"#63237D","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Cropie Leggings","color":"#94451f","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Carmine Dye","color":"#960018","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Mocha Dye","color":"#967969","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Purple","color":"#6A2C82","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Purple","color":"#7E4196","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Emperor Robes & Leggings & Shoes (Chestplate & Leggings & Boots)","color":"#990d00","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Red","color":"#993333","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Great Spook Helmet & Chestplate & Leggings & Boots","color":"#993399","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"CRYSTAL Purple","color":"#8E51A6","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Protector Dragon Chestplate & Leggings & Boots","color":"#99978b","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Light Grey","color":"#999999","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Zombie Lord Chestplate & Leggings & Boots","color":"#9b01c1","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"FAIRY Dark Pink Helmet \nOG FAIRY+ Chestplate & Leggings & Boots","color":"#660033","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Rotten Helmet & Boots","color":"#9e7003","isHelmet":"1","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Boots of the Rising Sun","color":"#9f8609","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Frozen Blaze Chestplate & Leggings & Boots","color":"#a0daef","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Salmon Chestplate & Leggings","color":"#a82b76","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"FAIRY Dark Pink Helmet & Chestplate \nOG FAIRY+ Leggings & Boots","color":"#99004C","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Celadon Dye","color":"#ACE1AF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Bouncy Helmet & Chestplate & Leggings & Boots","color":"#adff2f","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Unstable Dragon Chestplate & Leggings & Boots","color":"#b212e3","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Magenta","color":"#B24CD8","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"FAIRY Hot Pink Helmet & Chestplate & Leggings \nOG FAIRY+ Boots","color":"#CC0066","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Celeste Dye","color":"#B2FFFF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Heat Helmet & Chestplate & Leggings & Boots","color":"#b3b3b3","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Archfiend Dye","color":"#B80036","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Copper Dye","color":"#B87333","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"FAIRY Hot Pink Helmet & Chestplate & Leggings & Boots","color":"#FF007F","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Cropie Boots","color":"#bb6535","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Adaptive Chestplate & Leggins & Boots","color":"#bfbcb2","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"1"},
+    {"name":"Spirit Boots","color":"#bfbfbf","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Salmon Helmet & Boots","color":"#c13c0f","isHelmet":"1","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"FAIRY Pink Chestplate & Leggings & Boots","color":"#FF66B2","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Cheap Tuxedo Pants","color":"#c7c7c7","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Yog Helmet & Chestplate & Leggings & Boots","color":"#c83200","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Brick Red Dye","color":"#CB4154","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Rabbit Helmet & Chestplate & Leggings & Boots","color":"#cbd2db","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Fairy's Fedora \nFAIRY Pink Helmet & Chestplate & Leggings & Boots","color":"#ff3399","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Fairy's Galoshes \nFAIRY Pastel Pink Boots \nOG FAIRY+ Helmet & Chestplate & Leggings","color":"#ffcce5","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Farmer Boots","color":"#cc5500","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Fairy's Polo \nOG FAIRY+ Helmet","color":"#ff66b2","isHelmet":"1","isChestplate":"0","isLeggings":"0","isBoots":"0"},
+    {"name":"Periwinkle Dye","color":"#CCCCFF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Mineral Chestplate & Leggings & Boots","color":"#cce5ff","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Moogma Leggings","color":"#ce2c2c","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Livid Dye","color":"#CEB7AA","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Zombie Soldier Helmet & Chestplate & Leggings & Boots","color":"#d07f00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Starlight Chestplate & Boots","color":"#d400ff","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"1"},
+    {"name":"Sangria Dye","color":"#D40808","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Celeste Helmet","color":"#d48ef2","isHelmet":"1","isChestplate":"0","isLeggings":"0","isBoots":"0"},
+    {"name":"Fancy Tuxedo Pants","color":"#d4d4d4","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Zombie Commander Helmet & Chestplate & Leggings & Boots","color":"#d51230","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Orange","color":"#D87F33","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Strong Dragon Chestplate","color":"#d91e41","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Fairy's Trousers \nFAIRY Pastel Pink & Leggings & Boots  \nOG FAIRY+ Helmet & Chestplate","color":"#ff99cc","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Metal / Steel / Stone Chestplate","color":"#d9d9d9","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Young Dragon Chestplate & Leggings & Boots","color":"#dde4f0","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Leggings of the Rising Sun","color":"#debc15","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Rampart Chestplate & Leggings & Boots","color":"#df2e06","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Strong Dragon Leggings","color":"#e09419","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Mercenary Boots \nSpeedster Helmet & Chestplate & Leggings & Boots","color":"#e0fcf7","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Skeleton Grunt Helmet & Chestplate & Leggings & Boots","color":"#e1eb34","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Flame Dye","color":"#E25822","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Bone Dye","color":"#E3DAC9","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burning Hollow / Fiery Hollow / Hollow / Hot Hollow / Infernal Hollow Boots","color":"#e3fffa","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"OG FAIRY Magenta","color":"#660066","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Magenta","color":"#990099","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Exotic Pure Yellow","color":"#E5E533","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burning Crimson / Crimson / Fiery Crimson / Hot Crimson / Infernal Crimson Boots","color":"#e65300","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Burning Crimson / Crimson / Fiery Crimson / Hot Crimson / Infernal Leggings","color":"#e66105","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Super Heavy Helmet & Boots","color":"#e6e6e6","isHelmet":"1","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Necron Dye","color":"#E7413C","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Necron's Chestplate","color":"#e7413c","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Necron's Leggings","color":"#e75c3c","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Necron's Boots","color":"#e76e3c","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Nyanza Dye","color":"#E9FFDB","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Flaming Chestplate","color":"#ed6612","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Pumpkin Helmet & Chestplate & Leggings & Boots","color":"#edaa36","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Magenta","color":"#CC00CC","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Infernal Fervor / Fervor / Burning Fervor / Hot Fervor / Fiery Fervor Chestplate","color":"#f04729","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Strong Dragon Boots","color":"#f0d124","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Old Dragon Chestplate & Leggings & Boots","color":"#f0e6aa","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Superior Dragon Boots","color":"#f25d18","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Exotic Pure Pink","color":"#F27FA5","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Superior Dragon Chestplate & Leggings","color":"#f2df11","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"Cyclamen Dye","color":"#F56FA1","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Nadeshiko Dye","color":"#F6ADC6","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Blaze Chestplate & Leggings & Boots","color":"#f7da33","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Nutcracker Chestplate","color":"#fc2f3c","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"OG FAIRY Magenta","color":"#FF00FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Magenta","color":"#FF33FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Mango Dye","color":"#FDBE02","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Elegant Tuxedo Pants","color":"#fefdfc","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Chestplate of the Pack /nMushroom Helmet & Chestplate & Leggings & Boots","color":"#ff0000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Magenta","color":"#FF66FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Pastel Magenta","color":"#FF99FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Minos Hunter Chestplate & Leggings","color":"#ff0a0a","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"OG FAIRY Pastel Magenta","color":"#FFCCFF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Pastel Purple","color":"#CC99FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Wild Strawberry Dye","color":"#FF43A4","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Orange Chestplate","color":"#ff4600","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"OG FAIRY Pastel Purple","color":"#E5CCFF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Purple","color":"#330066","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Purple","color":"#4C0099","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Skeleton Master Helmet & Chestplate & Leggings & Boots","color":"#ff6b0b","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burning Crimson / Crimson / Fiery Crimson / Hot Crimson / Infernal Crimson Chestplate","color":"#ff6f0c","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Final Destination Leggings","color":"#ff75ff","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Celeste Boots","color":"#ff8eb6","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Celeste Leggings","color":"#ff8eca","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Celeste Chestplate","color":"#ff8ede","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Armor of Magma Helmet & Chestplate & Leggings & Boots","color":"#ff9300","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Purple","color":"#6600CC","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Purple","color":"#7F00FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Berserker Chestplate","color":"#ffa33b","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Biohazard Suit & Leggings & Boots","color":"#ffac00","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"1"},
+    {"name":"Berserker Leggings","color":"#ffb727","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Skeleton Soldier Helmet & Chestplate & Leggings & Boots","color":"#ffbc0b","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Burning Hollow / Fiery Hollow / Hollow / Hot Hollow / Infernal Hollow Chestplate","color":"#ffcb0d","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"OG FAIRY Purple","color":"#9933FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"OG FAIRY Purple","color":"#B266FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Berserker Boots","color":"#ffd427","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Eleanor's Cap & Tunic & Trousers & Slippers (Helmet & Chestplate & Leggings & Boots) \nW Logo","color":"#ffd700","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Sponge Chestplate & Leggings & Boots","color":"#ffdc51","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Chicken Leggs","color":"#fff200","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Burning Hollow / Fiery Hollow / Hollow / Hot Hollow / Infernal Hollow Leggings","color":"#fff6a3","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Pure Yellow Dye","color":"#FFF700","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Nutcracker Leggings","color":"#fff9eb","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Farm Suit Helmet & Chestplate & Leggings & Boots","color":"#ffff00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Heavy Helmet & Boots \nHelmet of the Pack \nPure White Dye \nSnow Suit Chestplate & Leggings & Boots \nExotic Pure White","color":"#ffffff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Red","color":"#FF0000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Orange","color":"#FFA500","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Yellow","color":"#FFFF00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Lime","color":"#32CD32","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Dark Green","color":"#006400","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Dark Blue","color":"#00008B","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Dark Grey","color":"#A9A9A9","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Cyan","color":"#00FFFF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Brown","color":"#964B00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Light Blue","color":"#ADD8E6","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Purple","color":"#A020F0","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Light Grey","color":"#D3D3D3","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Magenta","color":"#ff00ff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Black","color":"#000000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True Pink","color":"#FFC0CB","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"True White","color":"#ffffff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Treasure Dye","color":"#FCD12A","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Kuudra Follower Chestplate & Leggings & Boots","color":"#35530A","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"}
 ];
 
 function rgbToXyz(rgb) {
@@ -330,11 +329,303 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Другие инициализации...
+    // Создание кнопок для типов брони
+    createArmorTypeButtons();
+    
+    // Удаляем существующую кнопку Share из HTML, если она есть
+    const existingShareButtonInHtml = document.querySelector('.button-container #shareButton');
+    if (existingShareButtonInHtml) {
+        existingShareButtonInHtml.parentNode.removeChild(existingShareButtonInHtml);
+    }
+    
+    // Добавляем все стили для элементов интерфейса
+    addStyles();
     
     // Проверка наличия цветов в URL для сравнения
     getColorsFromUrl();
 });
+
+// Функция для добавления всех стилей
+function addStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .armor-buttons-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px; /* Значительно увеличиваем расстояние между кнопками */
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .armor-type-button {
+            padding: 12px 20px; /* Увеличиваем паддинги для лучшего вида */
+            border: 2px solid #3498db;
+            background-color: #fff;
+            color: #3498db;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px; /* Минимальная ширина кнопки */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .armor-type-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #3498db;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        
+        .armor-type-button:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .armor-type-button.active::after {
+            transform: scaleX(1);
+        }
+        
+        .armor-type-button:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        /* Стиль для активной кнопки */
+        .armor-type-button.active {
+            background-color: #3498db;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        /* Стили для иконок в кнопках */
+        .armor-type-button i, 
+        .armor-type-button span {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        /* Стили для тёмной темы */
+        .dark-theme .armor-type-button {
+            background-color: #2c3e50;
+            color: #3498db;
+            border-color: #3498db;
+        }
+        
+        .dark-theme .armor-type-button:hover,
+        .dark-theme .armor-type-button.active {
+            background-color: #3498db;
+            color: #2c3e50;
+        }
+        
+        /* Стили для контейнера введенного цвета */
+        .entered-color-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        /* Стили для кнопки Share в результатах */
+        #shareButton.share-button {
+            position: static;
+            padding: 8px 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+        
+        #shareButton.share-button::before {
+            content: "📋 ";
+            margin-right: 5px;
+        }
+        
+        #shareButton.share-button:hover {
+            background-color: #2ecc71;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .dark-theme #shareButton.share-button {
+            background-color: #2ecc71;
+        }
+        
+        .dark-theme #shareButton.share-button:hover {
+            background-color: #27ae60;
+        }
+        
+        /* Стили для кнопок копирования в таблице */
+        .copy-button {
+            padding: 6px 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .copy-button:hover {
+            background-color: #2ecc71;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-theme .copy-button {
+            background-color: #2ecc71;
+        }
+        
+        .dark-theme .copy-button:hover {
+            background-color: #27ae60;
+        }
+        
+        /* Стили для улучшения вида таблицы */
+        #colorTable {
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #colorTable th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        #colorTable td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        #colorTable tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .dark-theme #colorTable th {
+            background-color: #2c3e50;
+        }
+        
+        .dark-theme #colorTable td {
+            border-bottom: 1px solid #444;
+        }
+        
+        .dark-theme #colorTable tr:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .armor-buttons-container {
+                gap: 15px;
+            }
+            
+            .armor-type-button {
+                min-width: unset;
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+            
+            .entered-color-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            #shareButton.share-button {
+                margin-left: 0;
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Функция для создания кнопок типов брони
+function createArmorTypeButtons() {
+    const findButton = document.getElementById('findButton');
+    if (!findButton) return;
+    
+    // Получаем родительский элемент кнопки поиска
+    const buttonContainer = findButton.parentNode;
+    
+    // Удаляем старую кнопку поиска
+    buttonContainer.removeChild(findButton);
+    
+    // Создаем контейнер для кнопок типов брони
+    const armorButtonsContainer = document.createElement('div');
+    armorButtonsContainer.className = 'armor-buttons-container';
+    
+    // Создаем кнопки для каждого типа брони
+    const armorTypes = [
+        { id: 'all', icon: '👤', text: currentLanguage === 'ru' ? 'Все' : 'All' },
+        { id: 'helmet', icon: '🎩', text: currentLanguage === 'ru' ? 'Шлем' : 'Helmet' },
+        { id: 'chestplate', icon: '👔', text: currentLanguage === 'ru' ? 'Нагрудник' : 'Chestplate' },
+        { id: 'leggings', icon: '👖', text: currentLanguage === 'ru' ? 'Поножи' : 'Leggings' },
+        { id: 'boots', icon: '👞', text: currentLanguage === 'ru' ? 'Ботинки' : 'Boots' }
+    ];
+    
+    armorTypes.forEach(type => {
+        const button = document.createElement('button');
+        button.id = `find${type.id.charAt(0).toUpperCase() + type.id.slice(1)}Button`;
+        button.className = 'armor-type-button';
+        button.innerHTML = `${type.icon} ${type.text}`;
+        button.onclick = () => checkColor(type.id);
+        
+        // Добавляем обработчики для анимации при наведении
+        button.addEventListener('mouseenter', () => {
+            if (!button.classList.contains('active')) {
+                button.style.transform = 'translateY(-2px)';
+                button.style.boxShadow = '0 4px 8px rgba(52, 152, 219, 0.2)';
+            }
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            if (!button.classList.contains('active')) {
+                button.style.transform = '';
+                button.style.boxShadow = '';
+            }
+        });
+        
+        armorButtonsContainer.appendChild(button);
+    });
+    
+    // Добавляем контейнер с кнопками в родительский элемент
+    buttonContainer.appendChild(armorButtonsContainer);
+    
+    // Устанавливаем кнопку "Все" как активную по умолчанию
+    setActiveArmorButton('all');
+}
 
 // Объект с переводами
 const translations = {
@@ -363,7 +654,14 @@ const translations = {
         'rank': 'Ранг',
         'name': 'Название',
         'rgbCode': 'RGB код',
-        'enteredColor': 'Введенный цвет:'
+        'enteredColor': 'Введенный цвет:',
+        // Новые строки для типов брони
+        'allArmor': 'Все',
+        'helmet': 'Шлем',
+        'chestplate': 'Нагрудник',
+        'leggings': 'Поножи',
+        'boots': 'Ботинки',
+        'historyCleared': 'История очищена'
     },
     'en': {
         'title': 'SB Palette - Find Closest Colors',
@@ -390,11 +688,19 @@ const translations = {
         'rank': 'Rank',
         'name': 'Name',
         'rgbCode': 'RGB code',
-        'enteredColor': 'Entered color:'
+        'enteredColor': 'Entered color:',
+        // Новые строки для типов брони
+        'allArmor': 'All',
+        'helmet': 'Helmet',
+        'chestplate': 'Chestplate',
+        'leggings': 'Leggings',
+        'boots': 'Boots',
+        'historyCleared': 'History cleared'
     }
 };
 
-function checkColor() {
+// Обновим функцию checkColor для добавления кнопки Share после ввода цвета
+function checkColor(armorType = 'all') {
     let hex = document.getElementById('hexInput').value.trim().toUpperCase();
     const resultDiv = document.getElementById('resultContainer');
 
@@ -409,26 +715,57 @@ function checkColor() {
         return;
     }
 
+    // Подсветим активную кнопку
+    setActiveArmorButton(armorType);
+
     // Обновить цвет превью
     updateColorPreview(hex);
 
-    // Найти пять ближайших цветов
-    const closestColors = findClosestColors(hex, armorData, 5);
-    resultDiv.innerHTML = `<p>${translations[currentLanguage].enteredColor} ${hex} <span class="color-preview" style="background-color: ${hex};"></span></p>`;
+    // Найти пять ближайших цветов, фильтруя по типу брони
+    const closestColors = findClosestColorsByType(hex, armorData, 5, armorType);
+    
+    // Добавляем надпись с цветом и кнопку Share
+    const enteredColorText = `${translations[currentLanguage].enteredColor} ${hex}`;
+    resultDiv.innerHTML = `
+        <div class="entered-color-container">
+            <p>${enteredColorText} <span class="color-preview" style="background-color: ${hex};"></span></p>
+            <button id="shareButton" class="share-button">${translations[currentLanguage].share || 'Share'}</button>
+        </div>
+    `;
+    
+    // Добавляем обработчик события для кнопки Share
+    const shareButton = document.getElementById('shareButton');
+    if (shareButton) {
+        shareButton.addEventListener('click', shareUrl);
+    }
 
     // Заполнить таблицу
-    fillTable(closestColors);
+    fillTable(closestColors, armorType);
 
-    // Сохранить запрос в историю
-    saveToHistory(hex);
+    // Сохранить запрос в историю с типом брони
+    saveToHistory(hex, armorType);
     loadHistory();
 }
 
-function findClosestColors(targetHex, armorData, count) {
+function findClosestColorsByType(targetHex, armorData, count, armorType) {
     const targetRGB = hexToRgb(targetHex);
     const targetLAB = rgbToLab(targetRGB);
 
-    const colorDistances = armorData.map(item => {
+    // Отфильтровать данные в зависимости от типа брони
+    let filteredData = armorData;
+    if (armorType !== 'all') {
+        filteredData = armorData.filter(item => {
+            switch (armorType) {
+                case 'helmet': return item.isHelmet === "1";
+                case 'chestplate': return item.isChestplate === "1";
+                case 'leggings': return item.isLeggings === "1";
+                case 'boots': return item.isBoots === "1";
+                default: return true;
+            }
+        });
+    }
+
+    const colorDistances = filteredData.map(item => {
         const itemRGB = hexToRgb(item.color);
         const itemLAB = rgbToLab(itemRGB);
 
@@ -441,7 +778,11 @@ function findClosestColors(targetHex, armorData, count) {
         return {
             name: item.name,
             color: item.color,
-            distance: distance
+            distance: distance,
+            isHelmet: item.isHelmet === "1",
+            isChestplate: item.isChestplate === "1",
+            isLeggings: item.isLeggings === "1",
+            isBoots: item.isBoots === "1"
         };
     });
 
@@ -483,7 +824,7 @@ function getRank(distance) {
     }
 }
 
-function fillTable(colors) {
+function fillTable(colors, armorType) {
     const tableBody = document.getElementById('colorTable').getElementsByTagName('tbody')[0];
     tableBody.innerHTML = '';
     colors.forEach((item, index) => {
@@ -501,25 +842,15 @@ function fillTable(colors) {
         cellDifference.textContent = item.distance.toFixed(3);
         cellTier.textContent = getRank(item.distance);
 
-        // Кнопки копирования
-        const armorTypeSelect = document.createElement('select');
-        armorTypeSelect.innerHTML = `
-            <option value="🎩">🎩</option>
-            <option value="👔">👔</option>
-            <option value="👖">👖</option>
-            <option value="👞">👞</option>
-        `;
-        armorTypeSelect.className = 'armor-type-select';
-
+        // Кнопка копирования без селектора типа брони
         const copyButton = document.createElement('button');
         copyButton.innerHTML = '📋';
         copyButton.className = 'copy-button';
         copyButton.onclick = () => {
             const hex = document.getElementById('hexInput').value.trim().toUpperCase();
-            copyRowToClipboard(hex, item, armorTypeSelect.value);
+            copyRowToClipboard(hex, item, armorType);
         };
 
-        cellCopy.appendChild(armorTypeSelect);
         cellCopy.appendChild(copyButton);
     });
 }
@@ -916,19 +1247,21 @@ function copyRowToClipboard(hex, item, armorType) {
     const hexWithX = `${enteredRedHex[0]}x ${enteredGreenHex[0]}x ${enteredBlueHex[0]}x`;
     const hexInput = input;
 
-    // Добавление типа брони в строку копирования
-    const armorTypeMap = {
-        '🎩': 'Velvet Top Hat',
-        '👔': 'Cashmere Jacket',
-        '👖': 'Satin Trousers',
-        '👞': 'Oxford Shoes'
-    };
+    // Определение типа брони на основе выбранной категории
+    let armorTypeName;
+    switch (armorType) {
+        case 'helmet': armorTypeName = 'Velvet Top Hat'; break;
+        case 'chestplate': armorTypeName = 'Cashmere Jacket'; break;
+        case 'leggings': armorTypeName = 'Satin Trousers'; break;
+        case 'boots': armorTypeName = 'Oxford Shoes'; break;
+        default: armorTypeName = 'Armor'; break;
+    }
     
     // Создаем объект со всеми возможными полями
     const fieldValues = {
         'hexInput': hexInput,
         'hexWithX': hexWithX,
-        'armorType': armorTypeMap[armorType],
+        'armorType': armorTypeName,
         'enteredRedHex': enteredRedHex,
         'enteredGreenHex': enteredGreenHex,
         'enteredBlueHex': enteredBlueHex,
@@ -965,23 +1298,115 @@ function copyRowToClipboard(hex, item, armorType) {
     });
 }
 
-function saveToHistory(hex) {
+// Модифицируем функцию saveToHistory, чтобы она сохраняла также тип брони
+function saveToHistory(hex, armorType = 'all') {
     let history = JSON.parse(localStorage.getItem('colorHistory')) || [];
-    if (!history.includes(hex)) {
-        history.unshift(hex); // Добавляем в начало массива
-        localStorage.setItem('colorHistory', JSON.stringify(history));
+    
+    // Проверяем, есть ли уже такой цвет в истории
+    const existingIndex = history.findIndex(item => 
+        typeof item === 'object' ? item.hex === hex : item === hex
+    );
+    
+    // Создаем объект с данными о запросе
+    const historyItem = {
+        hex: hex,
+        armorType: armorType,
+        timestamp: Date.now()
+    };
+    
+    if (existingIndex !== -1) {
+        // Если такой цвет уже есть, обновляем запись
+        history.splice(existingIndex, 1);
     }
+    
+    // Добавляем новый запрос в начало истории
+    history.unshift(historyItem);
+    
+    // Ограничиваем историю до 30 записей
+    if (history.length > 30) {
+        history = history.slice(0, 30);
+    }
+    
+    localStorage.setItem('colorHistory', JSON.stringify(history));
 }
 
+// Модифицируем функцию loadHistory для отображения смайликов типов брони
 function loadHistory() {
     const history = JSON.parse(localStorage.getItem('colorHistory')) || [];
     const historyContainer = document.getElementById('historyContainer');
-    historyContainer.innerHTML = history.map(hex => `<span class="history-tag" onclick="checkColorFromHistory('${hex}')">${hex}</span>`).join(' ');
+    
+    if (history.length === 0) {
+        historyContainer.innerHTML = `<div class="no-history-message">${translations[currentLanguage].noHistory}</div>`;
+        return;
+    }
+    
+    // Получаем смайлики для типов брони
+    const armorTypeIcons = {
+        'all': '👤',
+        'helmet': '🎩',
+        'chestplate': '👔',
+        'leggings': '👖',
+        'boots': '👞'
+    };
+    
+    // Формируем HTML для истории
+    historyContainer.innerHTML = history.map(item => {
+        // Проверяем, является ли элемент истории объектом с информацией о типе брони
+        if (typeof item === 'object' && item.hex) {
+            const armorIcon = armorTypeIcons[item.armorType] || armorTypeIcons.all;
+            return `<span class="history-tag" data-armor-type="${item.armorType}" onclick="checkColorFromHistory('${item.hex}', '${item.armorType}')">
+                    <span class="armor-type-icon">${armorIcon}</span> ${item.hex}
+                   </span>`;
+        } else {
+            // Обратная совместимость со старым форматом истории
+            return `<span class="history-tag" data-armor-type="all" onclick="checkColorFromHistory('${item}', 'all')">
+                    <span class="armor-type-icon">${armorTypeIcons.all}</span> ${item}
+                   </span>`;
+        }
+    }).join(' ');
+    
+    // Добавляем стили для тегов истории
+    const style = document.createElement('style');
+    if (!document.getElementById('history-styles')) {
+        style.id = 'history-styles';
+        style.textContent = `
+            .history-tag {
+                display: inline-flex;
+                align-items: center;
+                margin: 5px;
+                padding: 5px 10px;
+                background-color: rgba(52, 152, 219, 0.1);
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            
+            .history-tag:hover {
+                background-color: rgba(52, 152, 219, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            .armor-type-icon {
+                margin-right: 5px;
+                font-size: 16px;
+            }
+            
+            .dark-theme .history-tag {
+                background-color: rgba(52, 152, 219, 0.2);
+            }
+            
+            .dark-theme .history-tag:hover {
+                background-color: rgba(52, 152, 219, 0.4);
+            }
+        `;
+        document.head.appendChild(style);
+    }
 }
 
-function checkColorFromHistory(hex) {
+// Обновляем функцию checkColorFromHistory, чтобы она принимала тип брони
+function checkColorFromHistory(hex, armorType = 'all') {
     document.getElementById('hexInput').value = hex;
-    checkColor();
+    checkColor(armorType);
 }
 
 function toggleLanguage() {
@@ -991,30 +1416,23 @@ function toggleLanguage() {
     // Обновляем заголовок страницы
     document.title = translations[currentLanguage]['title'];
     
-    // Обновляем кнопки
-    const findButton = document.getElementById('findButton');
-    if (findButton) {
-        findButton.textContent = translations[currentLanguage]['checkColor'];
+    // Обновляем кнопки типов брони
+    updateArmorTypeButtons();
+    
+    // Обновляем текст кнопки Share в результатах
+    const shareButton = document.getElementById('shareButton');
+    if (shareButton) {
+        shareButton.textContent = translations[currentLanguage]['share'] || 'Share';
+        // Восстанавливаем иконку перед текстом
+        if (shareButton.classList.contains('share-button')) {
+            shareButton.innerHTML = `📋 ${translations[currentLanguage]['share'] || 'Share'}`;
+        }
     }
     
+    // Обновляем кнопки
     const clearHistoryButton = document.getElementById('clearHistoryButton');
     if (clearHistoryButton) {
         clearHistoryButton.textContent = translations[currentLanguage]['clearHistory'];
-    }
-    
-    const compareButton = document.getElementById('compareButton');
-    if (compareButton) {
-        compareButton.textContent = translations[currentLanguage]['compareButton'];
-    }
-    
-    const goBackButton = document.getElementById('goBackButton');
-    if (goBackButton) {
-        goBackButton.textContent = translations[currentLanguage]['goBack'];
-    }
-    
-    const shareButton = document.getElementById('shareButton');
-    if (shareButton) {
-        shareButton.textContent = translations[currentLanguage]['share'];
     }
     
     // Обновляем заголовки разделов
@@ -1133,7 +1551,19 @@ function toggleLanguage() {
 
 function clearHistory() {
     localStorage.removeItem('colorHistory');
-    document.getElementById('historyContainer').innerHTML = '';
+    document.getElementById('historyContainer').innerHTML = `<div class="no-history-message">${translations[currentLanguage].noHistory}</div>`;
+    
+    // Показываем временное уведомление об очистке истории
+    const clearButton = document.getElementById('clearHistoryButton');
+    if (clearButton) {
+        const originalText = clearButton.textContent;
+        clearButton.textContent = translations[currentLanguage].historyCleared;
+        
+        // Возвращаем оригинальный текст через 2 секунды
+        setTimeout(() => {
+            clearButton.textContent = originalText;
+        }, 2000);
+    }
 }
 
 function updateColorPreview(hex) {
@@ -1165,17 +1595,19 @@ function toggleTheme() {
 // Первая функция handleKeyPress - оставляем ее
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
-        checkColor();
+        checkColor('all'); // При нажатии Enter ищем по всем типам брони
     }
 }
 
 function getColorFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     const color = urlParams.get('color');
+    const armorType = urlParams.get('type') || 'all';
+    
     if (color) {
         const hexInput = document.getElementById('hexInput');
         hexInput.value = color;
-        checkColor();
+        checkColor(armorType);
     }
 }
 
@@ -1199,13 +1631,78 @@ function openChangelog() {
 
 function shareUrl() {
     const hex = document.getElementById('hexInput').value.trim();
+    // Получаем активный тип брони
+    const activeArmorType = getActiveArmorType();
     const baseUrl = 'https://yoksaires.github.io/sbpalette/main.html';
-    const urlWithParam = `${baseUrl}?color=${encodeURIComponent(hex)}`;
+    const urlWithParam = `${baseUrl}?color=${encodeURIComponent(hex)}&type=${activeArmorType}`;
+    
     navigator.clipboard.writeText(urlWithParam).then(() => {
-        alert('Ссылка скопирована в буфер обмена!');
+        // Показываем уведомление о копировании
+        const shareButton = document.getElementById('shareButton');
+        if (shareButton) {
+            const originalText = shareButton.innerHTML;
+            shareButton.innerHTML = translations[currentLanguage].copied || 'Copied!';
+            
+            // Возвращаем оригинальный текст через некоторое время
+            setTimeout(() => {
+                if (shareButton.classList.contains('share-button')) {
+                    shareButton.innerHTML = `📋 ${translations[currentLanguage]['share'] || 'Share'}`;
+                } else {
+                    shareButton.innerHTML = originalText;
+                }
+            }, 2000);
+        } else {
+            alert(translations[currentLanguage].copied || 'Link copied to clipboard!');
+        }
     }, (err) => {
-        console.error('Ошибка при копировании: ', err);
+        console.error('Error copying: ', err);
+        alert('Error copying link: ' + err);
     });
+}
+
+// Функция для определения активного типа брони
+function getActiveArmorType() {
+    // Проверяем, есть ли активная кнопка
+    const armorTypes = ['all', 'helmet', 'chestplate', 'leggings', 'boots'];
+    
+    for (const type of armorTypes) {
+        const buttonId = `find${type.charAt(0).toUpperCase() + type.slice(1)}Button`;
+        const button = document.getElementById(buttonId);
+        
+        if (button && button.classList.contains('active')) {
+            return type;
+        }
+    }
+    
+    // По умолчанию возвращаем 'all'
+    return 'all';
+}
+
+// Добавляем функциональность подсветки активной кнопки типа брони
+function setActiveArmorButton(armorType) {
+    // Сначала убираем класс active у всех кнопок
+    const armorTypes = ['all', 'helmet', 'chestplate', 'leggings', 'boots'];
+    
+    armorTypes.forEach(type => {
+        const buttonId = `find${type.charAt(0).toUpperCase() + type.slice(1)}Button`;
+        const button = document.getElementById(buttonId);
+        
+        if (button) {
+            button.classList.remove('active');
+            button.style.transform = '';
+            button.style.boxShadow = '';
+        }
+    });
+    
+    // Добавляем класс active к активной кнопке и визуальные эффекты
+    const activeButtonId = `find${armorType.charAt(0).toUpperCase() + armorType.slice(1)}Button`;
+    const activeButton = document.getElementById(activeButtonId);
+    
+    if (activeButton) {
+        activeButton.classList.add('active');
+        activeButton.style.transform = 'translateY(-3px)';
+        activeButton.style.boxShadow = '0 6px 12px rgba(52, 152, 219, 0.3)';
+    }
 }
 
 // Добавление события для сохранения настроек копирования при закрытии страницы
@@ -1815,6 +2312,24 @@ function updateCopySettingsLabels() {
     if (closeButton) {
         closeButton.textContent = translations[currentLanguage].closeButton || 'X';
     }
+}
+
+// Функция для обновления текста кнопок типов брони
+function updateArmorTypeButtons() {
+    const armorTypes = [
+        { id: 'all', icon: '👤', text: translations[currentLanguage]['allArmor'] },
+        { id: 'helmet', icon: '🎩', text: translations[currentLanguage]['helmet'] },
+        { id: 'chestplate', icon: '👔', text: translations[currentLanguage]['chestplate'] },
+        { id: 'leggings', icon: '👖', text: translations[currentLanguage]['leggings'] },
+        { id: 'boots', icon: '👞', text: translations[currentLanguage]['boots'] }
+    ];
+    
+    armorTypes.forEach(type => {
+        const button = document.getElementById(`find${type.id.charAt(0).toUpperCase() + type.id.slice(1)}Button`);
+        if (button) {
+            button.innerHTML = `${type.icon} ${type.text}`;
+        }
+    });
 }
 
 // Мобильное меню
