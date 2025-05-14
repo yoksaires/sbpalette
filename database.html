@@ -27,6 +27,13 @@
             --text-secondary: #7f8c8d;
             --stat-bg: #f9f9f9;
             --loader-color: #e0e0e0;
+            
+            /* Tier colors */
+            --tier-0-color: #9d03fc;
+            --tier-1-color: #fc0303;
+            --tier-2-color: #fcba03;
+            --tier-3-color: #03fc6f;
+            --tier-4-color: #03bafc;
         }
         
         .dark-theme {
@@ -275,6 +282,131 @@
             text-decoration: underline;
         }
         
+        /* Стили для текстового поля импорта */
+        .import-textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            resize: vertical;
+            font-family: monospace;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-container {
+            margin: 10px 0;
+        }
+        
+        .import-options {
+            margin-bottom: 20px;
+        }
+        
+        .import-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .import-preview {
+            margin-top: 20px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        /* Стили для статистики импорта */
+        .import-stats {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--stat-bg);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .import-stats p {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: var(--accent-color);
+        }
+        
+        .import-stats ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .import-stats li {
+            margin-bottom: 5px;
+        }
+        
+        /* Стили для прогресса импорта */
+        .import-progress {
+            margin: 15px 0;
+            padding: 12px;
+            background-color: var(--stat-bg);
+            border-radius: 6px;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+        
+        /* Стили для отображения тиров */
+        .tier-stats {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tier-stats h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: var(--accent-color);
+        }
+        
+        .tier-stat.tier-0 .value { color: var(--tier-0-color); }
+        .tier-stat.tier-1 .value { color: var(--tier-1-color); }
+        .tier-stat.tier-2 .value { color: var(--tier-2-color); }
+        .tier-stat.tier-3 .value { color: var(--tier-3-color); }
+        .tier-stat.tier-4 .value { color: var(--tier-4-color); }
+        
+        .tier-0 { color: var(--tier-0-color); font-weight: bold; }
+        .tier-1 { color: var(--tier-1-color); font-weight: bold; }
+        .tier-2 { color: var(--tier-2-color); font-weight: bold; }
+        .tier-3 { color: var(--tier-3-color); }
+        .tier-4 { color: var(--tier-4-color); }
+        
+        /* Улучшенные стили для сообщений */
+        .message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        
+        .message.error {
+            background-color: rgba(231, 76, 60, 0.1);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+        }
+        
+        .message.success {
+            background-color: rgba(39, 174, 96, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+        
+        .message.info {
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+        
         @media (max-width: 768px) {
             .search-container input {
                 width: 100%;
@@ -310,6 +442,7 @@
             <button class="tab-button active" data-tab="statistics">Statistics</button>
             <button class="tab-button" data-tab="search">Search Color</button>
             <button class="tab-button" data-tab="collection">My Collection</button>
+            <button class="tab-button" data-tab="import">Import Items</button>
         </div>
 
         <div class="tab-content active" id="statistics">
@@ -339,6 +472,35 @@
             <div class="loader" id="collectionLoader"></div>
             <div class="message" id="collectionMessage"></div>
             <div id="collectionResults"></div>
+        </div>
+
+        <div class="tab-content" id="import">
+            <h2>Import Items from Clipboard</h2>
+            <p>Paste items data from your clipboard (item.txt) below to add them to the database.</p>
+            
+            <div class="import-options">
+                <label for="importUserId">Your User ID:</label>
+                <input type="text" id="importUserId" placeholder="Enter your user ID" required>
+                
+                <div class="checkbox-container">
+                    <label><input type="checkbox" id="onlyClotheCheck" checked> Only import clothes (CASHMERE_JACKET, OXFORD_SHOES, SATIN_TROUSERS, VELVET_TOP_HAT)</label>
+                </div>
+            </div>
+            
+            <textarea id="importTextarea" class="import-textarea" placeholder="Paste items data here..."></textarea>
+            
+            <div class="search-container">
+                <button id="parseItemsButton">Parse Items</button>
+                <button id="importItemsButton" disabled>Import to Database</button>
+            </div>
+            
+            <div class="loader" id="importLoader"></div>
+            <div class="message" id="importMessage"></div>
+            
+            <div class="import-preview" id="importPreview">
+                <h3>Preview of Items to Import</h3>
+                <div id="importPreviewContent"></div>
+            </div>
         </div>
     </main>
 
@@ -427,6 +589,14 @@
                     loadUserCollection();
                 }
             });
+            
+            // Items Import
+            const parseItemsButton = document.getElementById('parseItemsButton');
+            const importItemsButton = document.getElementById('importItemsButton');
+            const importTextarea = document.getElementById('importTextarea');
+            
+            parseItemsButton.addEventListener('click', parseItemsFromTextarea);
+            importItemsButton.addEventListener('click', importParsedItems);
             
             // Initialize page - load statistics on first open
             loadStatistics();
