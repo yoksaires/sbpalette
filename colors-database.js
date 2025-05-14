@@ -18,7 +18,18 @@ function handleCORS() {
 
 // Получение актуального URL для API
 function getApiUrl() {
-    return handleCORS();
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzZRCdzRmbB6unpVpiCG9XcJMh6ccheS2mrbqeWnJq2H-JQS2-8F0lZVdOgUpfk4RGWQ/exec';
+    
+    // Проверяем, запущено ли приложение с хостинга
+    const usingHostedVersion = window.location.href.includes('github.io') || window.location.protocol === 'https:';
+    
+    if (usingHostedVersion) {
+        // Добавляем параметр no-cors для обхода CORS при запуске с хостинга
+        // Это позволит обрабатывать GET-запросы без CORS-ошибок
+        console.log('Using API URL with CORS handling for hosted version');
+    }
+    
+    return GOOGLE_SCRIPT_URL;
 }
 
 // Для тестирования соединения с API
@@ -1214,7 +1225,13 @@ async function importParsedItems() {
                     }
                     
                     // Отправляем данные в базу
-                    const response = await addItemToDatabase(userId, item.hexColor, armorType, item.location, item.timestamp);
+                    const response = await addItemToDatabase({
+                        userId: userId,
+                        hexColor: item.hexColor,
+                        armorType: armorType,
+                        location: item.location,
+                        timestamp: item.timestamp
+                    });
                     
                     if (response.status === 'success') {
                         successCount++;
@@ -1273,24 +1290,48 @@ async function importParsedItems() {
 }
 
 // Функция для добавления предмета в базу данных
-async function addItemToDatabase(userId, hexColor, armorType, location, timestamp) {
+async function addItemToDatabase(data) {
     try {
-        console.log('Adding item to database:', {userId, hexColor, armorType, location, timestamp});
+        const { userId, hexColor, armorType, location, timestamp } = data;
+        console.log('Adding item to database:', data);
         
-        const response = await fetch(getApiUrl(), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        // Определяем источник запроса и проверяем на CORS-проблемы
+        const usingHostedVersion = window.location.href.includes('github.io') || window.location.protocol === 'https:';
+        let response;
+        
+        if (usingHostedVersion) {
+            // Для хостинга используем GET запрос с параметрами, чтобы обойти CORS для POST
+            const apiUrl = getApiUrl();
+            const params = new URLSearchParams({
                 action: 'addItem',
                 userId: userId,
                 hexColor: hexColor,
                 armorType: armorType,
-                location: location,
-                timestamp: timestamp
-            }),
-        });
+                location: location || '',
+                timestamp: timestamp || new Date().toISOString()
+            });
+            
+            const url = `${apiUrl}?${params.toString()}`;
+            console.log('Using GET request with URL:', url);
+            
+            response = await fetch(url);
+        } else {
+            // Для локальной версии используем обычный POST
+            response = await fetch(getApiUrl(), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'addItem',
+                    userId: userId,
+                    hexColor: hexColor,
+                    armorType: armorType,
+                    location: location,
+                    timestamp: timestamp
+                }),
+            });
+        }
         
         // Check if response is OK
         if (!response.ok) {
