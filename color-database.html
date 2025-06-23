@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Database - SBPalette</title>
+    <link rel="icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="База цветов SBPalette - автоматическая таблица всех цветов брони.">
+    <style>
+        /* Фиксированный заголовок таблицы */
+        .color-db-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: inherit;
+        }
+        /* Делаем фон первой строки таблицы (заголовка) всегда непрозрачным */
+        .color-db-table thead tr:first-child th {
+            background: #222 !important;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="title" data-lang-ru="База цветов" data-lang-en="Color Database">База цветов</h1>
+            <div class="header-buttons">
+                <select id="themeSelect" title="Выбор темы" onchange="toggleTheme()">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="cosmic">Cosmic</option>
+                    <option value="drinwater">Drinwater</option>
+                    <option value="colors">Colors</option>
+                </select>
+                <button onclick="window.location.href='main.html'" class="about-button" data-lang-ru="Главная" data-lang-en="Main">Главная</button>
+                <button onclick="window.location.href='about.html'" class="about-button" data-lang-ru="О проекте" data-lang-en="About">О проекте</button>
+                <button onclick="window.location.href='compare.html'" class="compare-button-nav" data-lang-ru="Сравнить цвета" data-lang-en="Compare Colors">Сравнить цвета</button>
+                <button onclick="window.location.href='database.html'" class="database-button" data-lang-ru="База данных" data-lang-en="Database">База данных</button>
+                <button onclick="window.location.href='changelog.html'" class="changelog-button" data-lang-ru="Список изменений" data-lang-en="Changelog">Список изменений</button>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="table-section">
+                <h2 class="section-header" data-lang-ru="Полная таблица цветов" data-lang-en="Full Color Table">Полная таблица цветов</h2>
+                <div class="table-container">
+                    <table class="color-db-table" id="colorDbTable" border="1">
+                        <thead>
+                            <tr>
+                                <th data-lang-ru="Название" data-lang-en="Name">Название</th>
+                                <th data-lang-ru="Хекс код" data-lang-en="Hex Code">Хекс код</th>
+                                <th data-lang-ru="Цвет" data-lang-en="Color">Цвет</th>
+                                <th data-lang-ru="Шлем" data-lang-en="Helmet">Шлем</th>
+                                <th data-lang-ru="Нагрудник" data-lang-en="Chestplate">Нагрудник</th>
+                                <th data-lang-ru="Поножи" data-lang-en="Leggings">Поножи</th>
+                                <th data-lang-ru="Ботинки" data-lang-en="Boots">Ботинки</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Заполняется скриптом -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        // Функция для мультиязычности (как на других страницах)
+        function applyLanguage() {
+            const lang = localStorage.getItem('selectedLanguage') || 'ru';
+            document.querySelectorAll('[data-lang-ru][data-lang-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-lang-${lang}`);
+            });
+        }
+        applyLanguage();
+        document.getElementById('themeSelect').value = localStorage.getItem('selectedTheme') || 'light';
+        document.getElementById('themeSelect').onchange = function() {
+            localStorage.setItem('selectedTheme', this.value);
+            document.body.className = this.value + '-theme';
+        };
+        document.body.className = (localStorage.getItem('selectedTheme') || 'light') + '-theme';
+
+        // Заполнение таблицы из armorData
+        function fillColorDbTable() {
+            const tableBody = document.getElementById('colorDbTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+            if (!window.armorData) return;
+            window.armorData.forEach(item => {
+                const row = document.createElement('tr');
+                // Название
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.name;
+                row.appendChild(nameCell);
+                // Хекс код
+                const hexCell = document.createElement('td');
+                hexCell.textContent = item.color;
+                row.appendChild(hexCell);
+                // Цвет
+                const colorCell = document.createElement('td');
+                colorCell.style.backgroundColor = item.color;
+                row.appendChild(colorCell);
+                // Шлем
+                const helmetCell = document.createElement('td');
+                helmetCell.textContent = item.isHelmet === '1' ? '✔' : '';
+                row.appendChild(helmetCell);
+                // Нагрудник
+                const chestCell = document.createElement('td');
+                chestCell.textContent = item.isChestplate === '1' ? '✔' : '';
+                row.appendChild(chestCell);
+                // Поножи
+                const leggingsCell = document.createElement('td');
+                leggingsCell.textContent = item.isLeggings === '1' ? '✔' : '';
+                row.appendChild(leggingsCell);
+                // Ботинки
+                const bootsCell = document.createElement('td');
+                bootsCell.textContent = item.isBoots === '1' ? '✔' : '';
+                row.appendChild(bootsCell);
+                tableBody.appendChild(row);
+            });
+        }
+        if (window.armorData) fillColorDbTable();
+        else window.addEventListener('DOMContentLoaded', fillColorDbTable);
+    </script>
+</body>
+</html> 
