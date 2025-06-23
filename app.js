@@ -12,7 +12,7 @@ const armorData = [
     {"name":"Jade Dye","color":"#00A86B","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Helmet & Chestplate & Leggings & Boots of Growth","color":"#00be00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Cactus Helmet & Chestplate & Leggings & Boots \nEmerald Armor Helmet & Chestplate & Leggings & Boots \nParty Top Hat","color":"#00ff00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
-    {"name":"Rotten Chestplate & Leggings","color":"#017d31","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"0"},
+    {"name":"Rotten Chestplate & Leggings \nBackwater Armor Chestplate & Leggings & Boots","color":"#017d31","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Squash Chestplate","color":"#03430e","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
     {"name":"Glacite Chestplate & Leggings & Boots","color":"#03fcf8","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Stereo Pants","color":"#04cfd3","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
