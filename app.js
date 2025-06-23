@@ -4,7 +4,7 @@ localStorage.setItem('selectedLanguage', currentLanguage);
 
 // Данные из CSV (предварительно обработаны)
 const armorData = [
-    {"name":"Bat Person Chestplate & Leggings & Boots \nNecromancer Lord Chestplate \nObsidian Chestplate \nPure Black Dye \nRancher's Boots \nShadow Assassin Chestplate & Leggings & Boots \nSquid Boots \nTarantula Helmet & Chestplate & Leggings & Boots \nWatcher Chestplate & Leggings & Boots \nWither Chestplate & Leggings & Boots","color":"#000000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Bat Person Chestplate & Leggings & Boots \nNecromancer Lord Chestplate \nObsidian Chestplate \nPure Black Dye \nRancher's Boots \nShadow Assassin Chestplate & Leggings & Boots \nSquid Boots \nTarantula Helmet & Chestplate & Leggings & Boots \nWatcher Chestplate & Leggings & Boots \nWither Chestplate & Leggings & Boots \nSnorkeling Vest & Pants & Shoes (Chestplate & Leggings & Boots)","color":"#000000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Lapis Armor Chestplate & Leggings & Boots","color":"#0000ff","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Pure Blue Dye","color":"#0013FF","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Shark Scale Chestplate & Leggings & Boots","color":"#002ca6","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
@@ -248,7 +248,7 @@ const armorData = [
     {"name":"Pure Yellow Dye","color":"#FFF700","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Nutcracker Leggings","color":"#fff9eb","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
     {"name":"Farm Suit Helmet & Chestplate & Leggings & Boots","color":"#ffff00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
-    {"name":"Heavy Helmet & Boots \nHelmet of the Pack \nPure White Dye \nSnow Suit Chestplate & Leggings & Boots \nExotic Pure White","color":"#ffffff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Heavy Helmet & Boots \nHelmet of the Pack \nPure White Dye \nSnow Suit Chestplate & Leggings & Boots \nExotic Pure White\nTrue White\n Kelly`s T-Shirt","color":"#ffffff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"True Red","color":"#FF0000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"True Orange","color":"#FFA500","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"True Yellow","color":"#FFFF00","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
@@ -264,9 +264,16 @@ const armorData = [
     {"name":"True Magenta","color":"#ff00ff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"True Black","color":"#000000","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"True Pink","color":"#FFC0CB","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
-    {"name":"True White","color":"#ffffff","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
     {"name":"Treasure Dye","color":"#FCD12A","isHelmet":"1","isChestplate":"1","isLeggings":"1","isBoots":"1"},
-    {"name":"Kuudra Follower Chestplate & Leggings & Boots","color":"#35530A","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"}
+    {"name":"Kuudra Follower Chestplate & Leggings & Boots","color":"#35530A","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Abyssal Chestplate & Leggings & Boots","color":"#35530A","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Figmail, Fig Trousers, Fig Striders (Chestplate & Leggings & Boots)","color":"#1C9759","isHelmet":"0","isChestplate":"1","isLeggings":"1","isBoots":"1"},
+    {"name":"Charlie's Trousers (Leggings)","color":"#f6de51","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Melody's Shoes (Boots)","color":"#8d3592","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"},
+    {"name":"Canopy Shirt (Chestplate)","color":"#006633","isHelmet":"0","isChestplate":"1","isLeggings":"0","isBoots":"0"},
+    {"name":"Canopy Pants (Leggings)","color":"#006600","isHelmet":"0","isChestplate":"0","isLeggings":"1","isBoots":"0"},
+    {"name":"Canopy Sandals (Boots)","color":"#331900","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"}
+
 ];
 
 function rgbToXyz(rgb) {
