@@ -21,7 +21,7 @@
         <div class="header">
             <h1 id="title">SBPalette</h1>
             <div class="header-buttons">
-                <select id="themeSelect" onchange="toggleTheme()">
+                <select id="themeSelect" onchange="toggleTheme()" title="Theme">
                     <option value="light" selected>Light</option>
                     <option value="dark">Dark</option>
                     <option value="cosmic">Cosmic</option>
@@ -44,6 +44,10 @@
                     <div class="input-container">
                         <input type="text" id="hexInput" placeholder="#hex, rgb or name" data-lang-ru="#hex, rgb или название" data-lang-en="#hex, rgb or name" onkeypress="handleKeyPress(event)">
                         <!-- <div class="color-preview" id="colorPreview"></div> -->
+                        <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="includeAnimatedColorsSwitch" style="width: 18px; height: 18px;">
+                            <label for="includeAnimatedColorsSwitch" style="cursor:pointer; user-select:none;">Add animated dyes to search</label>
+                        </div>
                     </div>
                     <div class="button-container">
                         <button onclick="checkColor('all')" id="findButton" data-lang-ru="Найти" data-lang-en="Find">Find</button>
