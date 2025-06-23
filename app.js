@@ -275,6 +275,7 @@ const armorData = [
     {"name":"Canopy Sandals (Boots)","color":"#331900","isHelmet":"0","isChestplate":"0","isLeggings":"0","isBoots":"1"}
 
 ];
+window.armorData = armorData;
 
 function rgbToXyz(rgb) {
     let r = rgb.r / 255;
